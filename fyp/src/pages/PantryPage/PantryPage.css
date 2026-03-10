@@ -1,0 +1,862 @@
+/* Reset + Full Width */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  width: 100vw;
+  overflow-x: hidden;
+  background-color: white;
+}
+
+/* Pantry Page */
+.pantry-page {
+  width: 100vw;
+  min-height: 100vh;
+  background: white;
+  padding: 0;
+}
+
+/* Full Screen Food Image - Hero se pehle */
+.fullscreen-food-image {
+  width: 100vw;
+  height: 40vw;
+  background: 
+    linear-gradient(#284a4b, rgba(0, 0, 0, 0.4)),
+    url('pantry.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: whitesmoke;
+  margin-top: 110px;
+}
+
+.fullscreen-food-content {
+  padding: 20px;
+  max-width: 800px;
+}
+
+.fullscreen-food-content h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 8px black;
+}
+
+.fullscreen-food-content p {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+
+/* Hero Section - FIXED */
+.p-hero-section {
+  width: 100%;
+  background: linear-gradient(135deg, #284a4b);
+  color: white;
+  padding: 80px 20px 150px;
+  text-align: center;
+  box-shadow: 0 4px 12px black;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 90px;
+  z-index: 1;
+  margin-top: 10px;
+  height: 125px;
+  margin-bottom: 30px;
+}
+
+.p-hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #284a4b;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.p-hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  position: relative;
+  z-index: 2;
+  
+  margin-top: -7px;
+  margin-bottom: 10px;
+}
+
+.p-hero-subtitle {
+  font-size: 1.3rem;
+  opacity: 0.9;
+  max-width: 600px;
+  line-height: 1.6;
+  font-weight: 300;
+  position: relative;
+  z-index: 2;
+  margin: 0 auto 30px;
+}
+
+/* Stats Section */
+.stats-section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 30px 20px 40px;
+  width: calc(100% - 40px);
+  position: relative;
+  z-index: 1;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 25px 20px;
+  flex: 1 1 200px;
+  margin: 40px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  min-width: 150px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 4px solid #284a4b;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px black;
+}
+
+.low-stock-card {
+  border-top-color: #ff6b6b;
+  background: linear-gradient(to bottom white);
+}
+
+.stat-number {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #284a4b;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.low-stock-card .stat-number {
+  color: #ff6b6b;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Search + Add Section */
+.search-add-section {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 20px 30px;
+  gap: 15px;
+  width: calc(100% - 40px);
+  align-items: center;
+}
+
+/* Pantry Search Field */
+.search-field-pantry {
+  flex: 1 1 300px;
+  min-width: 250px;
+  padding: 14px 18px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 2px solid whitesmoke;
+  background-color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px black;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.search-field-pantry:focus {
+  outline: none;
+  border-color: #284a4b;
+  box-shadow: 0 4px 10px whitesmoke;
+}
+
+/* ========== NEW BUTTON CLASSES ========== */
+
+/* 1. Add New Item Button (Top bar) */
+.btn-add-new-item {
+  background: linear-gradient(to bottom, #284a4b);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px #284a4b;
+  margin-top: 0;
+  margin-bottom: 20px;
+  min-width: 150px;
+}
+
+.btn-add-new-item:hover {
+  background: linear-gradient(to bottom, #2b4a4b);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px #284a4b;
+}
+
+/* 2. Add First Item Button (Empty state) */
+.btn-add-first-item {
+  background: linear-gradient(to bottom, #284a4b);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px #284a4b;
+  margin-top: 20px;
+  min-width: 200px;
+}
+
+.btn-add-first-item:hover {
+  background: linear-gradient(to bottom, #284a4b);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px #284a4b;
+}
+
+/* Categories Checklist Design */
+.categories-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0 20px 40px;
+  width: calc(100% - 40px);
+}
+
+/* Category Section */
+.category-section {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #666;
+  border-left: 4px solid #284a4b;
+}
+
+/* Category Header */
+.category-header-simple {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid;
+}
+
+.category-title-simple {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #285b5a;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Items List */
+.checklist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Checklist Item Row */
+.checklist-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  background: whitesmoke;
+  border-radius: 10px;
+  border: 1px solid whitesmoke;
+  transition: all 0.2s ease;
+}
+
+.checklist-item:hover {
+  background: #397d7c;
+  border-color: #284a4b;
+  transform: translateX(5px);
+}
+
+/* Low Stock Item */
+.low-stock-checklist {
+  background: whitesmoke;
+  border: 1px solid #ffcccc;
+  border-left: 3px solid #ff6b6b;
+}
+
+.low-stock-checklist:hover {
+  background: whitesmoke;
+}
+
+/* Item Name */
+.item-name-simple {
+  flex: 1;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #1a202c;
+  margin: 0;
+  padding-left: 10px;
+}
+
+.low-stock-checklist .item-name-simple {
+  color: #742a2a;
+}
+
+/* Quantity Badge */
+.quantity-badge-simple {
+  background: #285b5a;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-right: 15px;
+}
+
+.low-stock-checklist .quantity-badge-simple {
+  background: #ff6b6b;
+}
+
+/* Actions */
+.checklist-actions {
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.checklist-item:hover .checklist-actions {
+  opacity: 1;
+}
+
+/* 3. Shopping Cart Button (Checklist items) */
+.btn-shopping-cart {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #284a4b;
+  background: white;
+  color: #284a4b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.btn-shopping-cart:hover {
+  background: #397d7c;
+  color: white;
+  transform: scale(1.1);
+}
+
+.btn-shopping-cart.in-list {
+  background: #284a4b;
+  color: white;
+  border-color: #2b4a4b;
+}
+
+/* 4. Edit Item Button */
+.btn-edit-item {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+  background: white;
+  color: #397d7c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.btn-edit-item:hover {
+  background: #285b5a;
+  color: white;
+  border-color: #285b5a;
+  transform: scale(1.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 5. Delete Item Button */
+.btn-delete-item {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+  background: white;
+  color: #397d7c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.btn-delete-item:hover {
+  background: #ff6b6b;
+  color: white;
+  border-color: #ff6b6b;
+  transform: scale(1.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Empty Message - Centered */
+.p-empty-message {
+  width: calc(100% - 40px);
+  text-align: center;
+  padding: 40px 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 2px dashed whitesmoke;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  margin: 25px auto;
+  margin-top: -30px;
+}
+
+.p-empty-message h4 {
+  color: #284a4b;
+  font-size: 2rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.p-empty-message p {
+  color: #666;
+  max-width: 500px;
+  margin: 0 auto 30px;
+  line-height: 1.6;
+  font-size: 1.2rem;
+}
+
+/* Shopping List Section */
+.shopping-list-section {
+  background: linear-gradient(135deg, white);
+  border-radius: 16px;
+  padding: 25px;
+  margin: 0 20px 30px;
+  width: calc(100% - 40px);
+  box-shadow: 0 6px 20px rgba(40, 91, 90, 0.1);
+  border: 2px solid whitesmoke;
+}
+
+.shopping-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.shopping-list-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #284a4b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.shopping-list-title::before {
+  content: none;
+  font-size: 1.3rem;
+}
+
+/* 6. View Shopping List Button */
+.btn-view-shopping-list {
+  background: #284a4b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  min-width: 100px;
+  text-align: center;
+}
+
+.btn-view-shopping-list:hover {
+  background: #284a4b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px #284a4b
+}
+
+/* 7. Clear Shopping List Button */
+.btn-clear-shopping-list {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  min-width: 100px;
+  text-align: center;
+}
+
+.btn-clear-shopping-list:hover {
+  background: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px #ffcccc;
+}
+
+.shopping-list-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border-left: 4px solid #284a4b;
+  box-shadow: 0 2px 8px #666;
+  transition: all 0.2s ease;
+  gap: 15px;
+}
+
+.shopping-list-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px #666;
+}
+
+.shopping-item-name {
+  flex: 1;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #284a4b;
+  margin: 0;
+}
+
+/* 8. Remove Shopping Item Button */
+.btn-remove-shopping-item {
+  background: #ffcccc;
+  color: #ff6b6b;
+  border: 2px solid #ffcccc;
+  padding: 6px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.btn-remove-shopping-item:hover {
+  background: #ff6b6b;
+  color: white;
+  border-color: #ff6a6b;
+}
+
+/* 9. View More Items Button */
+.btn-view-more-items {
+  background: linear-gradient(to bottom, #284a4b);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-view-more-items:hover {
+  background: linear-gradient(to bottom, #284a4b);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px #284a4b;
+}
+
+/* Modal */
+.pantry-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.pantry-modal {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 450px;
+  padding: 0;
+  box-shadow: 0 20px 40px #284a4b;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #284a4b;
+}
+
+.pantry-modal-header-custom {
+  background: linear-gradient(to right, #284a4b);
+  color: white;
+  padding: 25px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 16px 16px 0 0;
+}
+
+.pantry-modal-header-custom h3 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+/* 12. Close Modal Button */
+.btn-close-modal {
+  background: none;
+  border: none;
+  color: #284a4b;
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 5px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.btn-close-modal:hover {
+  background: #284a4b;
+  color: white;
+  transform: rotate(90deg);
+}
+
+.pantry-modal-body {
+  padding: 20px 25px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.pantry-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pantry-modal-body::-webkit-scrollbar-track {
+  background: white;
+  border-radius: 3px;
+}
+
+.pantry-modal-body::-webkit-scrollbar-thumb {
+  background: #284a4b;
+  border-radius: 3px;
+}
+
+.pantry-modal-body .form-group {
+  margin: 12px 0;
+}
+
+.pantry-modal-body label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 15px;
+}
+
+.pantry-modal-body input, 
+.pantry-modal-body select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 2px solid whitesmoke;
+  border-radius: 8px;
+  font-size: 12px;
+  transition: all 0.3s ease;
+  background: white;
+  color: #1a202c;
+  height: 38px;
+}
+
+.pantry-modal-body input:focus, 
+.pantry-modal-body select:focus {
+  outline: none;
+  border-color: #284a4b;
+  box-shadow: 0 0 0 3px #284a4b;
+}
+
+.pantry-modal-body select {
+  cursor: pointer;
+  appearance: none;
+  
+ 
+  background-size: 10px;
+  padding-right: 35px;
+}
+
+.pantry-modal-footer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 25px;
+  background-color: white;
+  border-top: 1px solid whitesmoke;
+  align-items: center;
+}
+
+/* 11. Modal Cancel Button */
+.btn-modal-cancel {
+  border: 2px solid #284a4b;
+  color: #284a4b;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.3s ease;
+  min-width: 90px;
+  text-align: center;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-modal-cancel:hover {
+  background: #284a4b;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px #284a4b;
+}
+
+/* 10. Modal Add Button */
+.btn-modal-add {
+  background: linear-gradient(to right, #284a4b);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.3s ease;
+  min-width: 90px;
+  text-align: center;
+  box-shadow: 0 4px 8px #284a4b;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-modal-add:hover {
+  background: linear-gradient(to right, #284a4b);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px #284a4b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .fullscreen-food-content h1 {
+    font-size: 2.2rem;
+  }
+  
+  .fullscreen-food-content p {
+    font-size: 1.1rem;
+  }
+  
+  .p-hero-title {
+    font-size: 2rem;
+  }
+  
+  .p-hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .stats-section {
+    margin: -30px 15px 30px;
+    width: calc(100% - 30px);
+  }
+  
+  .stat-card {
+    margin: 8px;
+  }
+  
+  .categories-checklist,
+  .search-add-section {
+    margin: 0 15px 30px;
+    width: calc(100% - 30px);
+  }
+}
+
+@media (max-width: 480px) {
+  .fullscreen-food-image {
+    height: 50vh;
+    margin-top: 80px;
+  }
+  
+  .fullscreen-food-content h1 {
+    font-size: 1.8rem;
+  }
+  
+  .p-hero-section {
+    padding: 60px 15px 120px;
+  }
+  
+  .p-hero-title {
+    font-size: 1.8rem;
+  }
+  
+  .stat-number {
+    font-size: 2.2rem;
+  }
+  
+  .search-add-section {
+    flex-direction: column;
+  }
+  
+  .search-field-pantry,
+  .btn-add-new-item {
+    width: 100%;
+  }
+}
