@@ -10,6 +10,7 @@ dotenv.config();
 const authRoutes = require('./routes/authRoutes');
 const pantryRoutes = require('./routes/pantryRoutes');
 const shoppingRoutes = require('./routes/shoppingRoutes');
+const recipeRoutes = require('./routes/recipeRoutes');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/pantry', pantryRoutes);
 app.use('/api/shopping', shoppingRoutes);
+app.use('/api/recipes', recipeRoutes);
 
 // Test Route
 app.get('/', (req, res) => {
