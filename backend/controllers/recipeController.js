@@ -31,7 +31,10 @@ const addRecipe = async (req, res) => {
 // ─────────────────────────────────────────────────────────
 const getAllRecipes = async (req, res) => {
   try {
-    const { category, subCategory, cuisine, isVegetarian, page = 1, limit = 20 } = req.query;
+    const {
+      category, subCategory, cuisine,
+      isVegetarian, page = 1, limit = 20,
+    } = req.query;
 
     const filter = { isActive: true };
     if (category) filter.category = category;
@@ -42,7 +45,7 @@ const getAllRecipes = async (req, res) => {
     const skip = (page - 1) * limit;
 
     const recipes = await Recipe.find(filter)
-      .select('name tagline image category subCategory cuisine isVegetarian')
+      .select('title tagline image category subCategory cuisine isVegetarian')
       .skip(skip)
       .limit(Number(limit))
       .sort({ createdAt: -1 });
@@ -78,7 +81,7 @@ const getRecipeById = async (req, res) => {
 };
 
 // ─────────────────────────────────────────────────────────
-// @desc    Search recipes by name or tagline
+// @desc    Search recipes by title or tagline
 // @route   GET /api/recipes/search?q=biryani
 // @access  Public
 // ─────────────────────────────────────────────────────────
@@ -90,7 +93,7 @@ const searchRecipes = async (req, res) => {
     const recipes = await Recipe.find({
       isActive: true,
       $text: { $search: q },
-    }).select('name tagline image category subCategory');
+    }).select('title tagline image category subCategory');
 
     res.status(200).json({ total: recipes.length, recipes });
   } catch (error) {
@@ -113,7 +116,7 @@ const getRecipesByPantry = async (req, res) => {
     const recipes = await Recipe.find({
       isActive: true,
       pantryKeywords: { $in: keywordArray },
-    }).select('name tagline image category subCategory pantryKeywords');
+    }).select('title tagline image category subCategory pantryKeywords');
 
     res.status(200).json({ total: recipes.length, recipes });
   } catch (error) {
@@ -128,10 +131,11 @@ const getRecipesByPantry = async (req, res) => {
 // ─────────────────────────────────────────────────────────
 const updateRecipe = async (req, res) => {
   try {
-    const recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const recipe = await Recipe.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
     if (!recipe) return res.status(404).json({ message: 'Recipe not found' });
     res.status(200).json({ message: 'Recipe updated', recipe });
   } catch (error) {

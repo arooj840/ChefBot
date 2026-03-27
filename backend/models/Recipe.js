@@ -2,49 +2,127 @@ const mongoose = require('mongoose');
 
 // ============================================================
 // RECIPE MODEL - ChefBot FYP
-// Based on complete frontend analysis of 25+ recipe pages
+// According to: DataBaseModels.docx + All Frontend Pages
 // Team: Ayesha Sohail (078241), Hira Saeed (078203), Arooj Fatima (057591)
 // ============================================================
 
-const recipeSchema = new mongoose.Schema(
+// ─────────────────────────────────────────────────────────
+// INGREDIENT SUB-DOCUMENT
+// Document mein: name, quantity, unit
+// Frontend mein: ingredients array of strings
+// Solution: dono support karte hain
+// ─────────────────────────────────────────────────────────
+const ingredientSchema = new mongoose.Schema(
   {
-    // ─────────────────────────────────────────────────────────
-    // BASIC INFO (present in every page)
-    // ─────────────────────────────────────────────────────────
     name: {
       type: String,
-      required: [true, 'Recipe name is required'],
+      required: true,
+      trim: true,
+    },
+    quantity: {
+      type: String, // "2", "1/2", "handful" etc
+      default: '',
+    },
+    unit: {
+      type: String, // "cup", "tbsp", "kg", "g" etc
+      default: '',
+    },
+  },
+  { _id: false }
+);
+
+// ─────────────────────────────────────────────────────────
+// STEP SUB-DOCUMENT
+// Document mein: instructions (String)
+// Frontend mein: steps (Array) - voice guide ke liye
+// Solution: steps array rakha (frontend ke liye better)
+// ─────────────────────────────────────────────────────────
+const stepSchema = new mongoose.Schema(
+  {
+    stepNumber: {
+      type: Number,
+      required: true,
+    },
+    instruction: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+  },
+  { _id: false }
+);
+
+// ─────────────────────────────────────────────────────────
+// MAIN RECIPE SCHEMA
+// ─────────────────────────────────────────────────────────
+const recipeSchema = new mongoose.Schema(
+  {
+    // ─────────────────────────────────────────────────
+    // BASIC INFO
+    // Document: title | Frontend: name
+    // ─────────────────────────────────────────────────
+    title: {
+      type: String,
+      required: [true, 'Recipe title is required'],
       trim: true,
     },
 
     tagline: {
+      // Frontend mein har recipe ki tagline hai
       type: String,
       trim: true,
       default: '',
     },
 
     image: {
+      // Document + Frontend dono mein hai
       type: String,
       default: '',
     },
 
-    // ─────────────────────────────────────────────────────────
-    // INGREDIENTS & STEPS (present in every page)
-    // ─────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────
+    // INGREDIENTS
+    // Document: Array of {name, quantity, unit}
+    // Frontend: Array of strings
+    // Solution: structured sub-document use karo
+    // ─────────────────────────────────────────────────
     ingredients: {
-      type: [String],
+      type: [ingredientSchema],
       default: [],
+    },
+
+    // ─────────────────────────────────────────────────
+    // INSTRUCTIONS / STEPS
+    // Document: instructions (String)
+    // Frontend: steps (Array) - voice guide step by step
+    // Solution: steps array (voice feature ke liye zaroori)
+    // ─────────────────────────────────────────────────
+    instructions: {
+      // Document ke liye - full text
+      type: String,
+      default: '',
     },
 
     steps: {
-      type: [String],
+      // Frontend ke liye - voice guide step by step
+      type: [stepSchema],
       default: [],
     },
 
-    // ─────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────
+    // VOICE URL
+    // Document mein hai - voice instructions URL
+    // ─────────────────────────────────────────────────
+    voiceUrl: {
+      type: String,
+      default: '',
+    },
+
+    // ─────────────────────────────────────────────────
     // MAIN CATEGORY
-    // Based on RecipeFeature, RecipesLunch, RecipesDinner routes
-    // ─────────────────────────────────────────────────────────
+    // Document: breakfast/lunch/dinner
+    // Frontend: bahut saari categories
+    // ─────────────────────────────────────────────────
     category: {
       type: String,
       required: [true, 'Category is required'],
@@ -71,137 +149,75 @@ const recipeSchema = new mongoose.Schema(
       ],
     },
 
-    // ─────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────
     // SUB-CATEGORY
-    // Based on /chicken, /mutton, /qeema, /rice, /BBQ etc. routes
-    // Also covers dal types from PlainDal, DalChicken, DalMutton pages
-    // ─────────────────────────────────────────────────────────
+    // Frontend ke sub-pages se liya
+    // ─────────────────────────────────────────────────
     subCategory: {
       type: String,
       enum: [
-        // Pure Meat (RecipesPureChicken, RecipesPureMutton, RecipesQeema)
-        'Chicken',
-        'Mutton',
-        'Beef',
-        'Keema',
-        'Fish',
-        'Egg',
-
-        // Meat + Veg combos (RecipesVegChicken, RecipesVegMutton)
-        'ChickenVegetable',
-        'MuttonVegetable',
-
-        // Meat + Dal combos (RecipesDalChicken, RecipesDalMutton)
-        'ChickenDal',
-        'MuttonDal',
-
-        // Plain Dal (RecipesPlainDal)
+        // Pure Meat
+        'Chicken', 'Mutton', 'Beef', 'Keema', 'Fish', 'Egg',
+        // Meat + Veg
+        'ChickenVegetable', 'MuttonVegetable',
+        // Meat + Dal
+        'ChickenDal', 'MuttonDal',
+        // Plain Dal
         'Dal',
-
-        // Veg only (lunch/dinner veg tab, RecipePlainVegetables)
+        // Veg
         'Vegetables',
-
-        // Rice sub-types (RecipesRice)
-        'Biryani',
-        'Pulao',
-        'FriedRice',
-        'Khichdi',
-        'Tahari',
-        'Zarda',
-        'RiceDessert',
-
-        // BBQ sub-types (RecipesBBQ)
-        'Tikka',
-        'Boti',
-        'Seekh',
-        'Chapli',
-        'Bihari',
-        'Reshmi',
-        'Galouti',
-        'GrilledFish',
-        'GrilledVeg',
-
-        // Heavy Gravy sub-types (RecipesHeavyGravy)
-        'Nihari',
-        'Haleem',
-        'Paye',
-        'Khichda',
-        'Korma',
-        'Karahi',
-        'Handi',
-        'Kofta',
-
-        // Beverages sub-types (RecipeBeveragesPage)
-        'HotDrinks',
-        'ColdDrinks',
-        'Smoothies',
-        'Mocktails',
-        'Cocktails',
-        'TraditionalDrinks',
-
-        // Light Dinner (RecipesLightDinner)
-        'Soup',
-        'Salad',
-        'Sandwich',
-        'Wrap',
-
+        // Rice types
+        'Biryani', 'Pulao', 'FriedRice', 'Khichdi', 'Tahari', 'Zarda', 'RiceDessert',
+        // BBQ types
+        'Tikka', 'Boti', 'Seekh', 'Chapli', 'Bihari', 'Reshmi', 'Galouti',
+        'GrilledFish', 'GrilledVeg',
+        // Heavy Gravy
+        'Nihari', 'Haleem', 'Paye', 'Khichda', 'Korma', 'Karahi', 'Handi', 'Kofta',
+        // Beverages
+        'HotDrinks', 'ColdDrinks', 'Smoothies', 'Mocktails', 'Cocktails', 'TraditionalDrinks',
+        // Light Dinner
+        'Soup', 'Salad', 'Sandwich', 'Wrap',
         // Misc
-        'Appetizer',
-        'Other',
+        'Appetizer', 'Other',
       ],
       default: 'Other',
     },
 
-    // ─────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────
     // CUISINE
-    // Seen in RecipeRegionalPage
-    // ─────────────────────────────────────────────────────────
+    // Document + Frontend (RegionalPage) dono mein hai
+    // ─────────────────────────────────────────────────
     cuisine: {
       type: String,
       enum: [
-        'Pakistani',
-        'Continental',
-        'Chinese',
-        'Italian',
-        'Turkish',
-        'Indian',
-        'Arabic',
-        'Afghan',
-        'Other',
+        'Pakistani', 'Continental', 'Chinese',
+        'Italian', 'Turkish', 'Indian', 'Arabic', 'Afghan', 'Other',
       ],
       default: 'Pakistani',
     },
 
-    // ─────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────
     // BEVERAGE CATEGORY
-    // Seen only in RecipeBeveragesPage
-    // ─────────────────────────────────────────────────────────
+    // Frontend RecipeBeveragesPage se
+    // ─────────────────────────────────────────────────
     beverageCategory: {
       type: String,
-      enum: [
-        'Hot Drinks',
-        'Cold Drinks',
-        'Smoothies',
-        'Mocktails',
-        'Cocktails',
-        'Traditional',
-        null,
-      ],
+      enum: ['Hot Drinks', 'Cold Drinks', 'Smoothies', 'Mocktails', 'Cocktails', 'Traditional', null],
       default: null,
     },
 
-    // ─────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────
     // PANTRY KEYWORDS
-    // Seen in RecipeBreakFast for pantry-based suggestions feature
-    // ─────────────────────────────────────────────────────────
+    // Frontend RecipeBreakFast se - pantry suggestions
+    // ─────────────────────────────────────────────────
     pantryKeywords: {
       type: [String],
       default: [],
     },
 
-    // ─────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────
     // DIETARY FLAGS
-    // ─────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────
     isVegetarian: {
       type: Boolean,
       default: false,
@@ -209,12 +225,12 @@ const recipeSchema = new mongoose.Schema(
 
     isHalal: {
       type: Boolean,
-      default: true, // All recipes halal (frontend notes: "Halal - No Bacon")
+      default: true,
     },
 
-    // ─────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────
     // COOKING INFO
-    // ─────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────
     cookingTime: {
       type: Number, // minutes
       default: null,
@@ -231,18 +247,22 @@ const recipeSchema = new mongoose.Schema(
       default: 'Medium',
     },
 
-    // ─────────────────────────────────────────────────────────
-    // MEAL TIME
-    // ─────────────────────────────────────────────────────────
     mealTime: {
       type: [String],
       enum: ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Dessert', 'Anytime'],
       default: ['Anytime'],
     },
 
-    // ─────────────────────────────────────────────────────────
-    // ADMIN / SOURCE INFO
-    // ─────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────
+    // ADMIN INFO
+    // Document mein: createdBy (Admin ref)
+    // ─────────────────────────────────────────────────
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      default: null,
+    },
+
     isActive: {
       type: Boolean,
       default: true,
@@ -253,15 +273,9 @@ const recipeSchema = new mongoose.Schema(
       default: false,
     },
 
-    createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      default: null,
-    },
-
-    // ─────────────────────────────────────────────────────────
-    // RATINGS (for future use)
-    // ─────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────
+    // RATINGS (future use)
+    // ─────────────────────────────────────────────────
     averageRating: {
       type: Number,
       default: 0,
@@ -275,14 +289,14 @@ const recipeSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true,
+    timestamps: true, // createdAt, updatedAt
   }
 );
 
 // ─────────────────────────────────────────────────────────
-// INDEXES for fast search
+// INDEXES
 // ─────────────────────────────────────────────────────────
-recipeSchema.index({ name: 'text', tagline: 'text' });
+recipeSchema.index({ title: 'text', tagline: 'text' });
 recipeSchema.index({ category: 1 });
 recipeSchema.index({ subCategory: 1 });
 recipeSchema.index({ cuisine: 1 });
