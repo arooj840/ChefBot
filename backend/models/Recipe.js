@@ -1,11 +1,5 @@
 const mongoose = require('mongoose');
 
-// ============================================================
-// RECIPE MODEL - ChefBot FYP
-// According to: DataBaseModels.docx + All Frontend Pages
-// Team: Ayesha Sohail (078241), Hira Saeed (078203), Arooj Fatima (057591)
-// ============================================================
-
 // ─────────────────────────────────────────────────────────
 // INGREDIENT SUB-DOCUMENT
 // Document mein: name, quantity, unit
@@ -57,10 +51,7 @@ const stepSchema = new mongoose.Schema(
 // ─────────────────────────────────────────────────────────
 const recipeSchema = new mongoose.Schema(
   {
-    // ─────────────────────────────────────────────────
-    // BASIC INFO
-    // Document: title | Frontend: name
-    // ─────────────────────────────────────────────────
+    
     title: {
       type: String,
       required: [true, 'Recipe title is required'],
@@ -75,15 +66,14 @@ const recipeSchema = new mongoose.Schema(
     },
 
     image: {
-      // Document + Frontend dono mein hai
+      
       type: String,
       default: '',
     },
 
     // ─────────────────────────────────────────────────
     // INGREDIENTS
-    // Document: Array of {name, quantity, unit}
-    // Frontend: Array of strings
+
     // Solution: structured sub-document use karo
     // ─────────────────────────────────────────────────
     ingredients: {
@@ -91,27 +81,22 @@ const recipeSchema = new mongoose.Schema(
       default: [],
     },
 
-    // ─────────────────────────────────────────────────
-    // INSTRUCTIONS / STEPS
-    // Document: instructions (String)
-    // Frontend: steps (Array) - voice guide step by step
-    // Solution: steps array (voice feature ke liye zaroori)
-    // ─────────────────────────────────────────────────
+    
     instructions: {
-      // Document ke liye - full text
+     
       type: String,
       default: '',
     },
 
     steps: {
-      // Frontend ke liye - voice guide step by step
+     
       type: [stepSchema],
       default: [],
     },
 
     // ─────────────────────────────────────────────────
     // VOICE URL
-    // Document mein hai - voice instructions URL
+
     // ─────────────────────────────────────────────────
     voiceUrl: {
       type: String,
@@ -120,8 +105,7 @@ const recipeSchema = new mongoose.Schema(
 
     // ─────────────────────────────────────────────────
     // MAIN CATEGORY
-    // Document: breakfast/lunch/dinner
-    // Frontend: bahut saari categories
+   
     // ─────────────────────────────────────────────────
     category: {
       type: String,
@@ -151,7 +135,7 @@ const recipeSchema = new mongoose.Schema(
 
     // ─────────────────────────────────────────────────
     // SUB-CATEGORY
-    // Frontend ke sub-pages se liya
+    
     // ─────────────────────────────────────────────────
     subCategory: {
       type: String,
@@ -185,7 +169,7 @@ const recipeSchema = new mongoose.Schema(
 
     // ─────────────────────────────────────────────────
     // CUISINE
-    // Document + Frontend (RegionalPage) dono mein hai
+   
     // ─────────────────────────────────────────────────
     cuisine: {
       type: String,
@@ -255,7 +239,7 @@ const recipeSchema = new mongoose.Schema(
 
     // ─────────────────────────────────────────────────
     // ADMIN INFO
-    // Document mein: createdBy (Admin ref)
+    
     // ─────────────────────────────────────────────────
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
