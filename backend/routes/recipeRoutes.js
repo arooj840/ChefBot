@@ -17,7 +17,6 @@ const { protect, adminOnly } = require('../middleware/authMiddleware');
 
 // ─────────────────────────────────────────────────────────
 // PUBLIC ROUTES
-// ─────────────────────────────────────────────────────────
 
 // IMPORTANT: Specific routes pehle likhni hain — /:id se pehle
 // Warna Express "featured", "search" etc. ko ID samajh leta hai

@@ -160,14 +160,14 @@ const recipeSchema = new mongoose.Schema(
         
         'MuttonVegetable',
 
-        // ── Meat + Dal combos ──────────────────────────────────────────
+        // ── Meat + Dal combos ──────
         'ChickenDal',
         'MuttonDal',
-        // ── Plain Dal ──────────────────────────────────────────────────
+        // ── Plain Dal ───────
         'Dal',
-        // ── Plain Vegetables ───────────────────────────────────────────
+        // ── Plain Vegetables ─────────
         'Vegetables',
-        // ── Rice types ─────────────────────────────────────────────────
+        // ── Rice types ────────
         'Biryani',
         'Pulao',
         'FriedRice',
