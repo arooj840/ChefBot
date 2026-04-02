@@ -11,6 +11,7 @@ const authRoutes = require('./routes/authRoutes');
 const pantryRoutes = require('./routes/pantryRoutes');
 const shoppingRoutes = require('./routes/shoppingRoutes');
 const recipeRoutes = require('./routes/recipeRoutes');
+const mealPlanRoutes = require('./routes/mealPlanRoutes');   // ✅ Already imported
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/pantry', pantryRoutes);
 app.use('/api/shopping', shoppingRoutes);
 app.use('/api/recipes', recipeRoutes);
+app.use('/api/mealplan', mealPlanRoutes);   // ✅ Already mounted
 
 // Test Route
 app.get('/', (req, res) => {

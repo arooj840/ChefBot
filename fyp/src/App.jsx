@@ -27,7 +27,7 @@ function App() {
         <Route path="/shopping-list" element={<ShoppingList />} />
         <Route path="/meal-feature" element={<MealFeature />} />
         <Route path="/meal-calender" element={<MealCalender />} />
-
+        <Route path="/calendar" element={<MealCalender />} />
         {/* Urdu Routes */}
         <Route path="/about-urdu" element={<UAboutPage />} />
         <Route path="/contact-urdu" element={<UContactPage />} />
