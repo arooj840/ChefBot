@@ -11,8 +11,11 @@ const authRoutes = require('./routes/authRoutes');
 const pantryRoutes = require('./routes/pantryRoutes');
 const shoppingRoutes = require('./routes/shoppingRoutes');
 const recipeRoutes = require('./routes/recipeRoutes');
-const mealPlanRoutes = require('./routes/mealPlanRoutes');   // ✅ Already imported
-
+const mealPlanRoutes = require('./routes/mealPlanRoutes');  
+const timerRoutes     = require('./routes/timerRoutes');  
+const dailyReportRoutes = require('./routes/dailyReportRoutes');
+const settingsRoutes = require('./routes/settingsRoutes');
+const beginnersGuideRoutes = require('./routes/beginnersGuideRoutes');
 const app = express();
 
 // Middleware
@@ -24,7 +27,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/pantry', pantryRoutes);
 app.use('/api/shopping', shoppingRoutes);
 app.use('/api/recipes', recipeRoutes);
-app.use('/api/mealplan', mealPlanRoutes);   // ✅ Already mounted
+app.use('/api/mealplan', mealPlanRoutes);   
+app.use('/api/timers',   timerRoutes);  
+app.use('/api/dailyreport', dailyReportRoutes);
+app.use('/api/settings', settingsRoutes);
+app.use('/api/beginners-guides', beginnersGuideRoutes);
 
 // Test Route
 app.get('/', (req, res) => {
