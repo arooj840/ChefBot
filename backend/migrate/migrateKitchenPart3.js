@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
+const path = require('path');
+const BeginnersGuide = require('../models/BeginnersGuide');
+const User = require('../models/User');
 
+dotenv.config({ path: path.join(__dirname, '../.env') });
 // ======================
 // YAHAN APNA APPLIANCES DATA COPY-PASTE KAREIN
 // ======================
@@ -26627,6 +26631,40 @@ const appliancesData = [
   ]
 }
 ]; // END OF appliancesData - 7 appliances
+const allGuides = [];
+
+const mapAppliance = (appliance) => {
+  const companyNames = appliance.companies.map(c => c.name).join(', ');
+  const modelCount = appliance.companies.reduce((sum, c) => sum + c.models.length, 0);
+  const content = `${appliance.name}: ${appliance.description}. Types: ${appliance.types.join(', ')}. Brands: ${companyNames}. Total models: ${modelCount}.`;
+  return {
+    title: appliance.name,
+    content: content,
+    category: 'appliances',
+    image: '',
+    video: ''
+  };
+};
+
+appliancesData.forEach(app => allGuides.push(mapAppliance(app)));
+
+const migrate = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    const admin = await User.findOne({ email: 'admin@chefbot.com' });
+    if (!admin) throw new Error('Admin not found');
+
+    const toInsert = allGuides.map(g => ({ ...g, createdBy: admin._id }));
+    const result = await BeginnersGuide.insertMany(toInsert);
+    console.log(`✅ ${result.length} kitchen appliances guides inserted.`);
+    process.exit(0);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+};
+
+migrate();
 
 
 // ======================
@@ -26634,50 +26672,3 @@ const appliancesData = [
 // ======================
 
 // Schema define karte hain – flexible rakhne ke liye Mixed type use kiya
-const kitchenApplianceSchema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true },
-  name: { type: String, required: true },
-  description: String,
-  types: [String],
-  companies: [mongoose.Schema.Types.Mixed],
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } // optional
-}, { timestamps: true });
-
-const KitchenAppliance = mongoose.model('KitchenAppliance', kitchenApplianceSchema);
-
-const migrate = async () => {
-  try {
-    // Connect to MongoDB
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('✅ MongoDB connected');
-
-    // Check if data exists
-    if (!appliancesData || appliancesData.length === 0) {
-      console.error('❌ No data found! Please paste your appliancesData array in this file.');
-      process.exit(1);
-    }
-
-    // Optional: Agar admin se link karna hai to admin fetch karein
-    // const admin = await User.findOne({ email: 'admin@chefbot.com' });
-    // if (!admin) { console.error('Admin not found'); process.exit(1); }
-    // const dataWithAdmin = appliancesData.map(app => ({ ...app, createdBy: admin._id }));
-
-    // Insert data (ordered: false se ek document fail ho to baki insert hote rahenge)
-    const result = await KitchenAppliance.insertMany(appliancesData, { ordered: false });
-    console.log(`✅ Migration successful: ${result.length} appliances inserted.`);
-
-    process.exit(0);
-  } catch (err) {
-    // Agar duplicate key error aata hai to ignore karte hain (already exist)
-    if (err.code === 11000) {
-      console.log('⚠️ Some appliances already exist. Skipping duplicates.');
-      console.log('✅ Migration completed with no critical errors.');
-      process.exit(0);
-    } else {
-      console.error('❌ Migration failed:', err);
-      process.exit(1);
-    }
-  }
-};
-
-migrate();

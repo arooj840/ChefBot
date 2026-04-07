@@ -16,6 +16,8 @@ const timerRoutes     = require('./routes/timerRoutes');
 const dailyReportRoutes = require('./routes/dailyReportRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
 const beginnersGuideRoutes = require('./routes/beginnersGuideRoutes');
+const aboutContentRoutes = require('./routes/aboutContentRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 const app = express();
 
 // Middleware
@@ -32,6 +34,9 @@ app.use('/api/timers',   timerRoutes);
 app.use('/api/dailyreport', dailyReportRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/beginners-guides', beginnersGuideRoutes);
+app.use('/api/about-content', aboutContentRoutes);
+app.use('/api/contact', contactRoutes);
+
 
 // Test Route
 app.get('/', (req, res) => {
