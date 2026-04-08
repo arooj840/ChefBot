@@ -262,7 +262,7 @@ const MealCalender = () => {
                               className="mp-view-recipe-btn"
                               onClick={() => viewRecipe(meal._id || meal.id, meal.name)}
                             >
-                              View Complete Recipe
+                              📖 View Complete Recipe
                             </button>
                           )}
                         </div>
