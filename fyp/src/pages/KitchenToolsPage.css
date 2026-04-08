@@ -1,0 +1,893 @@
+
+
+
+/* ===== KITCHEN TOOLS PAGE CSS ===== */
+/* SIDEBAR + CARDS - EXACT PANTRY BASICS STYLE */
+/* BAKI SAB ORIGINAL RAKHA HAI */
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f8fafc;
+}
+
+/* MAIN CONTAINER */
+.ktp-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0px;
+}
+
+.ktp-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===== SIDEBAR - EXACT PANTRY BASICS STYLE ===== */
+.ktp-sidebar {
+  width: 280px;
+  background: #284a4b;  /* EXACT Pantry Basics dark green */
+  border-right: 1px solid #e2e8f0;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+  
+}
+
+.ktp-sidebar-header {
+  margin-top: 70px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.2);
+}
+
+.ktp-sidebar-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 15px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.ktp-sidebar-subtitle {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  text-align: center;
+}
+
+.ktp-sidebar-tools {
+  flex: 1;
+}
+
+.ktp-tools-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ktp-tool-list-item {
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.ktp-tool-list-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(5px);
+}
+
+.ktp-tool-list-item.ktp-active {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: #4FD1C5;
+  box-shadow: 0 2px 10px rgba(79, 209, 197, 0.2);
+}
+
+.ktp-tool-list-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+}
+
+/* ===== MAIN CONTENT ===== */
+.ktp-main {
+  flex: 1;
+  padding: 30px 40px;
+  background: #f8fafc;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.ktp-main-header {
+  margin-top:120px;
+  margin-bottom: 20px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ktp-page-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.ktp-page-description {
+  font-size: 18px;
+  color: #64748b;
+  max-width: 700px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* ===== CONTENT AREA ===== */
+.ktp-content-area {
+  width: 100%;
+}
+
+/* ===== SECTION HEADING ===== */
+.ktp-section-heading {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0;
+  position: relative;
+}
+
+.ktp-section-heading:after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: #284a4b;
+}
+
+/* ===== CARDS GRID - EXACT PANTRY BASICS STYLE ===== */
+.ktp-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+/* ===== BASE CARD STYLES - EXACT PANTRY BASICS ===== */
+.ktp-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  height: 120px;
+  width: 100%;
+}
+
+.ktp-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  border-color: #6366f1;
+}
+
+.ktp-card-image {
+  width: 120px;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  border-right: 1px solid #e2e8f0;
+}
+
+.ktp-card-content {
+  padding: 15px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ktp-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ktp-card-badge {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 6px;
+  background: rgba(40, 74, 75, 0.1);
+  color: #284a4b;
+  border: 1px solid rgba(40, 74, 75, 0.3);
+}
+
+.ktp-card-size,
+.ktp-card-material,
+.ktp-card-best {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===== TABS STYLES (ORIGINAL) ===== */
+.ktp-tabs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 15px;
+}
+
+.ktp-tab {
+  padding: 10px 25px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ktp-tab:hover {
+  background: #f1f5f9;
+  border-color: #284a4b;
+}
+
+.ktp-tab.ktp-tab-active {
+  background: #284a4b;
+  color: white;
+  border-color: #284a4b;
+}
+
+/* ===== CARD COLOR VARIANTS (ORIGINAL) ===== */
+.ktp-knife-card.chef,
+.ktp-knife-card.nakiri { border-top: 4px solid #10b981; }
+.ktp-knife-card.paring { border-top: 4px solid #3b82f6; }
+.ktp-knife-card.bread { border-top: 4px solid #f59e0b; }
+.ktp-knife-card.santoku { border-top: 4px solid #8b5cf6; }
+.ktp-knife-card.boning { border-top: 4px solid #ef4444; }
+.ktp-knife-card.utility { border-top: 4px solid #6366f1; }
+
+.ktp-board-card.board-bamboo { border-top: 4px solid #10b981; }
+.ktp-board-card.board-maple { border-top: 4px solid #b45309; }
+.ktp-board-card.board-plastic { border-top: 4px solid #3b82f6; }
+.ktp-board-card.board-rubber { border-top: 4px solid #4b5563; }
+
+.ktp-bowl-card.bowl-steel { border-top: 4px solid #94a3b8; }
+.ktp-bowl-card.bowl-glass { border-top: 4px solid #0ea5e9; }
+.ktp-bowl-card.bowl-ceramic { border-top: 4px solid #f59e0b; }
+.ktp-bowl-card.bowl-plastic { border-top: 4px solid #10b981; }
+.ktp-bowl-card.bowl-copper { border-top: 4px solid #b45309; }
+
+.ktp-utensil-card.utensil-wooden { border-top: 4px solid #b45309; }
+.ktp-utensil-card.utensil-spatula { border-top: 4px solid #3b82f6; }
+.ktp-utensil-card.utensil-whisk { border-top: 4px solid #8b5cf6; }
+.ktp-utensil-card.utensil-tongs { border-top: 4px solid #ef4444; }
+.ktp-utensil-card.utensil-ladle { border-top: 4px solid #10b981; }
+.ktp-utensil-card.utensil-shears { border-top: 4px solid #6366f1; }
+.ktp-utensil-card.utensil-slotted { border-top: 4px solid #f59e0b; }
+.ktp-utensil-card.utensil-peeler { border-top: 4px solid #ec4899; }
+
+.ktp-cookware-type-card.cookware-pressure { border-top: 4px solid #ef4444; }
+.ktp-cookware-type-card.cookware-tawa { border-top: 4px solid #f59e0b; }
+.ktp-cookware-type-card.cookware-karahi { border-top: 4px solid #10b981; }
+.ktp-cookware-type-card.cookware-skillet { border-top: 4px solid #3b82f6; }
+.ktp-cookware-type-card.cookware-saucepan { border-top: 4px solid #8b5cf6; }
+.ktp-cookware-type-card.cookware-stock { border-top: 4px solid #ec4899; }
+.ktp-cookware-type-card.cookware-dutch { border-top: 4px solid #6366f1; }
+.ktp-cookware-type-card.cookware-baking { border-top: 4px solid #14b8a6; }
+
+.ktp-cookware-material-card.cookware-steel { border-top: 4px solid #94a3b8; }
+.ktp-cookware-material-card.cookware-glass { border-top: 4px solid #0ea5e9; }
+.ktp-cookware-material-card.cookware-nonstick { border-top: 4px solid #f59e0b; }
+.ktp-cookware-material-card.cookware-iron { border-top: 4px solid #b45309; }
+
+.ktp-crockery-card.crockery-dinner { border-top: 4px solid #ef4444; }
+.ktp-crockery-card.crockery-side { border-top: 4px solid #f59e0b; }
+.ktp-crockery-card.crockery-soup { border-top: 4px solid #10b981; }
+.ktp-crockery-card.crockery-cereal { border-top: 4px solid #3b82f6; }
+.ktp-crockery-card.crockery-mug { border-top: 4px solid #8b5cf6; }
+.ktp-crockery-card.crockery-water { border-top: 4px solid #0ea5e9; }
+.ktp-crockery-card.crockery-juice { border-top: 4px solid #60a5fa; }
+.ktp-crockery-card.crockery-pitcher { border-top: 4px solid #3b82f6; }
+.ktp-crockery-card.crockery-tea { border-top: 4px solid #ec4899; }
+.ktp-crockery-card.crockery-sugar { border-top: 4px solid #8b5cf6; }
+.ktp-crockery-card.crockery-creamer { border-top: 4px solid #f59e0b; }
+.ktp-crockery-card.crockery-serving { border-top: 4px solid #14b8a6; }
+
+.ktp-cutlery-card.cutlery-dinner-fork { border-top: 4px solid #ef4444; }
+.ktp-cutlery-card.cutlery-dinner-knife { border-top: 4px solid #3b82f6; }
+.ktp-cutlery-card.cutlery-tablespoon { border-top: 4px solid #10b981; }
+.ktp-cutlery-card.cutlery-teaspoon { border-top: 4px solid #f59e0b; }
+.ktp-cutlery-card.cutlery-dessert { border-top: 4px solid #8b5cf6; }
+.ktp-cutlery-card.cutlery-soup { border-top: 4px solid #ec4899; }
+.ktp-cutlery-card.cutlery-salad { border-top: 4px solid #0ea5e9; }
+.ktp-cutlery-card.cutlery-butter { border-top: 4px solid #b45309; }
+
+.ktp-servingware-card.servingware-bowl { border-top: 4px solid #ef4444; }
+.ktp-servingware-card.servingware-platter { border-top: 4px solid #f59e0b; }
+.ktp-servingware-card.servingware-gravy { border-top: 4px solid #10b981; }
+.ktp-servingware-card.servingware-butter { border-top: 4px solid #3b82f6; }
+.ktp-servingware-card.servingware-sugar { border-top: 4px solid #8b5cf6; }
+.ktp-servingware-card.servingware-creamer { border-top: 4px solid #ec4899; }
+.ktp-servingware-card.servingware-salad { border-top: 4px solid #0ea5e9; }
+.ktp-servingware-card.servingware-cake { border-top: 4px solid #14b8a6; }
+
+/* ===== SERVING CUTLERY CARD ===== */
+.ktp-serving-cutlery-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  display: flex;
+  height: 120px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.ktp-serving-cutlery-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  border-color: #6366f1;
+  border-top: 4px solid #8b5cf6;
+}
+
+.ktp-serving-cutlery-card .ktp-card-image {
+  width: 120px;
+  height: 100%;
+}
+
+/* ===== MODAL - 2 PART LAYOUT (RIGHT IMAGE, LEFT SCROLL) ===== */
+/* ORIGINAL - NO CHANGES */
+.ktp-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.ktp-modal {
+  background: white;
+  border-radius: 20px;
+  width: 95%;
+  max-width: 1100px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.ktp-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.ktp-modal-close:hover {
+  background: #f1f5f9;
+  transform: rotate(90deg);
+}
+
+.ktp-modal-content {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* LEFT SIDE - SCROLLABLE CONTENT (70%) */
+.ktp-modal-left {
+  flex: 0 0 70%;
+  padding: 35px 30px 35px 35px;
+  overflow-y: auto;
+  height: 100%;
+  background: white;
+}
+
+.ktp-modal-left::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ktp-modal-left::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.ktp-modal-left::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.ktp-modal-left::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* RIGHT SIDE - FIXED IMAGE (30%) */
+.ktp-modal-right {
+  flex: 0 0 30%;
+  padding: 30px 30px 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ktp-modal-image-container {
+  width: 100%;
+  height: 350px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e2e8f0;
+}
+
+.ktp-modal-image {
+  width: 100%;
+  height: 100%;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  transition: transform 0.3s ease;
+}
+
+.ktp-modal-image:hover {
+  transform: scale(1.05);
+}
+
+/* MODAL TITLE */
+.ktp-modal-title {
+  margin-bottom: 20px;
+}
+
+.ktp-modal-title h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.ktp-modal-subtitle {
+  font-size: 16px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* QUICK SPECS BADGES */
+.ktp-quick-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ktp-spec-badge {
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+
+.ktp-spec-badge.price {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #86efac;
+}
+
+/* MODAL SECTIONS */
+.ktp-modal-description,
+.ktp-pros-cons-section,
+.ktp-key-uses,
+.ktp-care-section,
+.ktp-additional-details {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ktp-modal-description h3,
+.ktp-pros-cons-section h3,
+.ktp-key-uses h3,
+.ktp-care-section h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 15px;
+}
+
+.ktp-modal-description p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+/* PROS & CONS - HORIZONTAL ROWS */
+.ktp-pros-row,
+.ktp-cons-row,
+.ktp-uses-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ktp-pros-badge {
+  background: #dcfce7;
+  color: #166534;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ktp-cons-badge {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ktp-use-badge {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* CARE SECTION */
+.ktp-care-section p {
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.6;
+  background: #f8fafc;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 4px solid #284a4b;
+}
+
+/* ADDITIONAL DETAILS */
+.ktp-additional-details p {
+  font-size: 14px;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+.ktp-additional-details strong {
+  color: #1e293b;
+  font-weight: 700;
+}
+
+/* VIEW DETAILS BUTTON */
+.ktp-view-details-btn {
+  width: 100%;
+  padding: 14px;
+  background: #284a4b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.ktp-view-details-btn:hover {
+  background: #1e3a3b;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(40, 74, 75, 0.3);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .ktp-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .ktp-modal {
+    height: 90vh;
+  }
+}
+
+@media (max-width: 1024px) {
+  .ktp-layout {
+    flex-direction: column;
+  }
+  
+  .ktp-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  
+  .ktp-sidebar-title {
+    margin-top: 20px;
+  }
+  
+  .ktp-main {
+    padding: 20px;
+    height: auto;
+  }
+  
+  .ktp-page-title {
+    margin-top: 20px;
+  }
+  
+  .ktp-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .ktp-card {
+    height: auto;
+    flex-direction: column;
+  }
+  
+  .ktp-card-image {
+    width: 100%;
+    height: 180px;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .ktp-modal-content {
+    flex-direction: column-reverse;
+  }
+  
+  .ktp-modal-left,
+  .ktp-modal-right {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .ktp-modal-right {
+    height: 300px;
+    padding: 20px;
+  }
+  
+  .ktp-modal-image-container {
+    height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ktp-page-title {
+    font-size: 28px;
+  }
+  
+  .ktp-section-heading {
+    font-size: 20px;
+  }
+  
+  .ktp-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .ktp-tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+  
+  .ktp-modal-left {
+    padding: 25px 20px;
+  }
+  
+  .ktp-modal-title h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 576px) {
+  .ktp-container {
+    padding: 10px;
+  }
+  
+  .ktp-sidebar {
+    padding: 20px;
+  }
+  
+  .ktp-main {
+    padding: 15px;
+  }
+  
+  .ktp-page-title {
+    font-size: 24px;
+  }
+  
+  .ktp-section-heading {
+    font-size: 18px;
+  }
+  
+  .ktp-tabs {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .ktp-tab {
+    width: 100%;
+  }
+  
+  .ktp-card-image {
+    height: 160px;
+  }
+  
+  .ktp-modal {
+    height: 95vh;
+    width: 100%;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ktp-card,
+.ktp-knife-card,
+.ktp-board-card,
+.ktp-bowl-card,
+.ktp-utensil-card,
+.ktp-cookware-type-card,
+.ktp-cookware-material-card,
+.ktp-crockery-card,
+.ktp-cutlery-card,
+.ktp-servingware-card,
+.ktp-serving-cutlery-card {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+.ktp-sidebar::-webkit-scrollbar,
+.ktp-main::-webkit-scrollbar,
+.ktp-modal-left::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ktp-sidebar::-webkit-scrollbar-track,
+.ktp-main::-webkit-scrollbar-track,
+.ktp-modal-left::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.ktp-sidebar::-webkit-scrollbar-thumb,
+.ktp-main::-webkit-scrollbar-thumb,
+.ktp-modal-left::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.ktp-sidebar::-webkit-scrollbar-thumb:hover,
+.ktp-main::-webkit-scrollbar-thumb:hover,
+.ktp-modal-left::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.back-home-container {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.back-home-btn {
+  background-color: #284a4b;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.back-home-btn:hover {
+  background-color: #397d7c;
+  transform: scale(1.05);
+}

@@ -1,0 +1,297 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: white;
+  color: #284a4b;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ========== HERO BANNER ========== */
+.rf-hero-banner {
+  margin-top: 120px;
+  position: relative;
+  height: 85vh;
+  min-height: 500px;
+  max-height: 800px;
+  overflow: hidden;
+  border-radius: 0 0 20px 20px;
+  width: 100vw;
+}
+
+.rf-hero-slider {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.rf-hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #285B5A;
+}
+
+.rf-hero-slide.active {
+  opacity: 1;
+}
+
+.rf-hero-slide::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  z-index: 1;
+}
+
+.rf-slider-dots {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 2;
+}
+
+.rf-slider-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.rf-slider-dot.active {
+  background: white;
+  transform: scale(1.2);
+}
+
+.rf-slider-dot:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* ========== MAIN CONTENT ========== */
+.rf-main-content {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ========== SECTION HEADER ========== */
+.rf-section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.rf-section-header h2 {
+  font-size: 2.2rem;
+  color: #285B5A;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+}
+
+.rf-section-header h2::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background: #4cafae;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.rf-section-header p {
+  font-size: 1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 1.5rem auto 0;
+}
+
+/* ========== RECIPE TYPES SECTION ========== */
+.rf-recipe-types-section {
+  padding: 4rem 0;
+  background: white;
+}
+
+.rf-recipe-types-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  justify-items: center;
+  padding: 1rem;
+}
+
+.rf-circle-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.rf-circle-card {
+  width: 75%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: 0.3s;
+  box-shadow: 0 8px 20px rgba(40, 91, 90, 0.15);
+  max-width: 250px;
+}
+
+.rf-circle-card:hover {
+  transform: scale(1.05);
+}
+
+.rf-circle-image-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.rf-circle-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rf-circle-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ========== BUDGET SECTION ========== */
+.rf-budget-friendly-section {
+  
+  background: white;
+
+}
+
+.rf-budget-grid-new {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.rf-budget-card-new {
+  background: #284a4b;
+  border-radius: 16px;
+  padding: 1.5rem;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.rf-budget-card-header {
+  margin-bottom: 0.8rem;
+}
+
+.rf-budget-card-title {
+  font-size: 1.25rem;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+}
+
+.rf-budget-card-image-container {
+  width: 100%;
+  height: 140px;
+  margin: 0.5rem auto;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.rf-budget-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rf-budget-card-content {
+  flex-grow: 1;
+  margin-top: 0.5rem;
+}
+
+.rf-budget-card-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rf-budget-card-features li {
+  padding: 0.3rem 0;
+  font-size: 0.9rem;
+  color: white;
+  text-align: center;
+}
+
+/* ========== FEATURES SECTION ========== */
+.rf-features-section {
+  padding: 4rem 0;
+  background: white;
+}
+
+.rf-features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.rf-feature-card {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  transition: 0.3s;
+}
+
+.rf-feature-card:hover {
+  transform: translateY(-8px);
+}
+
+.rf-feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #285B5A;
+}
+
+.rf-feature-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.rf-feature-card p {
+  font-size: 0.9rem;
+  color: #666;
+}

@@ -1,0 +1,1264 @@
+/* ===== BAKERY ESSENTIALS PAGE CSS ===== */
+/* EXACT KITCHEN TOOLS PAGE STYLE - SIDEBAR + CARDS + MODAL */
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f8fafc;
+}
+
+/* MAIN CONTAINER */
+.bep-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0px;
+}
+
+.bep-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===== SIDEBAR - EXACT PANTRY BASICS STYLE ===== */
+.bep-sidebar {
+  width: 280px;
+  background: #284a4b;
+  border-right: 1px solid #e2e8f0;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.bep-sidebar-header {
+  margin-top: 70px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.2);
+}
+
+.bep-sidebar-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 15px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.bep-sidebar-subtitle {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  text-align: center;
+}
+
+.bep-sidebar-categories {
+  flex: 1;
+}
+
+.bep-categories-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bep-category-item {
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.bep-category-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(5px);
+}
+
+.bep-category-item.bep-active {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: #4FD1C5;
+  box-shadow: 0 2px 10px rgba(79, 209, 197, 0.2);
+}
+
+.bep-category-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+}
+
+/* ===== MAIN CONTENT ===== */
+.bep-main {
+  flex: 1;
+  padding: 30px 40px;
+  background: #f8fafc;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.bep-main-header {
+  margin-top: 120px;
+  margin-bottom: 20px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.bep-page-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.bep-page-description {
+  font-size: 18px;
+  color: #64748b;
+  max-width: 700px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* ===== CONTENT AREA ===== */
+.bep-content-area {
+  width: 100%;
+}
+
+/* ===== SECTION HEADING ===== */
+.bep-section-heading {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0;
+  position: relative;
+}
+
+.bep-section-heading:after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: #284a4b;
+}
+
+/* ===== CARDS GRID - EXACT PANTRY BASICS STYLE ===== */
+.bep-items-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+/* ===== BASE CARD STYLES - EXACT PANTRY BASICS ===== */
+.bep-item-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  height: 120px;
+  width: 100%;
+}
+
+.bep-item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  border-color: #6366f1;
+}
+
+.bep-card-image {
+  width: 120px;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  border-right: 1px solid #e2e8f0;
+}
+
+.bep-card-content {
+  padding: 15px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.bep-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.bep-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.bep-essentiality-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-left: 10px;
+  flex-shrink: 0;
+}
+
+.bep-card-description {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===== TABS STYLES ===== */
+.bep-tabs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 15px;
+}
+
+.bep-tab {
+  padding: 10px 25px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bep-tab:hover {
+  background: #f1f5f9;
+  border-color: #284a4b;
+}
+
+.bep-tab.bep-tab-active {
+  background: #284a4b;
+  color: white;
+  border-color: #284a4b;
+}
+
+/* ===== TYPES GRID ===== */
+.bep-types-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.bep-type-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  height: 100%;
+  width: 300px;
+}
+
+.bep-type-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-color: #6366f1;
+}
+
+.bep-type-image {
+  width: 100%;
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.bep-type-content {
+  padding: 12px;
+}
+
+.bep-type-content h4 {
+  font-size: 14px;
+  color: #1e293b;
+  margin-bottom: 6px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bep-type-desc {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  min-height: 32px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bep-type-info {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.bep-type-info-item {
+  font-size: 11px;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.bep-type-best {
+  font-size: 11px;
+  color: #1e293b;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bep-type-best strong {
+  color: #1e293b;
+}
+
+/* ===== DETAIL SECTIONS ===== */
+.bep-detail-section {
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.bep-detail-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.bep-detail-section h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 15px;
+}
+
+.bep-detail-content {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+/* ===== FEATURES & MISTAKES GRIDS ===== */
+.bep-features-grid,
+.bep-mistakes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.bep-feature-item {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #0369a1;
+}
+
+.bep-mistake-item {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #dc2626;
+}
+
+/* ===== STEPS LIST ===== */
+.bep-steps-list {
+  list-style: none;
+  counter-reset: step-counter;
+}
+
+.bep-step {
+  counter-increment: step-counter;
+  margin-bottom: 12px;
+  padding-left: 40px;
+  position: relative;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+.bep-step:before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 28px;
+  height: 28px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.bep-step-number {
+  font-weight: 700;
+  color: #284a4b;
+  min-width: 1.5rem;
+}
+
+.bep-step-text {
+  flex: 1;
+}
+
+/* ===== STAGES GRID ===== */
+.bep-stages-grid,
+.bep-methods-grid,
+.bep-temperatures-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.bep-stage-item,
+.bep-method-item,
+.bep-temperature-item {
+  background: #fef3c7;
+  border: 1px solid #fbbf24;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #92400e;
+}
+
+/* ===== INGREDIENT TYPES GRID ===== */
+.bep-ingredient-types-grid,
+.bep-agents-grid,
+.bep-functions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.bep-ingredient-type-card,
+.bep-agent-card,
+.bep-function-item {
+  background: #dbeafe;
+  border: 1px solid #93c5fd;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 13px;
+  color: #1e40af;
+}
+
+.bep-ingredient-type-card h4,
+.bep-agent-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #1e3a8a;
+}
+
+.bep-ingredient-type-card p,
+.bep-agent-card p {
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+/* ===== DECORATING TYPES GRID ===== */
+.bep-decorating-types-grid,
+.bep-techniques-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.bep-decorating-type-card,
+.bep-technique-item {
+  background: #fce7f3;
+  border: 1px solid #f9a8d4;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 13px;
+  color: #831843;
+}
+
+.bep-decorating-type-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #9d174d;
+}
+
+/* ===== MISTAKES LIST ===== */
+.bep-mistakes-list {
+  list-style: none;
+}
+
+.bep-mistake-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #475569;
+  padding: 8px 12px;
+  background: #fef2f2;
+  border-radius: 6px;
+  border-left: 3px solid #dc2626;
+}
+
+/* ===== TEMPERATURE SPECIFIC STYLES ===== */
+.bep-ingredients-grid,
+.bep-proofing-grid,
+.bep-items-grid-mini,
+.bep-storage-grid,
+.bep-problems-grid,
+.bep-solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.bep-ingredient-item,
+.bep-proofing-item,
+.bep-item-card-mini,
+.bep-storage-item,
+.bep-problem-item,
+.bep-solution-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 13px;
+  color: #1e293b;
+  transition: all 0.3s ease;
+}
+
+.bep-ingredient-item:hover,
+.bep-proofing-item:hover,
+.bep-item-card-mini:hover,
+.bep-storage-item:hover,
+.bep-problem-item:hover,
+.bep-solution-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-color: #284a4b;
+}
+
+.bep-item-card-mini h4,
+.bep-storage-item h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #284a4b;
+  margin-bottom: 8px;
+}
+
+.bep-item-card-mini p,
+.bep-storage-item p {
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: #475569;
+}
+
+.bep-item-card-mini p strong,
+.bep-storage-item p strong {
+  color: #1e293b;
+}
+
+/* ===== DECORATING SPECIFIC STYLES ===== */
+.bep-tiptypes-grid,
+.bep-sizes-grid,
+.bep-materials-grid,
+.bep-patterns-grid,
+.bep-usage-list,
+.bep-tools-grid,
+.bep-essentials-list,
+.bep-components-list,
+.bep-colors-list,
+.bep-colortypes-grid,
+.bep-presentation-list,
+.bep-tips-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.bep-tiptype-item,
+.bep-size-card,
+.bep-material-item,
+.bep-pattern-item,
+.bep-usage-item,
+.bep-tool-card,
+.bep-essential-item,
+.bep-component-item,
+.bep-color-item,
+.bep-colortype-card,
+.bep-presentation-item,
+.bep-tip-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 13px;
+  color: #1e293b;
+  transition: all 0.3s ease;
+}
+
+.bep-tiptype-item:hover,
+.bep-size-card:hover,
+.bep-material-item:hover,
+.bep-pattern-item:hover,
+.bep-usage-item:hover,
+.bep-tool-card:hover,
+.bep-essential-item:hover,
+.bep-component-item:hover,
+.bep-color-item:hover,
+.bep-colortype-card:hover,
+.bep-presentation-item:hover,
+.bep-tip-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-color: #9d174d;
+}
+
+.bep-size-card h4,
+.bep-tool-card h4,
+.bep-colortype-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #9d174d;
+  margin-bottom: 8px;
+}
+
+.bep-size-card p,
+.bep-tool-card p,
+.bep-colortype-card p {
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: #475569;
+}
+
+.bep-size-card p strong,
+.bep-tool-card p strong,
+.bep-colortype-card p strong {
+  color: #1e293b;
+}
+
+/* ===== MODAL - 2 PART LAYOUT (RIGHT IMAGE, LEFT SCROLL) ===== */
+.bep-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.bep-modal {
+  background: white;
+  border-radius: 20px;
+  width: 95%;
+  max-width: 1100px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.bep-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #e2e8f0;
+  color: #666;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px #397d7c;
+}
+
+.bep-modal-close:hover {
+  background: #f1f5f9;
+}
+
+.bep-modal-content {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* MODAL HEADER */
+.bep-modal-header {
+  padding: 30px 30px 15px 30px;
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.bep-modal-title h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.bep-modal-subtitle {
+  font-size: 16px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* LEFT SIDE - SCROLLABLE CONTENT (70%) */
+.bep-modal-left {
+  flex: 0 0 70%;
+  padding: 35px 30px 35px 35px;
+  overflow-y: auto;
+  height: 100%;
+  background: white;
+}
+
+.bep-modal-left::-webkit-scrollbar {
+  width: 6px;
+}
+
+.bep-modal-left::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.bep-modal-left::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.bep-modal-left::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.bep-modal-details {
+  width: 100%;
+}
+
+/* RIGHT SIDE - FIXED IMAGE (30%) */
+.bep-modal-right {
+  flex: 0 0 30%;
+  padding: 20px 10px 10px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  height: 100%;
+  overflow: hidden;
+}
+
+.bep-main-image-container {
+  width: 100%;
+  height: 350px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background: #284a4b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e2e8f0;
+  position: center;
+}
+
+.bep-main-image {
+  width: 100%;
+  height: 100%;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.bep-main-image:hover {
+  transform: scale(1.05);
+}
+
+.bep-image-overlay {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  z-index: 10;
+}
+
+.bep-essentiality-badge-large {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.bep-essentiality-badge-large.essential {
+  background: rgba(220, 38, 38, 0.9);
+}
+
+.bep-essentiality-badge-large.important {
+  background: rgba(245, 158, 11, 0.9);
+}
+
+.bep-essentiality-badge-large.useful {
+  background: rgba(34, 197, 94, 0.9);
+}
+
+.bep-essentiality-badge-large.specialized {
+  background: rgba(139, 92, 246, 0.9);
+}
+
+/* QUICK INFO - RIGHT SIDE */
+.bep-quick-info {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-top: 20px;
+}
+
+.bep-quick-info h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.bep-quick-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bep-quick-info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed #cbd5e1;
+}
+
+.bep-quick-info-item:last-child {
+  border-bottom: none;
+}
+
+.bep-quick-label {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.bep-quick-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: white;
+  border: 1px solid #e2e8f0;
+}
+
+/* ===== CARD COLOR VARIANTS FOR BAKERY ===== */
+.bep-item-card.bakery-mixer { border-top: 4px solid #3b82f6; }
+.bep-item-card.bakery-scale { border-top: 4px solid #10b981; }
+.bep-item-card.bakery-thermometer { border-top: 4px solid #f59e0b; }
+.bep-item-card.bakery-mat { border-top: 4px solid #8b5cf6; }
+.bep-item-card.bakery-scraper { border-top: 4px solid #ef4444; }
+.bep-item-card.bakery-blender { border-top: 4px solid #ec4899; }
+.bep-item-card.bakery-turntable { border-top: 4px solid #6366f1; }
+.bep-item-card.bakery-basket { border-top: 4px solid #14b8a6; }
+
+/* Flour Types */
+.bep-item-card.flour-all { border-top: 4px solid #f59e0b; }
+.bep-item-card.flour-bread { border-top: 4px solid #b45309; }
+.bep-item-card.flour-cake { border-top: 4px solid #ec4899; }
+.bep-item-card.flour-pastry { border-top: 4px solid #8b5cf6; }
+
+/* Leavening Agents */
+.bep-item-card.leavening-soda { border-top: 4px solid #3b82f6; }
+.bep-item-card.leavening-powder { border-top: 4px solid #10b981; }
+.bep-item-card.leavening-yeast { border-top: 4px solid #92400e; }
+
+/* Fats */
+.bep-item-card.fat-butter { border-top: 4px solid #fbbf24; }
+.bep-item-card.fat-shortening { border-top: 4px solid #94a3b8; }
+.bep-item-card.fat-oil { border-top: 4px solid #f59e0b; }
+.bep-item-card.fat-lard { border-top: 4px solid #b45309; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .bep-items-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .bep-modal {
+    height: 90vh;
+  }
+  
+  .bep-types-grid,
+  .bep-ingredient-types-grid,
+  .bep-agents-grid,
+  .bep-decorating-types-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .bep-features-grid,
+  .bep-mistakes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .bep-ingredients-grid,
+  .bep-proofing-grid,
+  .bep-items-grid-mini,
+  .bep-storage-grid,
+  .bep-problems-grid,
+  .bep-solutions-grid,
+  .bep-tiptypes-grid,
+  .bep-sizes-grid,
+  .bep-materials-grid,
+  .bep-patterns-grid,
+  .bep-tools-grid,
+  .bep-colortypes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .bep-layout {
+    flex-direction: column;
+  }
+  
+  .bep-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  
+  .bep-sidebar-title {
+    margin-top: 20px;
+  }
+  
+  .bep-main {
+    padding: 20px;
+    height: auto;
+  }
+  
+  .bep-page-title {
+    margin-top: 20px;
+  }
+  
+  .bep-main-header {
+    margin-top: 20px;
+  }
+  
+  .bep-items-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .bep-item-card {
+    height: auto;
+    flex-direction: column;
+  }
+  
+  .bep-card-image {
+    width: 100%;
+    height: 180px;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .bep-modal-content {
+    flex-direction: column-reverse;
+  }
+  
+  .bep-modal-left,
+  .bep-modal-right {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .bep-modal-right {
+    height: 300px;
+    padding: 20px;
+  }
+  
+  .bep-main-image-container {
+    height: 250px;
+  }
+  
+  .bep-types-grid,
+  .bep-ingredient-types-grid,
+  .bep-agents-grid,
+  .bep-decorating-types-grid,
+  .bep-functions-grid,
+  .bep-ingredients-grid,
+  .bep-proofing-grid,
+  .bep-items-grid-mini,
+  .bep-storage-grid,
+  .bep-problems-grid,
+  .bep-solutions-grid,
+  .bep-tiptypes-grid,
+  .bep-sizes-grid,
+  .bep-materials-grid,
+  .bep-patterns-grid,
+  .bep-tools-grid,
+  .bep-colortypes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .bep-page-title {
+    font-size: 28px;
+  }
+  
+  .bep-section-heading {
+    font-size: 20px;
+  }
+  
+  .bep-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .bep-tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+  
+  .bep-modal-left {
+    padding: 25px 20px;
+  }
+  
+  .bep-modal-title h2 {
+    font-size: 24px;
+  }
+  
+  .bep-types-grid,
+  .bep-ingredient-types-grid,
+  .bep-agents-grid,
+  .bep-decorating-types-grid,
+  .bep-functions-grid,
+  .bep-stages-grid,
+  .bep-methods-grid,
+  .bep-temperatures-grid,
+  .bep-ingredients-grid,
+  .bep-proofing-grid,
+  .bep-items-grid-mini,
+  .bep-storage-grid,
+  .bep-problems-grid,
+  .bep-solutions-grid,
+  .bep-tiptypes-grid,
+  .bep-sizes-grid,
+  .bep-materials-grid,
+  .bep-patterns-grid,
+  .bep-tools-grid,
+  .bep-colortypes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .bep-container {
+    padding: 10px;
+  }
+  
+  .bep-sidebar {
+    padding: 20px;
+  }
+  
+  .bep-main {
+    padding: 15px;
+  }
+  
+  .bep-page-title {
+    font-size: 24px;
+  }
+  
+  .bep-section-heading {
+    font-size: 18px;
+  }
+  
+  .bep-tabs {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .bep-tab {
+    width: 100%;
+  }
+  
+  .bep-card-image {
+    height: 160px;
+  }
+  
+  .bep-modal {
+    height: 95vh;
+    width: 100%;
+  }
+  
+  .bep-features-grid,
+  .bep-mistakes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bep-item-card,
+.bep-type-card {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+.bep-sidebar::-webkit-scrollbar,
+.bep-main::-webkit-scrollbar,
+.bep-modal-left::-webkit-scrollbar {
+  width: 6px;
+}
+
+.bep-sidebar::-webkit-scrollbar-track,
+.bep-main::-webkit-scrollbar-track,
+.bep-modal-left::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.bep-sidebar::-webkit-scrollbar-thumb,
+.bep-main::-webkit-scrollbar-thumb,
+.bep-modal-left::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.bep-sidebar::-webkit-scrollbar-thumb:hover,
+.bep-main::-webkit-scrollbar-thumb:hover,
+.bep-modal-left::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.back-home-container {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.back-home-btn {
+  background-color: #284a4b;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  align-items: center;
+}
+
+.back-home-btn:hover {
+  background-color: #397d7c;
+  transform: scale(1.05);
+}

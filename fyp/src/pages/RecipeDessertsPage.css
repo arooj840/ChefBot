@@ -1,0 +1,2533 @@
+Desserts.css
+
+/* Desserts Page Specific Styles */
+.desserts-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* Desserts Header */
+.desserts-header {
+  background: linear-gradient(135deg, #285B5A, #1f4a49);
+  color: white;
+  padding: 3rem 1rem 2rem;
+  text-align: center;
+  margin-top: 0;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f8fafc;
+}
+
+/* ===== DESSERTS PAGE ===== */
+.desserts-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* ===== HEADER ===== */
+.desserts-header {
+  background: linear-gradient(135deg, #284a4b, #1d3a3b);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.desserts-header-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.desserts-page-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.desserts-page-description {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  max-height: 3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/* ===== MAIN CONTENT ===== */
+.desserts-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* ===== DESSERTS GRID ===== */
+.desserts-grid-section {
+  width: 100%;
+}
+
+.desserts-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Dessert Card - SAME SHAPE AS SOUPS */
+.desserts-technique-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  height: 120px;
+  width: 100%;
+}
+
+.desserts-technique-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  border-color: #284a4b;
+}
+
+.desserts-card-image {
+  width: 120px;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  border-right: 1px solid #e2e8f0;
+}
+
+.desserts-card-content {
+  padding: 15px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.desserts-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.desserts-card-description {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  max-height: 2.8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* ===== BACK BUTTON CONTAINER ===== */
+.back-button-container {
+  max-width: 1400px;
+  margin: 0 auto 40px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.back-home-btn {
+  background: #284a4b;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(40, 74, 75, 0.2);
+}
+
+.back-home-btn:hover {
+  background: #1d3a3b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(40, 74, 75, 0.3);
+}
+
+/* ===== MODAL ===== */
+.desserts-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 15px;
+}
+
+.desserts-modal {
+  border-radius: 15px;
+  width: 95%;
+  max-width: 1600px;
+  height: 90vh;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Background image via inline style in JSX */
+}
+
+.desserts-modal > * {
+  position: relative;
+  z-index: 2;
+}
+
+.desserts-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #284a4b;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.desserts-modal-close:hover {
+  background: white;
+  color: #1d3a3b;
+  transform: rotate(90deg);
+}
+
+.desserts-modal-header {
+  padding: 15px 25px 10px 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  /* Semi-transparent background for header */
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  z-index: 5;
+}
+
+.desserts-modal-title h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #284a4b;
+  margin-bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 90%;
+  line-height: 1.3;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* ===== THREE COLUMN LAYOUT - SEMI-TRANSPARENT ===== */
+.desserts-modal-content {
+  display: flex;
+  flex: 1;
+  padding: 15px 20px 20px 20px;
+  gap: 20px;
+  min-height: 0;
+  height: calc(100% - 70px);
+  overflow: visible;
+  position: relative;
+  z-index: 2;
+}
+
+/* COLUMN 1 - INGREDIENTS - SEMI-TRANSPARENT */
+.desserts-modal-ingredients {
+  width: 33.33%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* Semi-transparent background - shows image through */
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  overflow: visible;
+  padding: 12px 12px 12px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.desserts-modal-ingredients h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #284a4b;
+  margin-bottom: 12px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid #284a4b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.desserts-ingredients-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: visible;
+  padding-right: 3px;
+}
+
+.desserts-ingredient-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.4;
+  width: 100%;
+}
+
+.desserts-ingredient-bullet {
+  color: black;
+  font-weight: bold;
+  min-width: 18px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.desserts-ingredient-text {
+  font-size: 22px;
+  color: black;
+  flex: 1;
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-weight: 550;
+  display: inline-block;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* COLUMN 2 - STEPS TO MAKE - SEMI-TRANSPARENT */
+.desserts-modal-steps {
+  width: 33.33%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* Semi-transparent background - shows image through */
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  overflow: visible;
+  padding: 12px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.desserts-modal-steps h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #284a4b;
+  margin-bottom: 12px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid #284a4b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.desserts-steps-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: visible;
+  padding-right: 3px;
+}
+
+.desserts-step-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.4;
+  width: 100%;
+}
+
+.desserts-step-number {
+  font-weight: 700;
+  color: black;
+  min-width: 26px;
+  font-size: 14px;
+  display: inline-block;
+  text-align: right;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.desserts-step-text {
+  flex: 1;
+  line-height: 1.4;
+  color: black;
+  font-size: 22px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  display: inline-block;
+  font-weight: 550;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* COLUMN 3 - VOICE INSTRUCTIONS - SEMI-TRANSPARENT */
+.desserts-modal-voice-container {
+  width: 33.33%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: visible;
+  padding-left: 5px;
+}
+
+.voice-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* Semi-transparent background - shows image through */
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 15px;
+  min-height: 0;
+  height: 100%;
+  overflow: visible;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.voice-panel h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #284a4b;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-bottom: 4px;
+  border-bottom: 2px solid #284a4b;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.voice-panel h3 i {
+  font-size: 1.2rem;
+}
+
+/* Progress Bar - Semi-transparent */
+.voice-progress {
+  margin-bottom: 15px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #284a4b, #3d6b6c);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #1e293b;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* Voice Controls */
+.voice-main-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.voice-main-btn.play {
+  background: rgba(40, 74, 75, 0.9);
+  color: white;
+}
+
+.voice-main-btn.play:hover {
+  background: #284a4b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(40, 74, 75, 0.3);
+}
+
+.voice-main-btn.stop {
+  background: rgba(220, 38, 38, 0.9);
+  color: white;
+}
+
+.voice-main-btn.stop:hover {
+  background: rgb(185, 28, 28);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(220, 38, 38, 0.3);
+}
+
+.step-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.step-btn {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.8);
+  color: #284a4b;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.step-btn:hover:not(:disabled) {
+  background: #284a4b;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(40, 74, 75, 0.2);
+  border-color: transparent;
+}
+
+.step-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #666;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Large Desktop (1400px+) */
+@media (min-width: 1400px) {
+  .desserts-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 25px;
+  }
+  
+  .desserts-modal {
+    max-width: 1700px;
+    height: 88vh;
+  }
+  
+  .desserts-modal-content {
+    padding: 20px 30px 25px 30px;
+    gap: 25px;
+  }
+  
+  .desserts-ingredient-text,
+  .desserts-step-text {
+    font-size: 15px;
+  }
+}
+
+/* Desktop (1025px - 1399px) */
+@media (min-width: 1025px) and (max-width: 1399px) {
+  .desserts-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .desserts-modal-content {
+    gap: 15px;
+    padding: 12px 18px 18px 18px;
+  }
+  
+  .desserts-ingredient-text,
+  .desserts-step-text {
+    font-size: 13px;
+  }
+  
+  .desserts-modal-ingredients h3,
+  .desserts-modal-steps h3,
+  .voice-panel h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  .desserts-ingredients-list,
+  .desserts-steps-list {
+    gap: 6px;
+  }
+  
+  .desserts-ingredient-item,
+  .desserts-step-item {
+    gap: 8px;
+  }
+  
+  .desserts-ingredient-bullet {
+    min-width: 16px;
+    font-size: 13px;
+  }
+  
+  .desserts-step-number {
+    min-width: 22px;
+    font-size: 13px;
+  }
+  
+  .voice-panel {
+    padding: 12px;
+  }
+  
+  .voice-main-btn {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .step-btn {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Tablet (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .desserts-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .desserts-technique-card {
+    height: 100px;
+  }
+  
+  .desserts-card-image {
+    width: 90px;
+  }
+  
+  .desserts-card-title {
+    font-size: 15px;
+  }
+  
+  .desserts-card-description {
+    font-size: 12px;
+    max-height: 2.4em;
+  }
+  
+  .desserts-modal {
+    height: 92vh;
+    width: 98%;
+  }
+  
+  .desserts-modal-header {
+    padding: 12px 18px 8px 18px;
+  }
+  
+  .desserts-modal-title h2 {
+    font-size: 1.5rem;
+  }
+  
+  .desserts-modal-content {
+    padding: 10px 15px 15px 15px;
+    gap: 12px;
+  }
+  
+  .desserts-modal-ingredients,
+  .desserts-modal-steps,
+  .desserts-modal-voice-container {
+    width: 33.33%;
+  }
+  
+  .desserts-modal-steps {
+    padding: 0 8px;
+  }
+  
+  .desserts-modal-ingredients h3,
+  .desserts-modal-steps h3,
+  .voice-panel h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
+  .desserts-ingredients-list,
+  .desserts-steps-list {
+    gap: 5px;
+  }
+  
+  .desserts-ingredient-item,
+  .desserts-step-item {
+    gap: 6px;
+  }
+  
+  .desserts-ingredient-bullet {
+    min-width: 14px;
+    font-size: 12px;
+  }
+  
+  .desserts-ingredient-text,
+  .desserts-step-text {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+  
+  .desserts-step-number {
+    min-width: 20px;
+    font-size: 12px;
+  }
+  
+  .voice-panel {
+    padding: 10px;
+  }
+  
+  .voice-panel h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
+  .voice-progress {
+    margin-bottom: 10px;
+  }
+  
+  .progress-bar {
+    height: 5px;
+  }
+  
+  .progress-info {
+    font-size: 0.7rem;
+  }
+  
+  .voice-main-btn {
+    padding: 8px;
+    font-size: 0.8rem;
+    gap: 5px;
+  }
+  
+  .step-btn {
+    padding: 5px 6px;
+    font-size: 0.7rem;
+    gap: 3px;
+  }
+  
+  .back-home-btn {
+    padding: 10px 25px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile Large (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .desserts-header {
+    padding: 25px 15px;
+  }
+  
+  .desserts-page-title {
+    font-size: 1.6rem;
+  }
+  
+  .desserts-page-description {
+    font-size: 0.9rem;
+    max-height: 2.6em;
+  }
+  
+  .desserts-main {
+    padding: 20px 15px;
+  }
+  
+  .desserts-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .desserts-technique-card {
+    height: auto;
+    flex-direction: column;
+  }
+  
+  .desserts-card-image {
+    width: 100%;
+    height: 120px;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .desserts-card-content {
+    padding: 10px;
+  }
+  
+  .desserts-card-title {
+    font-size: 15px;
+    max-height: 2.2em;
+  }
+  
+  .desserts-card-description {
+    font-size: 12px;
+    max-height: 2.2em;
+  }
+  
+  .desserts-modal {
+    height: 94vh;
+    width: 98%;
+  }
+  
+  .desserts-modal-header {
+    padding: 10px 15px 6px 15px;
+  }
+  
+  .desserts-modal-title h2 {
+    font-size: 1.3rem;
+  }
+  
+  .desserts-modal-close {
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+  
+  .desserts-modal-content {
+    padding: 8px 12px 12px 12px;
+    gap: 10px;
+  }
+  
+  .desserts-modal-ingredients,
+  .desserts-modal-steps,
+  .desserts-modal-voice-container {
+    width: 33.33%;
+  }
+  
+  .desserts-modal-steps {
+    padding: 0 5px;
+  }
+  
+  .desserts-modal-ingredients h3,
+  .desserts-modal-steps h3,
+  .voice-panel h3 {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    padding-bottom: 3px;
+  }
+  
+  .desserts-ingredients-list,
+  .desserts-steps-list {
+    gap: 4px;
+  }
+  
+  .desserts-ingredient-item,
+  .desserts-step-item {
+    gap: 5px;
+  }
+  
+  .desserts-ingredient-bullet {
+    min-width: 12px;
+    font-size: 11px;
+  }
+  
+  .desserts-ingredient-text,
+  .desserts-step-text {
+    font-size: 11px;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+  
+  .desserts-step-number {
+    min-width: 18px;
+    font-size: 11px;
+  }
+  
+  .voice-panel {
+    padding: 8px;
+  }
+  
+  .voice-panel h3 {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    gap: 4px;
+  }
+  
+  .voice-panel h3 i {
+    font-size: 0.9rem;
+  }
+  
+  .voice-progress {
+    margin-bottom: 8px;
+  }
+  
+  .progress-bar {
+    height: 4px;
+  }
+  
+  .progress-info {
+    font-size: 0.65rem;
+  }
+  
+  .voice-main-btn {
+    padding: 6px;
+    font-size: 0.7rem;
+    gap: 4px;
+  }
+  
+  .step-btn {
+    padding: 4px 5px;
+    font-size: 0.65rem;
+    gap: 2px;
+  }
+  
+  .back-home-btn {
+    padding: 8px 20px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile Small (Below 576px) */
+@media (max-width: 575px) {
+  .desserts-header {
+    padding: 20px 12px;
+  }
+  
+  .desserts-page-title {
+    font-size: 1.4rem;
+  }
+  
+  .desserts-page-description {
+    font-size: 0.8rem;
+    max-height: 2.4em;
+    margin-bottom: 10px;
+  }
+  
+  .desserts-main {
+    padding: 15px 12px;
+  }
+  
+  .desserts-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .desserts-technique-card {
+    height: auto;
+    flex-direction: column;
+  }
+  
+  .desserts-card-image {
+    width: 100%;
+    height: 100px;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .desserts-card-content {
+    padding: 8px;
+  }
+  
+  .desserts-card-title {
+    font-size: 13px;
+    max-height: 2.2em;
+  }
+  
+  .desserts-card-description {
+    font-size: 11px;
+    max-height: 2.2em;
+  }
+  
+  .desserts-modal {
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  
+  .desserts-modal-header {
+    padding: 8px 12px 5px 12px;
+  }
+  
+  .desserts-modal-title h2 {
+    font-size: 1.2rem;
+    max-width: 80%;
+  }
+  
+  .desserts-modal-close {
+    top: 6px;
+    right: 6px;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  
+  .desserts-modal-content {
+    padding: 6px 10px 10px 10px;
+    gap: 8px;
+  }
+  
+  .desserts-modal-ingredients,
+  .desserts-modal-steps,
+  .desserts-modal-voice-container {
+    width: 33.33%;
+  }
+  
+  .desserts-modal-steps {
+    padding: 0 4px;
+  }
+  
+  .desserts-modal-ingredients h3,
+  .desserts-modal-steps h3,
+  .voice-panel h3 {
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+    padding-bottom: 2px;
+  }
+  
+  .desserts-ingredients-list,
+  .desserts-steps-list {
+    gap: 3px;
+  }
+  
+  .desserts-ingredient-item,
+  .desserts-step-item {
+    gap: 4px;
+  }
+  
+  .desserts-ingredient-bullet {
+    min-width: 10px;
+    font-size: 10px;
+  }
+  
+  .desserts-ingredient-text,
+  .desserts-step-text {
+    font-size: 10px;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+  
+  .desserts-step-number {
+    min-width: 15px;
+    font-size: 10px;
+  }
+  
+  .voice-panel {
+    padding: 6px;
+  }
+  
+  .voice-panel h3 {
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+    gap: 3px;
+  }
+  
+  .voice-panel h3 i {
+    font-size: 0.8rem;
+  }
+  
+  .voice-progress {
+    margin-bottom: 5px;
+  }
+  
+  .progress-bar {
+    height: 3px;
+  }
+  
+  .progress-info {
+    font-size: 0.6rem;
+  }
+  
+  .voice-main-btn {
+    padding: 5px;
+    font-size: 0.65rem;
+    gap: 3px;
+  }
+  
+  .step-btn {
+    padding: 3px 4px;
+    font-size: 0.6rem;
+    gap: 2px;
+  }
+  
+  .back-home-btn {
+    padding: 6px 15px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Extra Small Mobile (Below 400px) */
+@media (max-width: 399px) {
+  .desserts-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .desserts-technique-card {
+    height: auto;
+  }
+  
+  .desserts-card-image {
+    height: 130px;
+  }
+  
+  .desserts-card-title {
+    font-size: 15px;
+    max-height: 2.2em;
+  }
+  
+  .desserts-modal-ingredients,
+  .desserts-modal-steps,
+  .desserts-modal-voice-container {
+    width: 33.33%;
+  }
+  
+  .desserts-ingredient-text,
+  .desserts-step-text {
+    font-size: 9px;
+  }
+  
+  .back-home-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.desserts-technique-card {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+/* Animation delays for cards - 20 desserts */
+.desserts-technique-card:nth-child(1) { animation-delay: 0.05s; }
+.desserts-technique-card:nth-child(2) { animation-delay: 0.1s; }
+.desserts-technique-card:nth-child(3) { animation-delay: 0.15s; }
+.desserts-technique-card:nth-child(4) { animation-delay: 0.2s; }
+.desserts-technique-card:nth-child(5) { animation-delay: 0.25s; }
+.desserts-technique-card:nth-child(6) { animation-delay: 0.3s; }
+.desserts-technique-card:nth-child(7) { animation-delay: 0.35s; }
+.desserts-technique-card:nth-child(8) { animation-delay: 0.4s; }
+.desserts-technique-card:nth-child(9) { animation-delay: 0.45s; }
+.desserts-technique-card:nth-child(10) { animation-delay: 0.5s; }
+.desserts-technique-card:nth-child(11) { animation-delay: 0.55s; }
+.desserts-technique-card:nth-child(12) { animation-delay: 0.6s; }
+.desserts-technique-card:nth-child(13) { animation-delay: 0.65s; }
+.desserts-technique-card:nth-child(14) { animation-delay: 0.7s; }
+.desserts-technique-card:nth-child(15) { animation-delay: 0.75s; }
+.desserts-technique-card:nth-child(16) { animation-delay: 0.8s; }
+.desserts-technique-card:nth-child(17) { animation-delay: 0.85s; }
+.desserts-technique-card:nth-child(18) { animation-delay: 0.9s; }
+.desserts-technique-card:nth-child(19) { animation-delay: 0.95s; }
+.desserts-technique-card:nth-child(20) { animation-delay: 1.0s; }
+
+.desserts-modal {
+  animation: modalFadeIn 0.3s ease-out;
+}
+  justify-content: center;
+}
+
+.header-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.desserts-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  line-height: 1.2;
+}
+
+.desserts-header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  font-weight: 300;
+  line-height: 1.4;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Search Bar */
+.search-bar-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.search-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.search-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 25px;
+  padding: 0 1rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.search-wrapper:focus-within {
+  border-color: #285B5A;
+  box-shadow: 0 4px 15px rgba(40, 91, 90, 0.15);
+}
+
+.search-icon {
+  color: #666;
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 1rem 0;
+  font-size: 1rem;
+  background: transparent;
+  color: #285B5A;
+}
+
+.clear-search-btn {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.clear-search-btn:hover {
+  color: #285B5A;
+}
+
+.search-submit-btn {
+  background: #285B5A;
+  color: white;
+  border: none;
+  padding: 0 2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.search-submit-btn:hover {
+  background: #1f4a49;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(40, 91, 90, 0.2);
+}
+
+/* ========== DESSERT CARDS WITH IMAGES ========== */
+
+/* Desserts Main Content */
+.desserts-main {
+  padding: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.desserts-container {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Desserts Grid */
+.desserts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Dessert Card */
+.dessert-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.dessert-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(40, 91, 90, 0.15);
+  border-color: #285B5A;
+}
+
+/* Dessert Card Image Styles */
+.dessert-card-image {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px 15px 0 0;
+}
+
+.dessert-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.dessert-card:hover .dessert-image {
+  transform: scale(1.1);
+}
+
+.dessert-card-content {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.dessert-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #285B5A;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-recipe-btn {
+  background: #285B5A;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.view-recipe-btn:hover {
+  background: #1f4a49;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(40, 91, 90, 0.2);
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: #666;
+}
+
+.no-results i {
+  font-size: 4rem;
+  color: #ddd;
+  margin-bottom: 1rem;
+}
+
+.no-results h3 {
+  color: #285B5A;
+  margin-bottom: 0.5rem;
+}
+
+.clear-search-button {
+  background: #285B5A;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.clear-search-button:hover {
+  background: #1f4a49;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(40, 91, 90, 0.2);
+}
+
+/* Simple Back Button Container */
+.back-button-container {
+  text-align: center;
+  padding: 2rem 0 0;
+  border-top: 1px solid #eaeaea;
+  margin-top: 2rem;
+}
+
+.back-home-btn {
+  background: #285B5A;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.back-home-btn:hover {
+  background: #1f4a49;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(40, 91, 90, 0.2);
+}
+
+/* ========== RECIPE MODAL STYLES ========== */
+
+.recipe-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.recipe-modal {
+  background: white;
+  border-radius: 20px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+  border: 2px solid #285B5A;
+  box-shadow: 0 10px 40px rgba(40, 91, 90, 0.3);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #285B5A, #1f4a49);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 18px 18px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  margin: 0;
+  color: white;
+  font-weight: 700;
+}
+
+.modal-close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+/* Instructions Toggle Container at Top */
+.instructions-toggle-container {
+  padding: 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-bottom: 2px solid #e0e0e0;
+  border-radius: 0 0 15px 15px;
+  overflow: hidden;
+  margin: 0 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Instructions Toggle Tabs */
+.instructions-toggle {
+  display: flex;
+  background: transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 0.5rem;
+}
+
+.instruction-tab {
+  flex: 1;
+  padding: 1.2rem 1.5rem;
+  background: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #666;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  margin: 0 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.instruction-tab:hover {
+  background: #f0f7ff;
+  color: #285B5A;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(40, 91, 90, 0.15);
+  border-color: #c8e6ff;
+}
+
+.instruction-tab.active {
+  background: linear-gradient(135deg, #285B5A 0%, #1f4a49 100%);
+  color: white;
+  border-color: #285B5A;
+  box-shadow: 0 6px 20px rgba(40, 91, 90, 0.25);
+  transform: translateY(-2px);
+}
+
+.instruction-tab.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  border-radius: 2px 2px 0 0;
+}
+
+.instruction-tab i {
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.instruction-tab.active i {
+  color: white;
+  transform: scale(1.1);
+}
+
+.instruction-tab:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+.instruction-tab:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+.modal-content {
+  padding: 2rem;
+}
+
+.recipe-section {
+  margin-bottom: 2.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.section-header {
+  background: #f8f9fa;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-header h3 {
+  color: #285B5A;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.section-content {
+  padding: 1.5rem;
+}
+
+/* Ingredients List */
+.ingredients-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ingredients-list li {
+  padding: 0.8rem 0;
+  padding-left: 2.5rem;
+  position: relative;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+.ingredients-list li:before {
+  content: "•";
+  color: #285B5A;
+  font-size: 2rem;
+  position: absolute;
+  left: 0.8rem;
+  top: 0.5rem;
+}
+
+.ingredients-list li:last-child {
+  border-bottom: none;
+}
+
+/* Instructions List */
+.instructions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.instructions-list li {
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #285B5A;
+}
+
+.instruction-step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.step-number {
+  background: #285B5A;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.step-text {
+  flex: 1;
+  font-size: 1rem;
+  color: #333;
+  padding-top: 0.2rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eaeaea;
+}
+
+.close-modal-btn {
+  background: #285B5A;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.close-modal-btn:hover {
+  background: #1f4a49;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(40, 91, 90, 0.2);
+}
+
+/* ========== VOICE PLAYER STYLES ========== */
+
+.voice-player {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 15px;
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.voice-player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #eaeaea;
+}
+
+.voice-recipe-info h4 {
+  color: #285B5A;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Voice Status - Additional Styles */
+.voice-status {
+  display: flex;
+  align-items: center;
+}
+
+.voice-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.voice-status-indicator.playing {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.voice-status-indicator.paused {
+  background: #f8f9fa;
+  color: #666;
+  border: 1px solid #e0e0e0;
+}
+
+.voice-status-indicator i {
+  font-size: 1rem;
+}
+
+.voice-controls-main {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e0e0e0;
+}
+
+.voice-progress-container {
+  margin-bottom: 1.5rem;
+}
+
+.voice-progress-bar {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 0.8rem;
+}
+
+.voice-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #285B5A, #1f4a49);
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+
+.voice-progress-info {
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.voice-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.voice-main-btn {
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+  min-width: 160px;
+  justify-content: center;
+}
+
+.voice-main-btn.play {
+  background: linear-gradient(135deg, #285B5A, #1f4a49);
+  color: white;
+  box-shadow: 0 4px 15px rgba(40, 91, 90, 0.3);
+}
+
+.voice-main-btn.play:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(40, 91, 90, 0.4);
+}
+
+.voice-main-btn.stop {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.voice-main-btn.stop:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+}
+
+/* Step Navigation Buttons */
+.step-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.step-nav-btn {
+  padding: 0.6rem 1.2rem;
+  border: 2px solid #285B5A;
+  background: white;
+  color: #285B5A;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.step-nav-btn:hover:not(:disabled) {
+  background: #285B5A;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.step-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: #ccc;
+  color: #999;
+}
+
+.step-nav-btn.prev i {
+  margin-right: 0.3rem;
+}
+
+.step-nav-btn.next i {
+  margin-left: 0.3rem;
+}
+
+.voice-steps-overview {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e0e0e0;
+}
+
+.voice-steps-overview h5 {
+  color: #285B5A;
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.steps-count {
+  background: #285B5A;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.steps-container {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+  border: 1px solid #eaeaea;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.step-item:hover {
+  border-color: #285B5A;
+  background: #f8f9fa;
+}
+
+.step-item.completed {
+  background: #f0f9ff;
+  border-color: #b3e0ff;
+}
+
+.step-item.current {
+  background: linear-gradient(135deg, rgba(40, 91, 90, 0.1), rgba(31, 74, 73, 0.05));
+  border-color: #285B5A;
+  box-shadow: 0 2px 8px rgba(40, 91, 90, 0.1);
+}
+
+.step-number-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #666;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.step-item.completed .step-number-circle {
+  background: #285B5A;
+  color: white;
+}
+
+.step-item.current .step-number-circle {
+  background: #285B5A;
+  color: white;
+  animation: pulse 2s infinite;
+}
+
+/* Step Play Button */
+.step-play-btn {
+  color: #285B5A;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-item:hover .step-play-btn {
+  color: #1f4a49;
+  background: rgba(40, 91, 90, 0.1);
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  font-weight: 600;
+  color: #285B5A;
+  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
+}
+
+.step-text-preview {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Scrollbar styling for steps container */
+.steps-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.steps-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.steps-container::-webkit-scrollbar-thumb {
+  background: #285B5A;
+  border-radius: 3px;
+}
+
+.steps-container::-webkit-scrollbar-thumb:hover {
+  background: #1f4a49;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet Styles */
+@media (min-width: 768px) {
+  .desserts-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .desserts-header h1 {
+    font-size: 3rem;
+  }
+  
+  .desserts-header p {
+    font-size: 1.2rem;
+  }
+  
+  /* Voice Player Responsive */
+  .voice-buttons {
+    flex-direction: row;
+  }
+  
+  .step-navigation {
+    flex-direction: row;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1025px) {
+  .desserts-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .desserts-main {
+    padding: 3rem 2rem;
+  }
+}
+
+/* Extra Large Screens */
+@media (min-width: 1280px) {
+  .desserts-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+  .desserts-header {
+    padding: 2rem 1rem;
+    margin-top: 0;
+    min-height: 180px;
+  }
+
+  .desserts-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .desserts-header p {
+    font-size: 1rem;
+  }
+
+  .search-form {
+    flex-direction: column;
+  }
+  
+  .search-wrapper {
+    width: 100%;
+  }
+  
+  .search-submit-btn {
+    width: 100%;
+  }
+
+  .desserts-container {
+    padding: 1rem;
+  }
+
+  .dessert-card-image {
+    height: 180px;
+  }
+
+  .dessert-name {
+    font-size: 1rem;
+    min-height: 50px;
+  }
+  
+  .back-button-container {
+    padding: 1.5rem 0 0;
+  }
+  
+  /* Modal Responsive */
+  .recipe-modal {
+    max-height: 85vh;
+    border-width: 1px;
+  }
+  
+  .modal-content {
+    padding: 1.5rem;
+  }
+  
+  .instructions-toggle-container {
+    margin: 0 1rem;
+    border-radius: 0 0 12px 12px;
+  }
+  
+  .instruction-tab {
+    padding: 1rem;
+    font-size: 0.95rem;
+    gap: 0.6rem;
+  }
+  
+  .instruction-tab i {
+    font-size: 1.1rem;
+  }
+  
+  .modal-title {
+    font-size: 1.2rem;
+  }
+  
+  .section-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .ingredients-list li,
+  .step-text,
+  .voice-step-text {
+    font-size: 0.95rem;
+  }
+  
+  /* Voice Player Responsive */
+  .voice-player-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .voice-buttons {
+    flex-direction: column;
+  }
+  
+  .voice-main-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .step-navigation {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .step-nav-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8rem;
+  }
+  
+  .steps-container {
+    max-height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .desserts-header {
+    margin-top: 0;
+    padding: 1.5rem 0.5rem;
+  }
+
+  .desserts-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .desserts-header p {
+    font-size: 0.9rem;
+  }
+
+  .dessert-card-content {
+    padding: 1rem;
+  }
+
+  .dessert-card-image {
+    height: 160px;
+  }
+
+  .dessert-name {
+    font-size: 0.95rem;
+    min-height: 45px;
+    margin-bottom: 1rem;
+  }
+
+  .view-recipe-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .back-home-btn {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Modal Small Screens */
+  .modal-content {
+    padding: 1rem;
+  }
+  
+  .modal-header {
+    padding: 1rem;
+  }
+  
+  .modal-title {
+    font-size: 1.1rem;
+  }
+  
+  .section-header h3 {
+    font-size: 1rem;
+  }
+  
+  .ingredients-list li,
+  .step-text,
+  .voice-step-text {
+    font-size: 0.9rem;
+  }
+  
+  .modal-actions {
+    padding-top: 1rem;
+  }
+  
+  .close-modal-btn {
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .instruction-step {
+    gap: 0.7rem;
+  }
+  
+  .step-number {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+  
+  /* Voice Player Small Screens */
+  .voice-player {
+    padding: 1rem;
+  }
+  
+  .voice-controls-main {
+    padding: 1rem;
+  }
+  
+  .voice-steps-overview {
+    padding: 1rem;
+  }
+  
+  .step-item {
+    padding: 0.8rem;
+  }
+  
+  .step-number-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+  
+  .step-nav-btn {
+    font-size: 0.85rem;
+    padding: 0.7rem;
+  }
+  
+  .step-play-btn {
+    padding: 0.4rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Instructions Toggle Small Screens */
+  .instruction-tab {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+    flex-direction: column;
+  }
+  
+  .instruction-tab i {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .instructions-toggle {
+    margin: 0.3rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .desserts-grid {
+    gap: 1rem;
+  }
+  
+  .dessert-card {
+    padding: 0.5rem;
+  }
+  
+  .dessert-card-image {
+    height: 140px;
+  }
+  
+  .dessert-name {
+    font-size: 0.9rem;
+    min-height: 40px;
+  }
+  
+  .view-recipe-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .back-home-btn {
+    font-size: 0.85rem;
+    padding: 0.7rem 1rem;
+  }
+  
+  .modal-title {
+    font-size: 1rem;
+  }
+  
+  .section-header h3 {
+    font-size: 0.95rem;
+  }
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(40, 91, 90, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(40, 91, 90, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(40, 91, 90, 0);
+  }
+}
+
+@keyframes checkmarkAppear {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes currentStepPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(40, 91, 90, 0.1);
+  }
+  70% {
+    box-shadow: 0 0 0 5px rgba(40, 91, 90, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(40, 91, 90, 0);
+  }
+}
+
+.dessert-card {
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+}
+
+/* Add delays for each card */
+.dessert-card:nth-child(1) { animation-delay: 0.05s; }
+.dessert-card:nth-child(2) { animation-delay: 0.1s; }
+.dessert-card:nth-child(3) { animation-delay: 0.15s; }
+.dessert-card:nth-child(4) { animation-delay: 0.2s; }
+.dessert-card:nth-child(5) { animation-delay: 0.25s; }
+.dessert-card:nth-child(6) { animation-delay: 0.3s; }
+.dessert-card:nth-child(7) { animation-delay: 0.35s; }
+.dessert-card:nth-child(8) { animation-delay: 0.4s; }
+.dessert-card:nth-child(9) { animation-delay: 0.45s; }
+.dessert-card:nth-child(10) { animation-delay: 0.5s; }
+.dessert-card:nth-child(11) { animation-delay: 0.55s; }
+.dessert-card:nth-child(12) { animation-delay: 0.6s; }
+.dessert-card:nth-child(13) { animation-delay: 0.65s; }
+.dessert-card:nth-child(14) { animation-delay: 0.7s; }
+.dessert-card:nth-child(15) { animation-delay: 0.75s; }
+.dessert-card:nth-child(16) { animation-delay: 0.8s; }
+.dessert-card:nth-child(17) { animation-delay: 0.85s; }
+.dessert-card:nth-child(18) { animation-delay: 0.9s; }
+.dessert-card:nth-child(19) { animation-delay: 0.95s; }
+.dessert-card:nth-child(20) { animation-delay: 1.0s; }
+
+/* Back button animation */
+.back-button-container {
+  animation: fadeInUp 0.8s ease forwards;
+  animation-delay: 1.5s;
+  opacity: 0;
+}
+
+/* Smooth scroll */
+.recipe-modal {
+  scroll-behavior: smooth;
+}
+
+.step-item.completed .step-number-circle {
+  animation: checkmarkAppear 0.5s ease forwards;
+}
+
+.step-item.current {
+  animation: currentStepPulse 2s infinite;
+}
+
+/* Voice button loading state */
+.voice-main-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}

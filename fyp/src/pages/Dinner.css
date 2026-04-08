@@ -1,0 +1,477 @@
+/* Dinner.css - Exact copy of Lunch.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f8fafc;
+}
+
+/* ===== DINNER PAGE ===== */
+.dinner-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* ===== HEADER ===== */
+.dinner-header {
+  background: linear-gradient(135deg, #284a4b, #1d3a3b);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 120px;
+}
+
+.dinner-header-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.dinner-page-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dinner-page-description {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  max-height: 3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/* ===== MAIN CONTENT ===== */
+.dinner-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* ===== CATEGORY TABS ===== */
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.category-tab {
+  background: #f8f9fa;
+  border: 2px solid #e0e0e0;
+  border-radius: 50px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 100px;
+  justify-content: center;
+}
+
+.category-tab:hover {
+  background: #284a4b;
+  color: white;
+  border-color: #284a4b;
+  transform: translateY(-2px);
+}
+
+.category-tab.active {
+  background: #284a4b;
+  color: white;
+  border-color: #284a4b;
+  box-shadow: 0 4px 15px rgba(40, 74, 75, 0.2);
+}
+
+.category-icon {
+  font-size: 1.2rem;
+}
+
+.category-name {
+  font-size: 0.95rem;
+}
+
+/* ===== DINNER GRID ===== */
+.dinner-grid-section {
+  width: 100%;
+}
+
+.dinner-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Dinner Category Card */
+.dinner-category-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  height: 120px;
+  width: 100%;
+}
+
+.dinner-category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  border-color: #284a4b;
+}
+
+.dinner-card-image {
+  width: 120px;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  border-right: 1px solid #e2e8f0;
+}
+
+.dinner-card-content {
+  padding: 15px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.dinner-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.dinner-card-description {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  max-height: 2.8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* Explore Button */
+.dinner-card-button {
+  display: flex;
+  align-items: center;
+  color: #284a4b;
+  font-weight: 500;
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+
+.dinner-card-button svg {
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+.dinner-category-card:hover .dinner-card-button {
+  color: #1d3a3b;
+}
+
+.dinner-category-card:hover .dinner-card-button svg {
+  transform: translateX(5px);
+}
+
+/* ===== BACK BUTTON ===== */
+.back-button-container {
+  max-width: 1400px;
+  margin: 0 auto 40px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.back-home-btn {
+  background: #284a4b;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(40, 74, 75, 0.2);
+}
+
+.back-home-btn:hover {
+  background: #1d3a3b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(40, 74, 75, 0.3);
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Large Desktop (1400px+) */
+@media (min-width: 1400px) {
+  .dinner-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 25px;
+  }
+  
+  .category-tab {
+    min-width: 120px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Desktop (1025px - 1399px) */
+@media (min-width: 1025px) and (max-width: 1399px) {
+  .dinner-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablet (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .dinner-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .dinner-category-card {
+    height: 100px;
+  }
+  
+  .dinner-card-image {
+    width: 90px;
+  }
+  
+  .dinner-card-title {
+    font-size: 15px;
+  }
+  
+  .dinner-card-description {
+    font-size: 12px;
+    max-height: 2.4em;
+  }
+  
+  .category-tabs {
+    gap: 8px;
+  }
+  
+  .category-tab {
+    padding: 10px 20px;
+    min-width: 80px;
+  }
+  
+  .back-home-btn {
+    padding: 10px 25px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile Large (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .dinner-header {
+    padding: 25px 15px;
+  }
+  
+  .dinner-page-title {
+    font-size: 1.6rem;
+  }
+  
+  .dinner-page-description {
+    font-size: 0.9rem;
+    max-height: 2.6em;
+  }
+  
+  .dinner-main {
+    padding: 20px 15px;
+  }
+  
+  .dinner-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .dinner-category-card {
+    height: auto;
+    flex-direction: column;
+  }
+  
+  .dinner-card-image {
+    width: 100%;
+    height: 120px;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .dinner-card-content {
+    padding: 10px;
+  }
+  
+  .dinner-card-title {
+    font-size: 14px;
+  }
+  
+  .dinner-card-description {
+    font-size: 11px;
+    max-height: 2.2em;
+  }
+  
+  .category-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .category-tab {
+    flex-shrink: 0;
+    min-width: 80px;
+    padding: 8px 15px;
+  }
+  
+  .back-home-btn {
+    padding: 8px 20px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile Small (Below 576px) */
+@media (max-width: 575px) {
+  .dinner-header {
+    padding: 20px 12px;
+  }
+  
+  .dinner-page-title {
+    font-size: 1.4rem;
+  }
+  
+  .dinner-page-description {
+    font-size: 0.8rem;
+    max-height: 2.4em;
+    margin-bottom: 10px;
+  }
+  
+  .dinner-main {
+    padding: 15px 12px;
+  }
+  
+  .dinner-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .dinner-category-card {
+    height: auto;
+    flex-direction: column;
+  }
+  
+  .dinner-card-image {
+    width: 100%;
+    height: 100px;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .dinner-card-content {
+    padding: 8px;
+  }
+  
+  .dinner-card-title {
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+  
+  .dinner-card-description {
+    font-size: 10px;
+    max-height: 2.2em;
+    margin-bottom: 5px;
+  }
+  
+  .dinner-card-button {
+    font-size: 11px;
+  }
+  
+  .category-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .category-tab {
+    flex-shrink: 0;
+    min-width: 70px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .back-home-btn {
+    padding: 8px 15px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Extra Small Mobile (Below 400px) */
+@media (max-width: 399px) {
+  .dinner-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .dinner-category-card {
+    height: auto;
+    flex-direction: row;
+    height: 100px;
+  }
+  
+  .dinner-card-image {
+    width: 90px;
+    height: 100px;
+  }
+  
+  .dinner-card-title {
+    font-size: 14px;
+  }
+  
+  .back-home-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

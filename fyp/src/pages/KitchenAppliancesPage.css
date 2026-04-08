@@ -1,0 +1,1570 @@
+/* ===== KITCHEN APPLIANCES PAGE CSS ===== */
+/* UPDATED WITH ALL NEW SECTIONS */
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f8fafc;
+  overflow-x: hidden;
+}
+
+/* MAIN CONTAINER */
+.kap-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0;
+}
+
+.kap-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.kap-sidebar {
+  width: 280px;
+  background: #284a4b;
+  border-right: 1px solid #e2e8f0;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 300vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.kap-sidebar-header {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.2);
+}
+
+.kap-sidebar-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 15px;
+  margin-top: 140px;
+  text-align: center;
+}
+
+.kap-sidebar-subtitle {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  text-align: center;
+}
+
+/* APPLIANCE WRAPPER */
+.kap-appliance-wrapper {
+  margin-bottom: 10px;
+}
+
+/* APPLIANCE DROPDOWN */
+.kap-appliance-dropdown {
+  padding: 14px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.kap-appliance-dropdown:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.kap-appliance-dropdown.kap-expanded {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #4FD1C5;
+  margin-bottom: 5px;
+}
+
+.kap-appliance-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.kap-appliance-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+}
+
+.kap-dropdown-arrow {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  transition: transform 0.3s ease;
+}
+
+.kap-appliance-dropdown.kap-expanded .kap-dropdown-arrow {
+  transform: rotate(90deg);
+}
+
+.kap-company-count {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+/* TYPES LIST */
+.kap-types-list {
+  margin-left: 10px;
+  padding-left: 15px;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+  margin-top: 8px;
+  margin-bottom: 8px;
+  animation: fadeIn 0.3s ease;
+}
+
+.kap-type-item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  margin-bottom: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.kap-type-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(3px);
+}
+
+.kap-type-item.kap-type-selected {
+  background: rgba(79, 209, 197, 0.2);
+  border-color: #4FD1C5;
+}
+
+.kap-type-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ===== MAIN CONTENT ===== */
+.kap-main {
+  flex: 1;
+  padding: 30px 40px;
+  min-height: auto;
+  height: auto;
+  background: #f8fafc;
+  overflow-y: auto;
+  margin-top: 120px;
+}
+
+/* WELCOME SCREEN */
+.kap-welcome-screen {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.kap-welcome-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-top: 130px;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.kap-welcome-text {
+  font-size: 18px;
+  color: #64748b;
+  max-width: 700px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.kap-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.kap-stat-item {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  min-width: 150px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.kap-stat-item h3 {
+  font-size: 36px;
+  color: #284a4b;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.kap-stat-item p {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* COMPANIES SCREEN */
+.kap-companies-screen {
+  margin-top: 20px;
+}
+
+.kap-companies-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 15px;
+  letter-spacing: -0.5px;
+}
+
+.kap-companies-description {
+  font-size: 18px;
+  color: #64748b;
+  max-width: 700px;
+  margin-bottom: 20px;
+}
+
+.kap-companies-instruction {
+  font-size: 16px;
+  color: #94a3b8;
+  background: #f1f5f9;
+  padding: 20px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 30px;
+}
+
+/* COMPANIES GRID */
+.kap-companies-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.kap-company-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.kap-company-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border-color: #4FD1C5;
+}
+
+.kap-company-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.kap-company-card-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.kap-company-model-count {
+  font-size: 13px;
+  color: white;
+  background: #4FD1C5;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.kap-company-card-description {
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* COMPANY MODELS DROPDOWN */
+.kap-company-models-dropdown {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #f1f5f9;
+}
+
+.kap-models-dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.kap-models-dropdown-header h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.kap-models-count {
+  font-size: 14px;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+.kap-models-dropdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.kap-model-dropdown-item {
+  padding: 15px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.kap-model-dropdown-item:hover {
+  background: white;
+  border-color: #4FD1C5;
+  transform: translateX(5px);
+}
+
+.kap-model-dropdown-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.kap-model-dropdown-info h5 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.kap-model-dropdown-type {
+  font-size: 12px;
+  background: #e2e8f0;
+  color: #475569;
+  padding: 3px 8px;
+  border-radius: 15px;
+  font-weight: 600;
+}
+
+.kap-model-dropdown-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #059669;
+  margin-bottom: 10px;
+}
+
+.kap-model-dropdown-view {
+  width: 100%;
+  padding: 10px;
+  background: #284a4b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.kap-model-dropdown-view:hover {
+  background: #1e3a3b;
+}
+
+/* MODELS SCREEN */
+.kap-models-screen {
+  margin-top: 20px;
+}
+
+/* MODELS HEADER */
+.kap-models-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.kap-models-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+.kap-models-description {
+  font-size: 18px;
+  color: #64748b;
+  max-width: 700px;
+}
+
+.kap-models-header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.kap-change-appliance-btn,
+.kap-change-company-btn {
+  padding: 10px 20px;
+  background: #e2e8f0;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.kap-change-appliance-btn:hover,
+.kap-change-company-btn:hover {
+  background: #cbd5e1;
+}
+
+/* TYPE TABS */
+.kap-type-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+}
+
+.kap-type-tab {
+  padding: 10px 20px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.kap-type-tab:hover {
+  background: #f1f5f9;
+}
+
+.kap-type-tab.kap-tab-active {
+  background: #284a4b;
+  border-color: #284a4b;
+  color: white;
+}
+
+/* MODELS GRID */
+.kap-models-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+/* NO MODELS */
+.kap-no-models {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.kap-no-models p {
+  font-size: 16px;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+.kap-show-all-btn {
+  padding: 10px 20px;
+  background: #284a4b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.kap-show-all-btn:hover {
+  background: #1e3a3b;
+}
+
+/* ===== MODEL CARD ===== */
+.kap-model-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  height: 150px;
+  display: flex;
+}
+
+.kap-model-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  border-color: #6366f1;
+}
+
+.kap-model-image-container {
+  width: 200px;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.kap-model-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-right: 1px solid #e2e8f0;
+}
+
+.kap-model-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.kap-model-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  gap: 10px;
+}
+
+.kap-model-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.kap-model-type-tag {
+  font-size: 12px;
+  background: #e2e8f0;
+  color: #475569;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.kap-model-capacity {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.kap-model-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #059669;
+  margin-bottom: 10px;
+}
+
+.kap-model-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.kap-feature-tag {
+  font-size: 12px;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.kap-view-details-btn {
+  padding: 8px 16px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.kap-view-details-btn:hover {
+  background: #2563eb;
+}
+
+/* ===== MODAL ===== */
+.kap-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.kap-modal {
+  background: white;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+}
+
+.kap-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #f1f5f9;
+  color: #64748b;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.kap-modal-close:hover {
+  background: #e2e8f0;
+  transform: rotate(90deg);
+}
+
+/* MODAL HEADER */
+.kap-modal-header {
+  padding: 30px 30px 15px 30px;
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.kap-modal-title h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 5px;
+  letter-spacing: -0.5px;
+}
+
+.kap-modal-subtitle {
+  font-size: 16px;
+  color: #284a4b;
+  font-weight: 500;
+}
+
+/* MODAL CONTENT */
+.kap-modal-content {
+  padding: 0;
+}
+
+.kap-modal-layout {
+  display: flex;
+  min-height: 500px;
+}
+
+/* LEFT SIDE */
+.kap-modal-left {
+  flex: 0 0 65%;
+  padding: 25px 30px;
+  border-right: 1px solid #e2e8f0;
+  overflow-y: auto;
+  max-height: 70vh;
+}
+
+.kap-modal-details {
+  width: 100%;
+}
+
+.kap-detail-section {
+  margin-bottom: 30px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.kap-detail-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.kap-detail-section h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+/* STEP BY STEP GUIDE */
+.kap-step-by-step-guide {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.kap-step {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border-left: 4px solid #4FD1C5;
+}
+
+.kap-step-number {
+  width: 40px;
+  height: 40px;
+  background: #284a4b;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.kap-step-content {
+  flex: 1;
+}
+
+.kap-step-content h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.kap-step-list {
+  margin-left: 20px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.kap-step-list li {
+  margin-bottom: 8px;
+}
+
+/* SPECIFICATIONS GRID */
+.kap-specifications-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.kap-spec-item {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.kap-spec-item:hover {
+  border-color: #4FD1C5;
+  transform: translateY(-2px);
+}
+
+.kap-spec-label {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+  text-transform: capitalize;
+}
+
+.kap-spec-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* FEATURES LIST */
+.kap-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.kap-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px;
+  background: #f0f9ff;
+  border-radius: 10px;
+  border-left: 4px solid #3b82f6;
+}
+
+.kap-feature-check {
+  color: #3b82f6;
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 2px;
+}
+
+.kap-feature-details {
+  flex: 1;
+}
+
+.kap-feature-text {
+  font-size: 16px;
+  color: #1e293b;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.kap-feature-description {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* MAINTENANCE SCHEDULE */
+.kap-maintenance-schedule {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.kap-maintenance-item {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.kap-maintenance-item h4 {
+  font-size: 16px;
+  color: #1e293b;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.kap-maintenance-item p {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.kap-maintenance-note {
+  margin-top: 15px;
+  padding: 15px;
+  background: #fef3c7;
+  border-radius: 10px;
+  border-left: 4px solid #f59e0b;
+  color: #92400e;
+  font-size: 15px;
+}
+
+/* TROUBLESHOOTING GUIDE */
+.kap-troubleshooting-guide {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.kap-trouble-item {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.kap-trouble-item h4 {
+  font-size: 16px;
+  color: #1e293b;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.kap-trouble-item p {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* ENERGY TIPS */
+.kap-energy-tips {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.kap-energy-tip {
+  background: #f0fdf4;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #bbf7d0;
+}
+
+.kap-energy-tip h4 {
+  font-size: 16px;
+  color: #166534;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.kap-energy-tip p {
+  font-size: 14px;
+  color: #166534;
+  line-height: 1.5;
+}
+
+.kap-energy-consumption {
+  margin-top: 15px;
+  padding: 15px;
+  background: #dbeafe;
+  border-radius: 10px;
+  border-left: 4px solid #3b82f6;
+  color: #1e40af;
+  font-size: 15px;
+}
+
+/* SAFETY GUIDELINES */
+.kap-safety-guidelines {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.kap-safety-item {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.kap-safety-content {
+  flex: 1;
+}
+
+.kap-safety-content h4 {
+  font-size: 16px;
+  color: #1e293b;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.kap-safety-content p {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* RIGHT SIDE */
+.kap-modal-right {
+  flex: 0 0 35%;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.kap-modal-image-container {
+  width: 100%;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.kap-modal-image-large {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.3s ease;
+}
+
+.kap-modal-image-large:hover {
+  transform: scale(1.05);
+}
+
+/* QUICK INFO */
+.kap-quick-info {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 25px;
+  border: 2px solid #e2e8f0;
+}
+
+.kap-quick-info h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.kap-quick-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.kap-quick-info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px dashed #cbd5e1;
+}
+
+.kap-quick-info-item:last-child {
+  border-bottom: none;
+}
+
+.kap-quick-label {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.kap-quick-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  text-align: right;
+  max-width: 180px;
+  word-break: break-word;
+}
+
+.kap-quick-value.price {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #86efac;
+}
+
+/* WARRANTY INFO */
+.kap-warranty-info {
+  background: #f0f9ff;
+  border-radius: 12px;
+  padding: 25px;
+  border: 2px solid #dbeafe;
+}
+
+.kap-warranty-info h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #dbeafe;
+}
+
+.kap-warranty-content p {
+  font-size: 15px;
+  color: #1e40af;
+  margin-bottom: 15px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.kap-warranty-tips {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #dbeafe;
+}
+
+.kap-warranty-tips h4 {
+  font-size: 16px;
+  color: #1e293b;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.kap-warranty-tips ul {
+  margin-left: 20px;
+  color: #475569;
+}
+
+.kap-warranty-tips li {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* BUYING GUIDE */
+.kap-buying-guide {
+  background: #faf5ff;
+  border-radius: 12px;
+  padding: 25px;
+  border: 2px solid #e9d5ff;
+}
+
+.kap-buying-guide h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e9d5ff;
+}
+
+.kap-buying-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.kap-buying-tip {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e9d5ff;
+}
+
+.kap-buying-tip h4 {
+  font-size: 16px;
+  color: #7c3aed;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.kap-buying-tip ul {
+  margin-left: 20px;
+  color: #475569;
+}
+
+.kap-buying-tip li {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* MODAL FOOTER */
+.kap-modal-footer {
+  padding: 20px 30px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.kap-modal-print-btn,
+.kap-modal-save-btn,
+.kap-modal-close-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.kap-modal-print-btn {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.kap-modal-print-btn:hover {
+  background: #cbd5e1;
+}
+
+.kap-modal-save-btn {
+  background: #3b82f6;
+  color: white;
+}
+
+.kap-modal-save-btn:hover {
+  background: #2563eb;
+}
+
+.kap-modal-close-btn {
+  background: #284a4b;
+  color: white;
+}
+
+.kap-modal-close-btn:hover {
+  background: #1e3a3b;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .kap-models-grid,
+  .kap-companies-grid,
+  .kap-specifications-grid,
+  .kap-maintenance-schedule,
+  .kap-troubleshooting-guide,
+  .kap-energy-tips,
+  .kap-safety-guidelines {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .kap-modal-layout {
+    flex-direction: column;
+  }
+  
+  .kap-modal-left {
+    flex: 0 0 100%;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+    max-height: 50vh;
+  }
+  
+  .kap-modal-right {
+    flex: 0 0 100%;
+    padding: 25px;
+  }
+  
+  .kap-modal-image-container {
+    height: 250px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .kap-layout {
+    flex-direction: column;
+  }
+  
+  .kap-sidebar {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+  
+  .kap-sidebar-title {
+    margin-top: 20px;
+  }
+  
+  .kap-main {
+    padding: 20px;
+  }
+  
+  .kap-welcome-title,
+  .kap-models-title,
+  .kap-select-title {
+    margin-top: 20px;
+    font-size: 28px;
+  }
+  
+  .kap-model-card {
+    height: auto;
+    flex-direction: column;
+  }
+  
+  .kap-model-image-container {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .kap-modal {
+    width: 98%;
+    max-height: 98vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .kap-welcome-title,
+  .kap-models-title,
+  .kap-select-title {
+    font-size: 24px;
+  }
+  
+  .kap-modal-title h2 {
+    font-size: 24px;
+  }
+  
+  .kap-modal-subtitle {
+    font-size: 14px;
+  }
+  
+  .kap-modal-left,
+  .kap-modal-right {
+    padding: 20px;
+  }
+  
+  .kap-stats {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .kap-stat-item {
+    min-width: auto;
+  }
+  
+  .kap-type-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .kap-models-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .kap-models-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .kap-modal-footer {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .kap-container {
+    padding: 10px;
+  }
+  
+  .kap-main {
+    padding: 15px;
+  }
+  
+  .kap-sidebar {
+    padding: 15px;
+  }
+  
+  .kap-welcome-title,
+  .kap-models-title,
+  .kap-select-title {
+    font-size: 20px;
+  }
+  
+  .kap-model-card {
+    height: auto;
+  }
+  
+  .kap-modal {
+    width: 100%;
+    border-radius: 10px;
+    max-height: 100vh;
+  }
+  
+  .kap-modal-header {
+    padding: 20px 15px 10px 15px;
+  }
+  
+  .kap-modal-left,
+  .kap-modal-right {
+    padding: 15px;
+  }
+  
+  .kap-step {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .kap-step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+}
+
+/* SCROLLBAR STYLING */
+.kap-sidebar::-webkit-scrollbar,
+.kap-modal-left::-webkit-scrollbar {
+  width: 6px;
+}
+
+.kap-sidebar::-webkit-scrollbar-track,
+.kap-modal-left::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.kap-sidebar::-webkit-scrollbar-thumb,
+.kap-modal-left::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.kap-sidebar::-webkit-scrollbar-thumb:hover,
+.kap-modal-left::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.kap-model-card,
+.kap-appliance-dropdown,
+.kap-company-card,
+.kap-company-item {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* LOADING STATES */
+.kap-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  font-size: 18px;
+  color: #64748b;
+}
+
+/* UTILITY CLASSES */
+.text-primary {
+  color: #284a4b;
+}
+
+.text-secondary {
+  color: #64748b;
+}
+
+.bg-primary {
+  background: #284a4b;
+}
+
+.bg-secondary {
+  background: #f8fafc;
+}
+.back-home-container {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.back-home-btn {
+  background-color: #284a4b;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.soups-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2),
+    rgba(36, 138, 139, 0.4),  /* #248a8b with 40% opacity */
+    rgba(0, 0, 0, 0.3)
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Columns - light background for readability */
+.soups-modal-ingredients,
+.soups-modal-steps,
+.voice-panel {
+  background: rgba(0, 0, 0, 0.3);  /* Dark background */
+  backdrop-filter: blur(2px);       /* Halka blur for readability */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Text - pure white with shadow */
+.soups-ingredient-text,
+.soups-step-text,
+.soups-modal-title h2,
+.voice-panel h3 {
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+}

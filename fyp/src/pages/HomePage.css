@@ -1,0 +1,1030 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: white;
+  color: #284a4b;
+  line-height: 1.6;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ---------- CHEFBOT HERO ---------- */
+.chefbot-hero {
+  margin-top:-8px;
+  padding-top: 0;
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  margin-bottom: -100px;
+  height:auto;
+}
+
+.chefbot-slider {
+  position: relative;
+  width: 100%;
+  height: 85vh; /* Increased height */
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  background: white; /* Added background */
+}
+
+.chefbot-slide-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Changed from 300px to 100% */
+  height: 100%; /* Changed from 400px to 100% */
+  object-fit: contain;
+  opacity: 0;
+  background-color: white; /* Background color */
+}
+
+/* ✅ CORRECTED: Animation selectors */
+.chefbot-slide-image:nth-child(1) {
+  animation: chefbot-fade1 8s infinite;
+}
+
+.chefbot-slide-image:nth-child(2) {
+  animation: chefbot-fade2 8s infinite;
+}
+
+@keyframes chefbot-fade1 {
+  0%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes chefbot-fade2 {
+  0%, 45% { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
+
+
+/* ========== CHATBOT ICON ========== */
+.chatbot-icon {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #284a4b);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 5px 20px #284a4b;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  border: 3px solid white;
+}
+
+.chatbot-icon:hover {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 8px 25px #284a4b;
+}
+
+.chatbot-icon i {
+  font-size: 24px;
+  color: white;
+}
+
+.chatbot-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #284a4b;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+/* Chatbot Modal (Optional) */
+/* Improved Chatbot Modal */
+.chatbot-modal {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 380px;
+  max-height: 500px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 50px #284a4b;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid white;
+}
+
+.chatbot-modal.active {
+  display: flex;
+}
+
+.chatbot-header {
+  background: linear-gradient(135deg, #284a4b);
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chatbot-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chatbot-header h3 i {
+  font-size: 1.4rem;
+}
+
+.close-chatbot {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.close-chatbot:hover {
+  transform: scale(1.2);
+}
+
+.chatbot-body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background: whitesmoke;
+}
+
+.chatbot-footer {
+  padding: 15px;
+  border-top: 1px solid white;
+  display: flex;
+  gap: 10px;
+}
+
+.chatbot-input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid white;
+  border-radius: 25px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.chatbot-input:focus {
+  border-color: #284a4b;
+}
+
+.chatbot-send {
+  background: #284a4b;
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chatbot-send:hover {
+  background: #397d7c;
+  transform: scale(1.1);
+}
+
+/* ========== FEATURES GRID - 5 IN 1 LINE ========== */
+/*====== FEATURES GRID - 5 IN 1 LINE ========== */
+
+
+/* ========== FEATURES SECTION (5 IN 1 LINE) ========== */
+.h-features-section {
+
+  padding: 40px 1rem;
+  text-align: center;
+  background:  white;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.h-features-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  z-index: 0;
+}
+
+.h-features-title {
+  font-size: 2.4rem;
+  color: #284a4b;
+  margin-bottom: -8rem;
+  
+
+  font-weight: 800;
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+
+
+/* ========== FEATURES GRID - 5 IN 1 LINE ========== */
+.h-features-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+ 
+  max-width: 1300px;
+  height: 250px;
+  margin: 0 auto;
+  padding: 1rem 2.5rem;
+  position: relative;
+  z-index: 1;
+  margin-top:40px;
+  margin-bottom: 40px;
+}
+
+/* ========== FEATURE BOX ========== */
+.h-feature-box {
+  position: relative;
+  border-radius: 12px;
+  padding: 1rem 0.4rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid #284a4b;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  color: white;
+  min-height: 220px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  background: #284a4b;
+  text-decoration: none;
+}
+
+.h-feature-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  border-color: #284a4b;
+}
+
+/* Feature Image Container */
+.h-feature-image {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
+.h-feature-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.h-feature-box:hover .h-feature-image img {
+  transform: scale(1.05);
+}
+
+/* Content Container */
+.h-feature-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0.2rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.h-feature-title {
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  min-height: 2.4em;
+}
+
+.h-feature-description {
+  color: white;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  margin-bottom: 0.8rem;
+  min-height: 3.2em;
+}
+
+.h-feature-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #284a4b;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.8rem;
+  background: white;
+  border-radius: 12px;
+  transition: all 0.3s;
+  text-decoration: none;
+  border: 1px solid #284a4b;
+  margin-top: auto;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.h-feature-link:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px #284a4b;
+}
+
+.h-feature-link i {
+  font-size: 0.7rem;
+  transition: transform 0.3s;
+}
+
+.h-feature-link:hover i {
+  transform: translateX(3px);
+}
+
+/* Individual Feature Colors (Optional) */
+.h-feature-box:nth-child(1) .h-feature-link {
+  background: white;
+}
+
+.h-feature-box:nth-child(2) .h-feature-link {
+  background: white;
+}
+
+.h-feature-box:nth-child(3) .h-feature-link {
+  background: white;
+}
+
+.h-feature-box:nth-child(4) .h-feature-link {
+  background: white;
+}
+
+.h-feature-box:nth-child(5) .h-feature-link {
+  background: white;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* For Large Tablets */
+@media (max-width: 1200px) {
+  .h-features-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1000px;
+    gap: 1.2rem;
+  }
+  
+  .h-feature-title {
+    font-size: 1rem;
+  }
+  
+  .h-feature-description {
+    font-size: 0.8rem;
+  }
+}
+
+/* For Tablets */
+@media (max-width: 768px) {
+  .h-features-section {
+    padding: 30px 1rem;
+    margin-top: 40px;
+  }
+  
+  .h-features-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .h-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    max-width: 600px;
+    padding: 0 1rem;
+  }
+  
+  .h-feature-box {
+    padding: 0.8rem 0.6rem;
+    min-height: 200px;
+  }
+  
+  .h-feature-image {
+    height: 90px;
+    margin-bottom: 0.6rem;
+  }
+  
+  .h-feature-box:nth-child(5) {
+    grid-column: span 2;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+/* For Mobile Phones */
+@media (max-width: 480px) {
+  .h-features-section {
+    padding: 20px 0.5rem;
+    margin-top: 30px;
+  }
+  
+  .h-features-title {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .h-features-title::after {
+    width: 60px;
+    height: 4px;
+    bottom: -8px;
+  }
+  
+  .h-features-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    max-width: 320px;
+  }
+  
+  .h-feature-box {
+    padding: 0.8rem;
+    min-height: 180px;
+  }
+  
+  .h-feature-image {
+    height: 80px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .h-feature-title {
+    font-size: 0.9rem;
+    min-height: auto;
+  }
+  
+  .h-feature-description {
+    font-size: 0.7rem;
+    min-height: auto;
+    margin-bottom: 0.5rem;
+  }
+  
+  .h-feature-link {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .h-feature-box:nth-child(5) {
+    grid-column: 1;
+    max-width: 100%;
+  }
+}
+
+/* For Very Small Screens */
+@media (max-width: 360px) {
+  .h-features-grid {
+    padding: 0 0.5rem;
+  }
+  
+  .h-feature-box {
+    padding: 0.7rem;
+  }
+  
+  .h-feature-title {
+    font-size: 0.85rem;
+  }
+  
+  .h-feature-description {
+    font-size: 0.65rem;
+  }
+}
+/* ---------- HERO 2 ---------- */
+.hero-section1 {
+  background-color: #284a4b;
+  padding: 60px 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.hero-left {
+  max-width: 300px;
+}
+
+.hero-left h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.hero-left p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  border: 1px solid white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+
+.contact-link:hover {
+  background-color: white;
+  color: #284a4b;
+}
+
+.hero-center h1 {
+  font-size: 40px;
+  font-weight: 400;
+  font-style: italic;
+  color: white;
+  text-align: left;
+  margin-bottom: 7px;
+margin-top: 30px;
+width:500px;
+}
+.hero-right img {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* ---------- FOOD SHOWCASE ---------- */
+.food-showcase {
+  display:flex;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 60px 80px;
+  background-color: white;
+
+}
+
+.food-image {
+  width: 350px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 10px;
+
+}
+
+.food-image:hover {
+  transform: scale(1.05);
+}
+
+/* ---------- CLASSES SECTION ---------- */
+.classes-section {
+  display: flex;
+  padding: 80px;
+  gap: 50px;
+  background-color: white;
+  margin-top: -80px;
+}
+
+.classes-image {
+  width: 400px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.classes-content {
+  flex: 1;
+}
+
+.section-label {
+  font-size: 12px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.classes-content h2 {
+  font-size: 36px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #284a4b;
+}
+
+
+
+
+/* ---------- Meal SECTION ---------- */
+.section-label {
+  font-size: 12px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.m_plan-section {
+  background-color: #284a4b;
+  padding: 70px;
+}
+
+.m_plan-header {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.m_plan-title {
+  max-width: 600px;
+}
+
+.m_plan-title h2 {
+  font-size: 36px;
+  font-weight: 400;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.m_plan-title h2 .italic {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.m_plan-grid {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+.m_plan-card {
+  width: 280px;
+}
+
+.m_plan-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.m_plan-card img:hover {
+  transform: scale(1.05);
+}
+
+/* ---------- RECIPES ---------- */
+.h-recipes-section {
+  background: white;
+  padding: 80px 2rem;
+  text-align: center;
+}
+
+.h-recipes-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.h-recipes-title {
+  font-size: 2.5rem;
+  color: #284a4b;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.h-recipes-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 3rem;
+}
+
+/* ✅ RECIPE GRID - FIXED */
+.h-recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ✅ RECIPE CARD - FIX OVERFLOW */
+.h-recipe-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  width: 100%;
+  height: 400px; /* ✅ Adjusted height */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.h-recipe-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px #397d7c;
+}
+
+/* ✅ RECIPE IMAGE - FIXED HEIGHT */
+.h-recipe-image {
+  position: relative;
+  height: 220px; /* ✅ Adjusted height */
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.h-recipe-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.h-recipe-card:hover .h-recipe-image img {
+  transform: scale(1.05);
+}
+
+.h-recipe-category {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: white;
+  color: #284a4b;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  z-index: 2;
+}
+
+/* ✅ RECIPE CONTENT - FIX PADDING & HEIGHT */
+.h-recipe-content {
+  padding: 1.2rem; /* ✅ Equal padding on all sides */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* ✅ Space distribute karega */
+}
+
+/* ✅ FIX TYPO: h-ecipe-name to h-recipe-name */
+.h-recipe-name {
+  font-size: 1.2rem;
+  color: #284a4b;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  min-height: 2.4em; /* ✅ Ensures title doesn't overflow */
+}
+
+/* ✅ RECIPE DESCRIPTION - FIXED */
+.h-recipe-description {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 0.8rem;
+  flex: 1; /* ✅ Takes available space */
+  overflow: hidden;
+  display: -webkit-box;
+   /* ✅ Max 2 lines */
+  -webkit-box-orient: vertical;
+}
+
+/* ✅ RECIPE META - COMPACT */
+.h-recipe-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #666;
+}
+
+/* ✅ RECIPE BUTTON - FIX TO FIT INSIDE */
+.h-recipe-btn {
+  background: #284a4b;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%; /* ✅ Full width of content area */
+  font-size: 0.9rem;
+  text-align: center;
+  display: block;
+  text-decoration: none;
+}
+
+.h-recipe-btn:hover {
+  background: #397d7c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px #397d7c;
+  color:white;
+}
+
+/* ✅ RESPONSIVE FIXES */
+@media (max-width: 1200px) {
+  .h-recipes-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.8rem;
+    max-width: 800px;
+  }
+  
+  .h-recipe-card {
+    height: 380px;
+  }
+  
+  .h-recipe-image {
+    height: 200px;
+  }
+  
+  .h-recipe-content {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .h-recipes-section {
+    padding: 60px 1rem;
+  }
+  
+  .h-recipes-title {
+    font-size: 2rem;
+  }
+  
+  .h-recipes-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .h-recipes-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    gap: 1.5rem;
+  }
+  
+  .h-recipe-card {
+    height: 360px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .h-recipe-image {
+    height: 180px;
+  }
+  
+  .h-recipe-content {
+    padding: 1rem;
+  }
+  
+  .h-recipe-name {
+    font-size: 1.1rem;
+  }
+  
+  .h-recipe-btn {
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .h-recipes-grid {
+    max-width: 320px;
+  }
+  
+  .h-recipe-card {
+    height: 340px;
+    max-width: 320px;
+  }
+  
+  .h-recipe-image {
+    height: 160px;
+  }
+  
+  .h-recipe-content {
+    padding: 0.8rem;
+  }
+  
+  .h-recipe-name {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .h-recipe-description {
+    font-size: 0.8rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .h-recipe-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+/* ---------- MEDIA QUERIES ---------- */
+@media (max-width: 1200px) {
+  .hero-section1 {
+    flex-wrap: wrap;
+    padding: 40px;
+  }
+
+  .food-showcase {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 40px;
+  }
+
+  .classes-section {
+    flex-direction: column;
+    padding: 40px;
+  }
+
+  .h-recipes-section {
+    padding: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .food-showcase {
+    grid-template-columns: 1fr;
+  }
+  
+  .features-section,
+  .h-recipes-section {
+    padding: 60px 1rem;
+  }
+  
+  .features-title,
+  .h-recipes-title {
+    font-size: 2rem;
+  }
+  
+  .features-grid,
+  .h-recipes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .chefbot-hero {
+    padding: 115px 0 1rem;
+  }
+  
+  .chefbot-slider {
+    height: 300px;
+  }
+  
+  .chefbot-slide-image {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chefbot-slider {
+    height: 250px;
+  }
+  
+  .chefbot-slide-image {
+    height: 250px;
+  }
+}

@@ -1,0 +1,823 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Segoe UI', 'Inter', 'Playfair Display', system-ui, sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* ===== CHEAT MEAL PAGE ===== */
+.cheatmeal-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  background-color: #f8fafc;
+}
+
+/* ===== HEADER ===== */
+.cheatmeal-header {
+  background: linear-gradient(135deg, #284a4b, #1d3a3b);
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.cheatmeal-header-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cheatmeal-page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+  color: white;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  font-family: 'Playfair Display', serif;
+}
+
+.cheatmeal-page-description {
+  font-size: 1rem;
+  opacity: 0.95;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ===== PANTRY SUGGESTIONS ===== */
+.cheatmeal-pantry-suggestions {
+  max-width: 1400px;
+  margin: 20px auto 0;
+  padding: 20px 20px 10px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.cheatmeal-suggestions-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  color: #284a4b;
+}
+
+.cheatmeal-suggestions-header i {
+  font-size: 1.5rem;
+}
+
+.cheatmeal-suggestions-header h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.cheatmeal-suggestions-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.cheatmeal-suggestions-grid.two-suggestions {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.cheatmeal-suggestion-card {
+  display: flex;
+  background: #f8fafc;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cheatmeal-suggestion-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(40, 74, 75, 0.15);
+  border-color: #284a4b;
+}
+
+.cheatmeal-suggestion-image {
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.cheatmeal-suggestion-content {
+  padding: 12px;
+  flex: 1;
+}
+
+.cheatmeal-suggestion-content h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 4px;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.3;
+}
+
+.cheatmeal-suggestion-content p {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 4px;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+}
+
+.cheatmeal-match-info {
+  font-size: 11px;
+  color: #284a4b;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.cheatmeal-suggestion-btn {
+  background: #284a4b;
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cheatmeal-suggestion-btn:hover {
+  background: #1d3a3b;
+  transform: translateY(-1px);
+}
+
+/* ===== MAIN CONTENT ===== */
+.cheatmeal-main {
+  flex: 1;
+  padding: 30px 20px;
+  overflow: visible;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===== GRID ===== */
+.cheatmeal-grid-section {
+  width: 100%;
+}
+
+.cheatmeal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Cheat Meal Card - Fixed for full text */
+.cheatmeal-technique-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  height: auto;
+  min-height: 120px;
+  width: 100%;
+}
+
+.cheatmeal-technique-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  border-color: #284a4b;
+}
+
+.cheatmeal-card-image {
+  width: 120px;
+  height: 120px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  border-right: 1px solid #e2e8f0;
+}
+
+.cheatmeal-card-content {
+  padding: 12px 15px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: visible;
+  height: 100%;
+  min-height: 120px;
+}
+
+.cheatmeal-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 6px;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.3;
+  display: block;
+  max-width: 100%;
+}
+
+.cheatmeal-card-description {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.4;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  display: block;
+}
+
+/* ===== MODAL ===== */
+.cheatmeal-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 15px;
+}
+
+.cheatmeal-modal {
+  border-radius: 15px;
+  width: 95%;
+  max-width: 1400px;
+  height: 90vh;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.cheatmeal-modal > * {
+  position: relative;
+  z-index: 2;
+}
+
+.cheatmeal-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #284a4b;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.cheatmeal-modal-close:hover {
+  background: white;
+  color: #1d3a3b;
+  transform: rotate(90deg);
+}
+
+.cheatmeal-modal-header {
+  padding: 15px 25px 10px 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  z-index: 5;
+  flex-shrink: 0;
+}
+
+.cheatmeal-modal-title h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 90%;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== THREE COLUMN LAYOUT - FIXED SCROLLBAR ===== */
+.cheatmeal-modal-content {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+  gap: 20px;
+  min-height: 0;
+  height: calc(100% - 80px);
+  overflow: hidden;
+}
+
+/* Column 1 - Ingredients - Fixed */
+.cheatmeal-modal-ingredients {
+  width: 33.33%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 15px 10px 15px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  overflow: hidden;
+}
+
+.cheatmeal-modal-ingredients h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.cheatmeal-ingredients-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Custom Scrollbar */
+.cheatmeal-ingredients-list::-webkit-scrollbar,
+.cheatmeal-steps-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cheatmeal-ingredients-list::-webkit-scrollbar-track,
+.cheatmeal-steps-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.cheatmeal-ingredients-list::-webkit-scrollbar-thumb,
+.cheatmeal-steps-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.cheatmeal-ingredients-list::-webkit-scrollbar-thumb:hover,
+.cheatmeal-steps-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.cheatmeal-ingredient-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.4;
+  width: 100%;
+}
+
+.cheatmeal-ingredient-bullet {
+  color: white;
+  font-weight: bold;
+  min-width: 18px;
+  font-size: 14px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cheatmeal-ingredient-text {
+  font-size: 14px;
+  color: white;
+  flex: 1;
+  line-height: 1.4;
+  word-wrap: break-word;
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Column 2 - Steps - Fixed */
+.cheatmeal-modal-steps {
+  width: 33.33%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 15px 10px 15px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  overflow: hidden;
+}
+
+.cheatmeal-modal-steps h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.cheatmeal-steps-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cheatmeal-step-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.4;
+  width: 100%;
+}
+
+.cheatmeal-step-number {
+  font-weight: 700;
+  color: white;
+  min-width: 26px;
+  font-size: 14px;
+  text-align: right;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cheatmeal-step-text {
+  flex: 1;
+  line-height: 1.4;
+  color: white;
+  font-size: 14px;
+  word-wrap: break-word;
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Column 3 - Voice - Fixed */
+.cheatmeal-modal-voice-container {
+  width: 33.33%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cheatmeal-voice-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  overflow: hidden;
+}
+
+.cheatmeal-voice-panel h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.cheatmeal-voice-panel h3 i {
+  font-size: 1.2rem;
+}
+
+.cheatmeal-voice-progress {
+  margin-bottom: 15px;
+  flex-shrink: 0;
+}
+
+.cheatmeal-progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.cheatmeal-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #284a4b, #3d6b6c);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.cheatmeal-progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cheatmeal-voice-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.cheatmeal-voice-main-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.cheatmeal-voice-main-btn.play {
+  background: rgba(40, 74, 75, 0.9);
+  color: white;
+}
+
+.cheatmeal-voice-main-btn.play:hover {
+  background: #284a4b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(40, 74, 75, 0.4);
+}
+
+.cheatmeal-voice-main-btn.stop {
+  background: rgba(220, 38, 38, 0.9);
+  color: white;
+}
+
+.cheatmeal-voice-main-btn.stop:hover {
+  background: rgb(185, 28, 28);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(220, 38, 38, 0.4);
+}
+
+.cheatmeal-step-controls {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.cheatmeal-step-btn {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cheatmeal-step-btn:hover:not(:disabled) {
+  background: #284a4b;
+  color: white;
+  transform: translateY(-1px);
+  border-color: transparent;
+  box-shadow: 0 4px 10px rgba(40, 74, 75, 0.3);
+}
+
+.cheatmeal-step-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .cheatmeal-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .cheatmeal-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .cheatmeal-technique-card {
+    min-height: 110px;
+  }
+  
+  .cheatmeal-card-image {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .cheatmeal-card-content {
+    min-height: 100px;
+    padding: 10px 12px;
+  }
+  
+  .cheatmeal-card-title {
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  
+  .cheatmeal-card-description {
+    font-size: 12px;
+  }
+  
+  .cheatmeal-suggestions-grid.two-suggestions {
+    grid-template-columns: 1fr;
+  }
+  
+  .cheatmeal-modal-content {
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 15px;
+    gap: 15px;
+  }
+  
+  .cheatmeal-modal-ingredients,
+  .cheatmeal-modal-steps,
+  .cheatmeal-modal-voice-container {
+    width: 100%;
+    min-height: 280px;
+    height: auto;
+    max-height: 350px;
+  }
+  
+  .cheatmeal-modal-header {
+    padding: 12px 20px 8px 20px;
+  }
+  
+  .cheatmeal-modal-title h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .cheatmeal-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .cheatmeal-technique-card {
+    min-height: 100px;
+    height: auto;
+  }
+  
+  .cheatmeal-card-image {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .cheatmeal-card-content {
+    min-height: 90px;
+    padding: 8px 10px;
+  }
+  
+  .cheatmeal-card-title {
+    font-size: 14px;
+    margin-bottom: 3px;
+    line-height: 1.2;
+  }
+  
+  .cheatmeal-card-description {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+  
+  .cheatmeal-page-title {
+    font-size: 2rem;
+  }
+  
+  .cheatmeal-suggestion-content h4 {
+    font-size: 14px;
+  }
+  
+  .cheatmeal-suggestion-content p {
+    font-size: 11px;
+  }
+  
+  .cheatmeal-modal {
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  
+  .cheatmeal-modal-header {
+    padding: 10px 15px 6px 15px;
+  }
+  
+  .cheatmeal-modal-title h2 {
+    font-size: 1.3rem;
+    max-width: 85%;
+  }
+  
+  .cheatmeal-modal-content {
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .cheatmeal-modal-ingredients,
+  .cheatmeal-modal-steps,
+  .cheatmeal-modal-voice-container {
+    min-height: 250px;
+    max-height: 300px;
+  }
+  
+  .cheatmeal-ingredient-text,
+  .cheatmeal-step-text {
+    font-size: 13px;
+  }
+  
+  .cheatmeal-voice-panel {
+    padding: 12px;
+  }
+  
+  .cheatmeal-voice-main-btn {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .cheatmeal-step-btn {
+    padding: 6px 8px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 400px) {
+  .cheatmeal-card-title {
+    font-size: 13px;
+  }
+  
+  .cheatmeal-card-description {
+    font-size: 10px;
+  }
+  
+  .cheatmeal-card-image {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .cheatmeal-card-content {
+    padding: 6px 8px;
+    min-height: 80px;
+  }
+}

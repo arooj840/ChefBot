@@ -1,0 +1,755 @@
+/* Alarm Modal CSS - With Background Beep Support */
+
+/* ===== OVERLAY & MODAL ===== */
+.alarm-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(2px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Sidebar Modal */
+.alarm-sidebar-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 420px;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  animation: slideInRight 0.3s ease;
+  overflow-y: auto;
+  border-left: 3px solid #284a4b;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ===== HEADER ===== */
+.alarm-sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background: linear-gradient(135deg, #284a4b);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.alarm-sidebar-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 580;
+  text-align: center;
+  flex: 1; /* ✅ Yeh line add karein - text ko center karega */
+  position: relative;
+  left: -20px; /* ✅ Cross button ke space ko adjust karega */
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 2.5rem; /* Big cross */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+  margin: 0;
+  line-height: 0.5;
+  width: auto; /* Remove fixed width */
+  height: auto; /* Remove fixed height */
+}
+
+.close-btn:hover {
+  color: #ffffff;
+  transform: rotate(90deg) scale(1.1);
+  background: none; /* Ensure no background on hover */
+}
+
+/* ===== MAIN CONTENT ===== */
+.alarm-sidebar-content {
+  padding: 25px;
+}
+
+/* Instant Save Notice */
+.instant-save-notice {
+  background: linear-gradient(135deg, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.1));
+  padding: 12px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #666;
+  color: #284a4b;
+  font-weight: 600;
+  text-align: center;
+  animation: instantSavePulse 2s infinite;
+  font-size: 0.95rem;
+}
+
+@keyframes instantSavePulse {
+  0%, 100% { 
+    border-color: #666;
+    box-shadow: 0 0 0 rgba(106, 17, 203, 0);
+  }
+  50% { 
+    border-color:#666;
+    box-shadow: 0 0 15px #666;
+  }
+}
+
+/* ===== TIMER DISPLAY ===== */
+.timer-display-section {
+  text-align: center;
+  margin: 0.5px 0; /* ✅ Margin kam karein (2px se 5px) */
+  padding: 10px 10px; /* ✅ Padding kam karein (2px se 5px) */
+  background: #284a4b;
+  border-radius: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  border: 2px solid #eaeaea;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px; /* ✅ Height kam karein (150px se 120px) */
+}
+
+.timer-display-section:hover {
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+}
+
+.time-display {
+  font-size: 4.5rem;
+  font-weight: 900;
+  color: white;
+  font-family: 'Courier New', monospace;
+  margin: 5px 0; /* ✅ Margin kam karein (10px se 5px) */
+  letter-spacing: 2px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  line-height: 1; /* ✅ Line height kam karein */
+}
+.time-display.running {
+  color: #397d7c;
+  animation: pulseTimer 2s infinite;
+}
+
+.time-display.completed {
+  color: white;
+  animation: alarmFlash 1s infinite;
+  position: relative;
+}
+
+.time-display.completed::after {
+  content: '🔊';
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  animation: bounce 0.5s infinite alternate;
+}
+
+.time-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  margin-top: 5px; /* ✅ Margin kam karein (10px se 5px) */
+  padding-top: 5px; /* ✅ Padding kam karein (10px se 5px) */
+  border-top: none;
+}
+
+/* ===== TIME SETUP SECTION (REDUCED HEIGHT) ===== */
+.time-setup-section {
+  background: rgba(57, 125, 124, 0.07);
+  padding: 15px 20px; /* Reduced padding */
+  border-radius: 18px;
+  margin: 10px 0;
+  border: 1px solid rgba(57, 125, 124, 0.15);
+  height: auto;
+  min-height: 200px; /* Reduced height */
+}
+
+.time-setup-section h3 {
+  color: #284a4b;
+  margin-bottom: 15px; /* Reduced margin */
+  text-align: center;
+  font-size: 1.2rem; /* Smaller font */
+  font-weight: 600;
+}
+
+/* Time Inputs */
+.time-inputs {
+  display: flex;
+  gap: 15px; /* Reduced gap */
+  margin-bottom: 15px; /* Reduced margin */
+}
+
+.time-input {
+  flex: 1;
+  text-align: center;
+}
+
+.time-input label {
+  display: block;
+  margin-bottom: 8px; /* Reduced margin */
+  font-weight: 600;
+  color: #666;
+  font-size: 0.9rem; /* Smaller font */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.time-input input {
+  width: 100%;
+  padding: 12px; /* Reduced padding */
+  font-size: 1.5rem; /* Smaller font */
+  text-align: center;
+  border: 2px solid #284a4b;
+  border-radius: 10px;
+  font-family: 'Courier New', monospace;
+  font-weight: 800;
+  color: #284a4b;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.time-input input:focus {
+  outline: none;
+  border-color: #397d7c;
+  box-shadow: 0 0 0 3px rgba(57, 125, 124, 0.2);
+  transform: translateY(-2px);
+}
+
+.time-input input:disabled {
+  background: #f8f9fa;
+  border-color: #ddd;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===== QUICK PRESETS (REDUCED HEIGHT) ===== */
+.quick-presets {
+  margin-top: 15px; /* Reduced margin */
+  padding-top: 15px; /* Reduced padding */
+  border-top: 2px solid rgba(57, 125, 124, 0.1);
+}
+
+.quick-presets h4 {
+  color: #666;
+  margin-bottom: 12px; /* Reduced margin */
+  text-align: center;
+  font-size: 1rem; /* Smaller font */
+  font-weight: 600;
+}
+
+.preset-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px; /* Reduced gap */
+}
+
+.preset-btn {
+  padding: 10px 5px; /* Reduced padding */
+  background: white;
+  border: 2px solid #284a4b;
+  border-radius: 8px;
+  color: #284a4b;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem; /* Smaller font */
+  position: relative;
+  overflow: hidden;
+}
+
+.preset-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #284a4b, #397d7c);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: -1;
+}
+
+.preset-btn:hover:not(:disabled) {
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(57, 125, 124, 0.2);
+}
+
+.preset-btn:hover:not(:disabled)::before {
+  transform: translateX(0);
+}
+
+.preset-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ===== TIMER CONTROLS ===== */
+.timer-controls {
+  margin: 20px 0; /* Reduced margin */
+}
+
+.main-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Reduced gap */
+}
+
+.start-btn, .pause-btn, .reset-btn, .stop-beep-btn {
+  padding: 16px; /* Reduced padding */
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem; /* Slightly smaller */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  letter-spacing: 1px;
+}
+
+.start-btn {
+  background: linear-gradient(135deg, #284a4b, #397d7c);
+  color: white;
+  box-shadow: 0 6px 20px rgba(57, 125, 124, 0.3);
+}
+
+.start-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #397d7c, #284a4b);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(57, 125, 124, 0.4);
+}
+
+.start-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.pause-btn {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: white;
+  box-shadow: 0 6px 20px rgba(243, 156, 18, 0.3);
+}
+
+.pause-btn:hover {
+  background: linear-gradient(135deg, #e67e22, #f39c12);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(243, 156, 18, 0.4);
+}
+
+.reset-btn {
+  background: linear-gradient(135deg, #666, #888);
+  color: white;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.reset-btn:hover {
+  background: linear-gradient(135deg, #888, #666);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Instant Save Button */
+.instant-save-btn {
+  background: linear-gradient(135deg, #284a4b) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+
+
+@keyframes lightning {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.2); }
+}
+
+/* ===== BEEP STATUS ===== */
+.beep-status-active {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 86, 86, 0.15));
+  padding: 15px; /* Reduced padding */
+  border-radius: 12px;
+  margin-top: 20px;
+  border: 2px solid rgba(255, 107, 107, 0.3);
+  animation: statusPulse 2s infinite;
+}
+
+.beep-status-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.beep-icon {
+  font-size: 1.8rem; /* Slightly smaller */
+  animation: bounceIcon 0.5s infinite alternate;
+}
+
+.stop-beep-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ff5252);
+  color: white;
+  padding: 10px 20px; /* Reduced padding */
+  border-radius: 8px;
+  font-weight: 600;
+  animation: pulseBtn 1s infinite;
+  font-size: 0.9rem;
+}
+
+.stop-beep-btn:hover {
+  background: linear-gradient(135deg, #ff5252, #ff6b6b);
+  transform: translateY(-2px);
+  animation: none;
+}
+
+/* ===== FLOATING NOTIFICATION ===== */
+.floating-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 99999;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  width: 320px;
+  max-width: 90%;
+  border-left: 5px solid #ff4757;
+  animation: slideIn 0.3s ease-out;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.floating-notification-content {
+  padding: 15px;
+}
+
+.floating-notification-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.floating-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.floating-title {
+  font-weight: bold;
+  color: #333;
+  flex-grow: 1;
+}
+
+.floating-close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.floating-close-btn:hover {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.floating-notification-body {
+  color: #555;
+}
+
+.floating-notification-body p {
+  margin: 0 0 15px 0;
+  line-height: 1.5;
+}
+
+.floating-stop-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #ff4757, #ff3838);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.floating-stop-btn:hover {
+  background: linear-gradient(135deg, #ff3838, #ff1e1e);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+}
+
+/* Blinking effect for attention */
+.floating-notification.active {
+  animation: pulseBorder 2s infinite;
+}
+
+@keyframes pulseBorder {
+  0%, 100% {
+    border-left-color: #ff4757;
+  }
+  50% {
+    border-left-color: #ff9f43;
+  }
+}
+
+/* ===== BACKGROUND INDICATORS ===== */
+.background-beep-indicator {
+  background: linear-gradient(135deg, #666);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border: 2px solid #397d7c;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  color: #284a4b;
+  animation: pulseBg 2s infinite;
+}
+
+.background-timer-indicator {
+  background: linear-gradient(135deg, rgba(57, 125, 124, 0.1), rgba(40, 74, 75, 0.15));
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border: 2px solid rgba(57, 125, 124, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  color: #397d7c;
+  animation: pulseTimerBg 2s infinite;
+}
+
+.beeping-dot, .timer-dot {
+  width: 12px;
+  height: 12px;
+  background: #284a4b;
+  border-radius: 50%;
+  animation: pulseDot 1s infinite;
+}
+
+.timer-dot {
+  background: #397d7c;
+  animation: pulseTimerDot 1.5s infinite;
+}
+
+.background-info {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  margin-top: 15px;
+  padding: 10px;
+  background: rgba(57, 125, 124, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid #397d7c;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes pulseBg {
+  0%, 100% { 
+    border-color: #397d7c;
+    background: linear-gradient(135deg, #666);
+  }
+  50% { 
+    border-color: #397d7c;
+    background: linear-gradient(135deg, #555);
+  }
+}
+
+@keyframes pulseTimerBg {
+  0%, 100% { 
+    border-color: rgba(57, 125, 124, 0.3);
+    background: linear-gradient(135deg, rgba(57, 125, 124, 0.1), rgba(40, 74, 75, 0.15));
+  }
+  50% { 
+    border-color: rgba(57, 125, 124, 0.6);
+    background: linear-gradient(135deg, rgba(57, 125, 124, 0.2), rgba(40, 74, 75, 0.25));
+  }
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+@keyframes pulseTimerDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+@keyframes bounce {
+  from { transform: translateY(-50%) scale(1); }
+  to { transform: translateY(-50%) scale(1.2); }
+}
+
+@keyframes pulseTimer {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.01); }
+}
+
+@keyframes alarmFlash {
+  0%, 100% { 
+    opacity: 1; 
+    text-shadow: 0 0 0 rgba(255, 107, 107, 0);
+  }
+  50% { 
+    opacity: 0.8; 
+    text-shadow: 0 0 20px #397d7c;
+  }
+}
+
+@keyframes bounceIcon {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); }
+}
+
+@keyframes pulseBtn {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes statusPulse {
+  0%, 100% { 
+    border-color: rgba(255, 107, 107, 0.3);
+    box-shadow: 0 0 0 rgba(255, 107, 107, 0);
+  }
+  50% { 
+    border-color: rgba(255, 107, 107, 0.6);
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+  }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .alarm-sidebar-modal {
+    width: 350px;
+  }
+  
+  .time-display {
+    font-size: 3.5rem;
+  }
+  
+  .preset-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .beep-status-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .alarm-sidebar-modal {
+    width: 100%;
+  }
+  
+  .time-display {
+    font-size: 3rem;
+  }
+  
+  .time-inputs {
+    flex-direction: column;
+  }
+  
+  .start-btn, .pause-btn, .reset-btn, .stop-beep-btn {
+    padding: 18px;
+    font-size: 1.1rem;
+  }
+  
+  .time-setup-section {
+    min-height: 180px;
+    padding: 12px 15px;
+  }
+  
+  .preset-btn {
+    padding: 8px 4px;
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== SCROLLBAR ===== */
+.alarm-sidebar-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.alarm-sidebar-modal::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.alarm-sidebar-modal::-webkit-scrollbar-thumb {
+  background: #284a4b;
+  border-radius: 4px;
+}
+
+.alarm-sidebar-modal::-webkit-scrollbar-thumb:hover {
+  background: #397d7c;
+}

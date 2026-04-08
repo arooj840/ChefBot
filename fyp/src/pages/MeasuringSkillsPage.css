@@ -1,0 +1,1214 @@
+/* ===== MEASURING SKILLS PAGE CSS ===== */
+/* FIXED MODAL - SIRF LEFT SIDE SCROLL, RIGHT IMAGE FIXED */
+/* PANTRY BASICS STYLE - SIDEBAR + CARDS */
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f8fafc;
+}
+
+/* MAIN CONTAINER */
+.msp-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0;
+}
+
+.msp-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===== SIDEBAR - PANTRY BASICS STYLE ===== */
+.msp-sidebar {
+  width: 280px;
+  background: #284a4b;
+  border-right: 1px solid #e2e8f0;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.msp-sidebar-header {
+    margin-bottom: 70px;
+margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.2);
+}
+
+.msp-sidebar-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 10px;
+  margin-top: 120px;
+  text-align: center;
+}
+
+
+
+.msp-sidebar-categories {
+  flex: 1;
+}
+
+.msp-categories-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.msp-category-item {
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.msp-category-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(5px);
+}
+
+.msp-category-item.msp-active {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: #4FD1C5;
+  box-shadow: 0 2px 10px rgba(79, 209, 197, 0.2);
+}
+
+.msp-category-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+}
+
+/* ===== MAIN CONTENT ===== */
+.msp-main {
+  flex: 1;
+  padding: 30px 40px;
+  background: #f8fafc;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.msp-main-header {
+    margin-bottom: 180px;
+ margin-bottom: 20px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.msp-page-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  margin-top: 120px;
+  letter-spacing: -0.5px;
+}
+
+.msp-page-description {
+  font-size: 18px;
+  color: #64748b;
+  max-width: 700px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* ===== ITEMS GRID - PANTRY BASICS STYLE ===== */
+.msp-items-grid-section {
+  margin-bottom: 40px;
+}
+
+.msp-items-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.msp-item-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  height: 120px;
+  width: 100%;
+}
+
+.msp-item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  border-color: #6366f1;
+}
+
+.msp-card-image {
+  width: 120px;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  border-right: 1px solid #e2e8f0;
+}
+
+.msp-card-content {
+  padding: 15px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.msp-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.msp-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.msp-essentiality-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-left: 10px;
+  flex-shrink: 0;
+}
+
+.msp-essentiality-badge.essential {
+  background: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.msp-essentiality-badge.important {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.msp-essentiality-badge.useful {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.msp-essentiality-badge.specialized {
+  background: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.msp-card-description {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===== MODAL - FIXED LAYOUT (NO SCROLL ON MODAL) ===== */
+.msp-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.msp-modal {
+  background: white;
+  border-radius: 20px;
+  width: 95%;
+  max-width: 1200px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden; /* MODAL PE SCROLL NAHI */
+}
+
+.msp-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #e2e8f0;
+  color: #666;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.msp-modal-close:hover {
+  background: #f1f5f9;
+}
+
+/* MODAL HEADER */
+.msp-modal-header {
+  padding: 25px 30px 15px 30px;
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.msp-modal-title h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 5px;
+  letter-spacing: -0.5px;
+}
+
+.msp-modal-subtitle {
+  font-size: 16px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* MODAL CONTENT - FLEX CONTAINER */
+.msp-modal-content {
+  padding: 0;
+  flex: 1;
+  display: flex;
+  overflow: hidden; /* CONTAINER PE SCROLL NAHI */
+}
+
+/* LEFT SIDE - SCROLLABLE CONTENT (65%) */
+.msp-modal-left {
+  flex: 0 0 65%;
+  padding: 25px 30px;
+  border-right: 1px solid #e2e8f0;
+  overflow-y: auto; /* SIRF YAHAN SCROLL */
+  height: 100%;
+}
+
+/* SCROLLBAR STYLING FOR LEFT SIDE */
+.msp-modal-left::-webkit-scrollbar {
+  width: 6px;
+}
+
+.msp-modal-left::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.msp-modal-left::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.msp-modal-left::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.msp-modal-details {
+  width: 100%;
+}
+
+/* ===== DETAIL SECTIONS ===== */
+.msp-detail-section {
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.msp-detail-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.msp-detail-section h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.msp-detail-section h3:before {
+  font-size: 20px;
+}
+
+.msp-detail-content {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+/* ===== FEATURES & MISTAKES HORIZONTAL GRIDS ===== */
+.msp-features-horizontal,
+.msp-mistakes-horizontal {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.msp-feature-box {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #0369a1;
+}
+
+.msp-mistake-box {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #dc2626;
+}
+
+/* ===== STEPS LIST ===== */
+.msp-steps-list {
+  list-style: none;
+  counter-reset: step-counter;
+  margin: 10px 0;
+}
+
+.msp-step-item {
+  counter-increment: step-counter;
+  margin-bottom: 12px;
+  padding-left: 40px;
+  position: relative;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+.msp-step-item:before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 28px;
+  height: 28px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* ===== APPLICATIONS LIST ===== */
+.msp-applications-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.msp-application-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #475569;
+  font-weight: 500;
+}
+
+.msp-application-check {
+  color: #3b82f6;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* ===== TYPES GRID ===== */
+.msp-types-section {
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 2px solid #e2e8f0;
+}
+
+.msp-types-heading {
+  font-size: 22px;
+  color: #1e293b;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.msp-types-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.msp-type-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  height: 100%;
+  width: 300px;
+}
+
+.msp-type-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-color: #6366f1;
+}
+
+.msp-type-image {
+  width: 100%;
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.msp-type-content {
+  padding: 12px;
+}
+
+.msp-type-content h4 {
+  font-size: 14px;
+  color: #1e293b;
+  margin-bottom: 6px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.msp-type-desc {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  min-height: 32px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.msp-type-info {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.msp-type-info-item {
+  font-size: 11px;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.msp-type-best {
+  font-size: 11px;
+  color: #1e293b;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.msp-type-best strong {
+  color: #1e293b;
+}
+
+/* ===== ESTIMATION GRIDS ===== */
+.msp-measurements-grid,
+.msp-comparisons-grid,
+.msp-guidelines-grid,
+.msp-plate-method-grid,
+.msp-tips-grid,
+.msp-indicators-grid,
+.msp-time-references-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 15px 0;
+}
+
+.msp-measurement-box,
+.msp-comparison-box,
+.msp-guideline-box,
+.msp-plate-method-box,
+.msp-tip-box,
+.msp-indicator-box,
+.msp-time-reference-box {
+  background: #fef3c7;
+  border: 1px solid #fbbf24;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #92400e;
+}
+
+/* ===== CONVERSIONS GRIDS ===== */
+.msp-conversions-grid,
+.msp-metric-conversions-grid,
+.msp-baking-conversions-grid,
+.msp-temperatures-grid,
+.msp-oven-temperatures-grid,
+.msp-volume-conversions-grid,
+.msp-weight-conversions-grid,
+.msp-oven-conversions-grid,
+.msp-substitutions-grid,
+.msp-dairy-substitutions-grid,
+.msp-scaling-rules-grid,
+.msp-multipliers-grid,
+.msp-exceptions-grid,
+.msp-pan-sizes-grid,
+.msp-area-calculations-grid,
+.msp-adjustment-rules-grid,
+.msp-must-know-grid,
+.msp-metric-equivalents-grid,
+.msp-handy-equivalents-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.msp-conversion-box,
+.msp-metric-conversion-box,
+.msp-baking-conversion-box,
+.msp-temperature-box,
+.msp-oven-temperature-box,
+.msp-volume-conversion-box,
+.msp-weight-conversion-box,
+.msp-oven-conversion-box,
+.msp-substitution-box,
+.msp-dairy-substitution-box,
+.msp-scaling-rule-box,
+.msp-multiplier-box,
+.msp-exception-box,
+.msp-pan-size-box,
+.msp-area-calculation-box,
+.msp-adjustment-rule-box,
+.msp-must-know-box,
+.msp-metric-equivalent-box,
+.msp-handy-equivalent-box {
+  background: #dbeafe;
+  border: 1px solid #93c5fd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1e40af;
+}
+
+/* ===== PRECISION GRIDS ===== */
+.msp-critical-rules-grid,
+.msp-errors-grid,
+.msp-tools-required-grid,
+.msp-calibration-methods-grid,
+.msp-maintenance-tips-grid,
+.msp-accuracy-check-grid,
+.msp-micro-tools-grid,
+.msp-micro-techniques-grid,
+.msp-critical-amounts-grid,
+.msp-portioning-tools-grid,
+.msp-portioning-techniques-grid,
+.msp-benefits-grid,
+.msp-critical-temperatures-grid,
+.msp-temperature-tools-grid,
+.msp-temperature-techniques-grid,
+.msp-ratios-grid,
+.msp-calculation-grid,
+.msp-effects-grid,
+.msp-basic-ratios-grid,
+.msp-application-methods-grid,
+.msp-ratio-benefits-grid,
+.msp-documentation-methods-grid,
+.msp-what-to-record-grid,
+.msp-documentation-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.msp-critical-rule-box,
+.msp-error-box,
+.msp-tool-required-box,
+.msp-calibration-method-box,
+.msp-maintenance-tip-box,
+.msp-accuracy-check-box,
+.msp-micro-tool-box,
+.msp-micro-technique-box,
+.msp-critical-amount-box,
+.msp-portioning-tool-box,
+.msp-portioning-technique-box,
+.msp-benefit-box,
+.msp-critical-temperature-box,
+.msp-temperature-tool-box,
+.msp-temperature-technique-box,
+.msp-ratio-box,
+.msp-calculation-box,
+.msp-effect-box,
+.msp-basic-ratio-box,
+.msp-application-method-box,
+.msp-ratio-benefit-box,
+.msp-documentation-method-box,
+.msp-record-item-box,
+.msp-documentation-benefit-box {
+  background: #fce7f3;
+  border: 1px solid #f9a8d4;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: #831843;
+}
+
+/* ===== FORMULA GRID ===== */
+.msp-formula-grid,
+.msp-equivalents-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 15px 0;
+}
+
+.msp-formula-box {
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #166534;
+}
+
+.msp-equivalent-box {
+  background: #fef3c7;
+  border: 1px solid #fbbf24;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #92400e;
+}
+
+/* ===== LISTS STYLES ===== */
+.msp-techniques-list,
+.msp-definitions-list,
+.msp-equivalents-list,
+.msp-references-list,
+.msp-conversions-list,
+.msp-rules-list,
+.msp-tools-list {
+  list-style: none;
+}
+
+.msp-technique-item,
+.msp-definition-item,
+.msp-equivalent-item,
+.msp-reference-item,
+.msp-conversion-item,
+.msp-rule-item,
+.msp-tool-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #475569;
+}
+
+/* ===== METHODS LISTS ===== */
+.msp-methods-list,
+.msp-process-list,
+.msp-practice-tips-list {
+  list-style: none;
+  counter-reset: step-counter;
+  margin: 10px 0;
+}
+
+.msp-method-item,
+.msp-process-item,
+.msp-practice-tip-item {
+  counter-increment: step-counter;
+  margin-bottom: 12px;
+  padding-left: 40px;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+.msp-method-item:before {
+  content: counter(step-counter);
+  background: #8b5cf6;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 28px;
+  height: 28px;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.msp-process-item:before {
+  content: counter(step-counter);
+  background: #10b981;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 28px;
+  height: 28px;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.msp-practice-tip-item:before {
+  content: counter(step-counter);
+  background: #f59e0b;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 28px;
+  height: 28px;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* ===== RIGHT SIDE - FIXED IMAGE (35%) ===== */
+.msp-modal-right {
+  flex: 0 0 35%;
+  padding: 25px 25px 25px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  height: 100%;
+  overflow: hidden; /* NO SCROLL */
+}
+
+.msp-main-image-container {
+  width: 100%;
+  height: 350px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  position: relative;
+}
+
+.msp-main-image {
+  width: 100%;
+  height: 100%;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.msp-main-image:hover {
+  transform: scale(1.05);
+}
+
+.msp-image-overlay {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  z-index: 10;
+}
+
+.msp-essentiality-badge-large {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.msp-essentiality-badge-large.essential {
+  background: rgba(220, 38, 38, 0.9);
+}
+
+.msp-essentiality-badge-large.important {
+  background: rgba(245, 158, 11, 0.9);
+}
+
+.msp-essentiality-badge-large.useful {
+  background: rgba(34, 197, 94, 0.9);
+}
+
+.msp-essentiality-badge-large.specialized {
+  background: rgba(139, 92, 246, 0.9);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .msp-items-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .msp-modal {
+    height: 90vh;
+  }
+  
+  .msp-modal-left {
+    flex: 0 0 60%;
+  }
+  
+  .msp-modal-right {
+    flex: 0 0 40%;
+  }
+  
+  .msp-main-image-container {
+    height: 300px;
+  }
+  
+  .msp-features-horizontal,
+  .msp-mistakes-horizontal {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .msp-types-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .msp-conversions-grid,
+  .msp-metric-conversions-grid,
+  .msp-baking-conversions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .msp-layout {
+    flex-direction: column;
+  }
+  
+  .msp-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  
+  .msp-sidebar-title {
+    margin-top: 20px;
+  }
+  
+  .msp-main {
+    padding: 20px;
+    height: auto;
+  }
+  
+  .msp-page-title {
+    margin-top: 20px;
+  }
+  
+  .msp-item-card {
+    height: auto;
+    flex-direction: column;
+  }
+  
+  .msp-card-image {
+    width: 100%;
+    height: 180px;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .msp-modal-content {
+    flex-direction: column-reverse;
+  }
+  
+  .msp-modal-left {
+    flex: 0 0 auto;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+    max-height: 50vh;
+  }
+  
+  .msp-modal-right {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 20px;
+    height: 300px;
+  }
+  
+  .msp-main-image-container {
+    height: 250px;
+  }
+  
+  .msp-types-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .msp-page-title {
+    font-size: 28px;
+  }
+  
+  .msp-modal-header {
+    padding: 20px 20px 15px 20px;
+  }
+  
+  .msp-modal-title h2 {
+    font-size: 24px;
+  }
+  
+  .msp-modal-subtitle {
+    font-size: 14px;
+  }
+  
+  .msp-modal-left,
+  .msp-modal-right {
+    padding: 20px;
+  }
+  
+  .msp-modal-left {
+    max-height: 45vh;
+  }
+  
+  .msp-modal-right {
+    height: 250px;
+  }
+  
+  .msp-main-image-container {
+    height: 200px;
+  }
+  
+  .msp-features-horizontal,
+  .msp-mistakes-horizontal,
+  .msp-measurements-grid,
+  .msp-comparisons-grid,
+  .msp-guidelines-grid,
+  .msp-plate-method-grid,
+  .msp-tips-grid,
+  .msp-indicators-grid,
+  .msp-time-references-grid,
+  .msp-critical-rules-grid,
+  .msp-errors-grid,
+  .msp-tools-required-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .msp-conversions-grid,
+  .msp-metric-conversions-grid,
+  .msp-baking-conversions-grid,
+  .msp-temperatures-grid,
+  .msp-oven-temperatures-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .msp-types-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .msp-container {
+    padding: 10px;
+  }
+  
+  .msp-sidebar {
+    padding: 20px;
+  }
+  
+  .msp-main {
+    padding: 15px;
+  }
+  
+  .msp-page-title {
+    font-size: 24px;
+  }
+  
+  .msp-modal {
+    width: 100%;
+    height: 95vh;
+    border-radius: 15px;
+  }
+  
+  .msp-modal-header {
+    padding: 15px 15px 10px 15px;
+  }
+  
+  .msp-modal-title h2 {
+    font-size: 22px;
+  }
+  
+  .msp-modal-left,
+  .msp-modal-right {
+    padding: 15px;
+  }
+  
+  .msp-modal-left {
+    max-height: 50vh;
+  }
+  
+  .msp-modal-right {
+    height: 220px;
+  }
+  
+  .msp-main-image-container {
+    height: 180px;
+  }
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+.msp-sidebar::-webkit-scrollbar,
+.msp-modal-left::-webkit-scrollbar {
+  width: 6px;
+}
+
+.msp-sidebar::-webkit-scrollbar-track,
+.msp-modal-left::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.msp-sidebar::-webkit-scrollbar-thumb,
+.msp-modal-left::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.msp-sidebar::-webkit-scrollbar-thumb:hover,
+.msp-modal-left::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.msp-item-card,
+.msp-type-card {
+  animation: fadeInUp 0.5s ease-out;
+}
+.back-home-container {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.back-home-btn {
+  background-color: #284a4b;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.back-home-btn:hover {
+  background-color: #397d7c;
+  transform: scale(1.05);
+}
