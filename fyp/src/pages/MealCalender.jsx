@@ -23,6 +23,13 @@ const MealCalender = () => {
     planningMode: 'ai'
   });
   const [mealPlan, setMealPlan] = useState({});
+  
+  // Modal state for adding recipe
+  const [showRecipeModal, setShowRecipeModal] = useState(false);
+  const [selectedMealSlot, setSelectedMealSlot] = useState({ dayIndex: 0, mealType: 'breakfast' });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const dayShortNames = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
@@ -43,7 +50,6 @@ const MealCalender = () => {
       }
       setMealPlan(emptyPlan);
     } else {
-      console.warn('No plan found, using empty slots');
       const emptyPlan = {};
       for (let i = 0; i < 7; i++) {
         emptyPlan[i] = { breakfast: null, lunch: null, dinner: null };
@@ -51,6 +57,36 @@ const MealCalender = () => {
       setMealPlan(emptyPlan);
     }
   }, [mode]);
+
+  // Search recipes from backend
+  useEffect(() => {
+    if (showRecipeModal && searchTerm.length > 1) {
+      const delayDebounce = setTimeout(() => {
+        fetchRecipes(searchTerm);
+      }, 500);
+      return () => clearTimeout(delayDebounce);
+    } else if (searchTerm.length === 0) {
+      setSearchResults([]);
+    }
+  }, [searchTerm, showRecipeModal]);
+
+  const fetchRecipes = async (query) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`http://localhost:5000/api/recipes/search?q=${encodeURIComponent(query)}`);
+      const data = await response.json();
+      if (data.success) {
+        setSearchResults(data.recipes);
+      } else {
+        setSearchResults([]);
+      }
+    } catch (error) {
+      console.error('Search error:', error);
+      setSearchResults([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getWeekDates = () => {
     const today = new Date();
@@ -115,14 +151,38 @@ const MealCalender = () => {
     }
   };
 
-  // Function to navigate to recipe detail page
   const viewRecipe = (recipeId, recipeName) => {
-    if (!recipeId) {
-      // fallback: search by name if no ID
-      navigate(`/recipes?search=${encodeURIComponent(recipeName)}`);
-    } else {
+    if (recipeId) {
       navigate(`/recipe/${recipeId}`);
+    } else {
+      navigate(`/recipes?search=${encodeURIComponent(recipeName)}`);
     }
+  };
+
+  // Open modal to add/change recipe
+  const openAddRecipeModal = (dayIndex, mealType) => {
+    setSelectedMealSlot({ dayIndex, mealType });
+    setShowRecipeModal(true);
+    setSearchTerm('');
+    setSearchResults([]);
+  };
+
+  // Select a recipe from search results
+  const selectRecipe = (recipe) => {
+    setMealPlan(prev => ({
+      ...prev,
+      [selectedMealSlot.dayIndex]: {
+        ...prev[selectedMealSlot.dayIndex],
+        [selectedMealSlot.mealType]: {
+          _id: recipe._id,
+          name: recipe.name,
+          image: recipe.image || 'https://via.placeholder.com/150',
+          available: true,
+          tagline: recipe.tagline || `${recipe.dietType} • ${recipe.cuisine || 'Delicious'}`
+        }
+      }
+    }));
+    setShowRecipeModal(false);
   };
 
   const dates = getWeekDates();
@@ -147,10 +207,6 @@ const MealCalender = () => {
     if (preferences.dietType === 'veg') return 'Vegetarian';
     if (preferences.dietType === 'non-veg') return 'Non-Veg';
     return 'Mixed';
-  };
-
-  const handleAddRecipe = (dayIndex, mealType) => {
-    alert(`Add recipe for ${days[dayIndex]} - ${mealType}. This will open recipe search modal.`);
   };
 
   return (
@@ -189,18 +245,8 @@ const MealCalender = () => {
           </div>
 
           <div className="mp-view-toggle">
-            <button
-              className={`mp-view-btn ${currentView === 'daily' ? 'mp-active' : ''}`}
-              onClick={() => switchView('daily')}
-            >
-              Daily View
-            </button>
-            <button
-              className={`mp-view-btn ${currentView === 'weekly' ? 'mp-active' : ''}`}
-              onClick={() => switchView('weekly')}
-            >
-              Weekly View
-            </button>
+            <button className={`mp-view-btn ${currentView === 'daily' ? 'mp-active' : ''}`} onClick={() => switchView('daily')}>Daily View</button>
+            <button className={`mp-view-btn ${currentView === 'weekly' ? 'mp-active' : ''}`} onClick={() => switchView('weekly')}>Weekly View</button>
           </div>
 
           <div className="mp-date-navigation">
@@ -209,62 +255,41 @@ const MealCalender = () => {
             <button className="mp-nav-arrow" onClick={nextWeek}>›</button>
           </div>
 
-          {/* ========= DAILY VIEW ========= */}
+          {/* DAILY VIEW */}
           {currentView === 'daily' && (
             <div className="mp-daily-view">
               <div className="mp-day-selector">
                 {days.map((day, index) => (
-                  <div
-                    key={index}
-                    className={`mp-day-tab ${index === selectedDay ? 'mp-active' : ''}`}
-                    onClick={() => setSelectedDay(index)}
-                  >
+                  <div key={index} className={`mp-day-tab ${index === selectedDay ? 'mp-active' : ''}`} onClick={() => setSelectedDay(index)}>
                     <div className="mp-day-name-short">{dayShortNames[index]}</div>
                     <div className="mp-day-date-num">{dates[index]}</div>
                   </div>
                 ))}
               </div>
-
               <div className="mp-daily-meals-container">
                 {['breakfast', 'lunch', 'dinner'].map((mealType) => {
                   const meal = mealPlan[selectedDay]?.[mealType];
                   return (
                     <div key={mealType} className="mp-daily-meal-section">
-                      <h2 className="mp-meal-type-heading">
-                        {mealType.charAt(0).toUpperCase() + mealType.slice(1)}
-                      </h2>
+                      <h2 className="mp-meal-type-heading">{mealType.charAt(0).toUpperCase() + mealType.slice(1)}</h2>
                       <div className="mp-meal-display-card">
                         <div className="mp-meal-image-section">
-                          <img 
-                            src={meal ? meal.image : 'https://via.placeholder.com/150?text=No+Recipe'} 
-                            alt={meal ? meal.name : 'Empty'} 
-                          />
+                          <img src={meal ? meal.image : 'https://via.placeholder.com/150?text=No+Recipe'} alt={meal ? meal.name : 'Empty'} />
                           <div className={`mp-status-badge ${meal?.available ? 'mp-available' : 'mp-unavailable'}`}>
                             {meal ? (meal.available ? 'Available' : 'Missing Items') : 'No recipe'}
                           </div>
                         </div>
                         <div className="mp-meal-details-section">
                           <h3 className="mp-meal-title">{meal ? meal.name : 'No recipe selected'}</h3>
-                          {!meal && mode === 'custom' && (
-                            <button 
-                              className="mp-add-recipe-btn" 
-                              onClick={() => handleAddRecipe(selectedDay, mealType)}
-                            >
-                              + Add Recipe
+                          {meal && <p className="mp-meal-tagline">{meal.tagline || 'Delicious meal'}</p>}
+                          <div className="mp-meal-buttons">
+                            {meal && (
+                              <button className="mp-view-recipe-btn" onClick={() => viewRecipe(meal._id, meal.name)}>📖 View Recipe</button>
+                            )}
+                            <button className="mp-add-recipe-btn" onClick={() => openAddRecipeModal(selectedDay, mealType)}>
+                              {meal ? '🔄 Change Recipe' : '+ Add Recipe'}
                             </button>
-                          )}
-                          {meal && meal.tagline && (
-                            <p className="mp-meal-tagline">{meal.tagline}</p>
-                          )}
-                          {/* 🔽 NEW: View Complete Recipe Button (only if meal exists) */}
-                          {meal && (
-                            <button 
-                              className="mp-view-recipe-btn"
-                              onClick={() => viewRecipe(meal._id || meal.id, meal.name)}
-                            >
-                              📖 View Complete Recipe
-                            </button>
-                          )}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -274,7 +299,7 @@ const MealCalender = () => {
             </div>
           )}
 
-          {/* ========= WEEKLY VIEW ========= */}
+          {/* WEEKLY VIEW */}
           {currentView === 'weekly' && (
             <div className="mp-weekly-view">
               <div className="mp-weekly-grid-header">
@@ -303,18 +328,16 @@ const MealCalender = () => {
                             </div>
                             <div className="mp-weekly-meal-text">
                               <div className="mp-weekly-meal-name">{meal.name}</div>
-                              {/* 🔽 NEW: Small View Recipe button for weekly view */}
-                              <button 
-                                className="mp-weekly-view-recipe-btn"
-                                onClick={() => viewRecipe(meal._id || meal.id, meal.name)}
-                              >
-                                View Recipe
-                              </button>
+                              <div className="mp-weekly-buttons">
+                                <button className="mp-weekly-view-recipe-btn" onClick={() => viewRecipe(meal._id, meal.name)}>View Recipe</button>
+                                <button className="mp-weekly-change-btn" onClick={() => openAddRecipeModal(dayIndex, mealType)}>Change</button>
+                              </div>
                             </div>
                           </div>
                         ) : (
-                          <div className="mp-empty-meal-box" onClick={() => mode === 'custom' && handleAddRecipe(dayIndex, mealType)}>
+                          <div className="mp-empty-meal-box" onClick={() => openAddRecipeModal(dayIndex, mealType)}>
                             <span className="mp-empty-icon">+</span>
+                            <span className="mp-empty-text">Add Recipe</span>
                           </div>
                         )}
                       </div>
@@ -326,12 +349,43 @@ const MealCalender = () => {
           )}
 
           <div className="mp-plan-actions">
-            <button className="mp-action-button mp-save-btn" onClick={savePlan}>
-              Save Plan
-            </button>
+            <button className="mp-action-button mp-save-btn" onClick={savePlan}>Save Plan</button>
           </div>
         </div>
       </div>
+
+      {/* Modal for Recipe Search */}
+      {showRecipeModal && (
+        <div className="mp-modal-overlay" onClick={() => setShowRecipeModal(false)}>
+          <div className="mp-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="mp-modal-header">
+              <h3>Select a Recipe</h3>
+              <button className="mp-close-modal" onClick={() => setShowRecipeModal(false)}>×</button>
+            </div>
+            <div className="mp-modal-body">
+              <input type="text" placeholder="Search recipes by name..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="mp-modal-search" autoFocus />
+              {loading && <p className="mp-loading-text">Searching...</p>}
+              <div className="mp-recipe-results">
+                {searchResults.map(recipe => (
+                  <div key={recipe._id} className="mp-recipe-result-item" onClick={() => selectRecipe(recipe)}>
+                    <img src={recipe.image || 'https://via.placeholder.com/50'} alt={recipe.name} />
+                    <div className="mp-recipe-result-info">
+                      <div className="mp-recipe-result-name">{recipe.name}</div>
+                      <div className="mp-recipe-result-desc">{recipe.dietType} • {recipe.cuisine || 'Any'}</div>
+                    </div>
+                  </div>
+                ))}
+                {searchTerm.length > 1 && !loading && searchResults.length === 0 && (
+                  <p className="mp-no-results">No recipes found. Try another keyword.</p>
+                )}
+              </div>
+            </div>
+            <div className="mp-modal-footer">
+              <button className="mp-modal-cancel" onClick={() => setShowRecipeModal(false)}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
