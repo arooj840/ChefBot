@@ -409,7 +409,7 @@ const MealFeature = () => {
             </div>
           )}
 
-          {/* Slide 8: AI Plan Generation - Summary only after card click */}
+          {/* Slide 8: AI Plan Generation - Button disabled until card click */}
           {currentSlide === 8 && (
             <div className="mp-slide">
               <div className="mp-slide-content">
@@ -440,8 +440,12 @@ const MealFeature = () => {
 
                 <div className="mp-button-group">
                   <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← Back</button>
-                  
-                  <button className="mp-btn mp-btn-primary mp-btn-generate" onClick={goToCalendar}>
+                  {/* Button is disabled until card is clicked */}
+                  <button 
+                    className="mp-btn mp-btn-primary mp-btn-generate" 
+                    onClick={goToCalendar}
+                    disabled={!isCardClicked}
+                  >
                     Generate AI Plan →
                   </button>
                 </div>

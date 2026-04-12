@@ -440,9 +440,10 @@ const UrduMealFeature = () => {
 
                 <div className="mp-button-group">
                   <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
-                  <button className="mp-btn mp-btn-primary mp-btn-generate" onClick={goToCalendar}>
-                    AI پلان بنائیں →
-                  </button>
+                  <button className="mp-btn mp-btn-primary mp-btn-generate" onClick={goToCalendar} disabled={!isCardClicked}>
+  AI پلان بنائیں →
+</button>
+                  
                 </div>
               </div>
             </div>
