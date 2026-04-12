@@ -65,6 +65,8 @@ import RecipeCheatMeal from './pages/RecipeCheatMeal';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import VerifyOTPPage from './pages/VerifyOTPPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import UrduPantryPage from './pages/Urdu/UrduPantryPage';
+import UrduShoppingList from './pages/Urdu/UrduShoppingList';
 
 // ✅ Alarm Modal (if you need it)
 import AlarmModal from './components/AlarmModal';
@@ -147,6 +149,8 @@ function AppWrapper() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/verify-otp" element={<VerifyOTPPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/smart-pantry-urdu" element={<UrduPantryPage />} />
+           <Route path="/smart-shopping-urdu" element={<UrduShoppingList />} />
         </Routes>
 
         <Footer />
