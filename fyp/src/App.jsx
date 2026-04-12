@@ -67,6 +67,7 @@ import VerifyOTPPage from './pages/VerifyOTPPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import UrduPantryPage from './pages/Urdu/UrduPantryPage';
 import UrduShoppingList from './pages/Urdu/UrduShoppingList';
+import UrduMealFeature from './pages/Urdu/UrduMealFeature';
 
 // ✅ Alarm Modal (if you need it)
 import AlarmModal from './components/AlarmModal';
@@ -151,6 +152,7 @@ function AppWrapper() {
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/smart-pantry-urdu" element={<UrduPantryPage />} />
            <Route path="/smart-shopping-urdu" element={<UrduShoppingList />} />
+           <Route path="/smart-planner-urdu" element={<UrduMealFeature />} />
         </Routes>
 
         <Footer />

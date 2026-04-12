@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './MealFeature.css';
+import '../MealFeature.css';
 
-const MealFeature = () => {
+const UrduMealFeature = () => {
   const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(1);
   const [isCardClicked, setIsCardClicked] = useState(false);
@@ -86,7 +86,6 @@ const MealFeature = () => {
 
     localStorage.setItem('mealPreferences', JSON.stringify(preferences));
     
-    // DIRECT NAVIGATION - no React Router
     window.location.href = '/calender?mode=pantry';
   };
 
@@ -99,18 +98,18 @@ const MealFeature = () => {
           <>
             <div className="mp-fullscreen-image">
               <div className="mp-fullscreen-content">
-                <h1>Smart Meal Planning</h1>
-                <p>Create personalized meal plans based on your pantry, budget, and preferences</p>
+                <h1>سمارٹ کھانے کا پلان</h1>
+                <p>اپنی پینٹری، بجٹ اور پسند کے مطابق ذاتی پلان بنائیں</p>
               </div>
             </div>
             <div className="mp-planning-hero">
-              <h1 className="mp-planning-title">Meal Planning Wizard</h1>
-              <p className="mp-planning-subtitle">Follow these steps to create your perfect meal plan</p>
+              <h1 className="mp-planning-title">کھانے کا پلان</h1>
+              <p className="mp-planning-subtitle">یہ قدم مکمل کریں اور اپنا بہترین پلان بنائیں</p>
             </div>
             <div className="mp-planning-stats">
-              <div className="mp-stat-card"><div className="mp-stat-number">1</div><div className="mp-stat-label">Current Step</div></div>
-              <div className="mp-stat-card"><div className="mp-stat-number">{totalSlides}</div><div className="mp-stat-label">Total Steps</div></div>
-              <div className="mp-stat-card"><div className="mp-stat-number">12%</div><div className="mp-stat-label">Completed</div></div>
+              <div className="mp-stat-card"><div className="mp-stat-number">1</div><div className="mp-stat-label">موجودہ قدم</div></div>
+              <div className="mp-stat-card"><div className="mp-stat-number">{totalSlides}</div><div className="mp-stat-label">کل قدم</div></div>
+              <div className="mp-stat-card"><div className="mp-stat-number">12%</div><div className="mp-stat-label">مکمل</div></div>
             </div>
           </>
         )}
@@ -118,7 +117,7 @@ const MealFeature = () => {
         {currentSlide > 1 && (
           <div className="mp-slide-header">
             <div className="mp-slide-progress">
-              <div className="mp-progress-indicator">Step {currentSlide} of {totalSlides}</div>
+              <div className="mp-progress-indicator">قدم {currentSlide} / {totalSlides}</div>
               <div className="mp-progress-bar-mini"><div className="mp-progress-fill" style={{ width: `${progress}%` }}></div></div>
             </div>
           </div>
@@ -133,12 +132,12 @@ const MealFeature = () => {
           {currentSlide === 1 && (
             <div className="mp-slide mp-welcome-slide">
               <div className="mp-slide-content">
-                <h2>Welcome to ChefBot Meal Planner</h2>
+                <h2>شیف بوٹ میں خوش آمدید</h2>
                 <p className="mp-slide-description">
-                  Plan your meals smartly based on your pantry items, budget, and dietary preferences.
+                  اپنی پینٹری کی چیزیں، بجٹ اور کھانے کی پسند کے مطابق پلان بنائیں۔
                 </p>
                 <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-primary" onClick={nextSlide}>Let's Start! →</button>
+                  <button className="mp-btn mp-btn-primary" onClick={nextSlide}>شروع کریں →</button>
                 </div>
               </div>
             </div>
@@ -148,27 +147,27 @@ const MealFeature = () => {
           {currentSlide === 2 && (
             <div className="mp-slide">
               <div className="mp-slide-content">
-                <h2>Choose Planning Duration</h2>
+                <h2>مدت چنیں</h2>
                 <div className="mp-options-grid-two">
                   <div className={`mp-option-card ${duration === 'daily' ? 'selected' : ''}`} onClick={() => setDuration('daily')}>
                     <div className="mp-option-image"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400" alt="Daily" /></div>
-                    <div className="mp-label">Daily Plan</div>
-                    <div className="mp-option-detail">Plan for 1 day • Quick and Simple</div>
+                    <div className="mp-label">روزانہ پلان</div>
+                    <div className="mp-option-detail">1 دن کا پلان • تیز اور آسان</div>
                   </div>
                   <div className={`mp-option-card ${duration === 'weekly' ? 'selected' : ''}`} onClick={() => setDuration('weekly')}>
                     <div className="mp-option-image"><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400" alt="Weekly" /></div>
-                    <div className="mp-label">Weekly Plan</div>
-                    <div className="mp-option-detail">Plan for 7 days • Organized and Efficient</div>
+                    <div className="mp-label">ہفتہ وار پلان</div>
+                    <div className="mp-option-detail">7 دن کا پلان • آسان اور بہتر</div>
                   </div>
                 </div>
                 {duration && (
                   <div className="mp-selection-indicator">
-                    Selected: <strong>{duration === 'daily' ? 'Daily Plan (1 Day)' : 'Weekly Plan (7 Days)'}</strong>
+                    منتخب: <strong>{duration === 'daily' ? 'روزانہ پلان (1 دن)' : 'ہفتہ وار پلان (7 دن)'}</strong>
                   </div>
                 )}
                 <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← Back</button>
-                  <button className="mp-btn mp-btn-primary" onClick={nextSlide} disabled={!duration}>Next →</button>
+                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
+                  <button className="mp-btn mp-btn-primary" onClick={nextSlide} disabled={!duration}>اگلا →</button>
                 </div>
               </div>
             </div>
@@ -178,32 +177,32 @@ const MealFeature = () => {
           {currentSlide === 3 && (
             <div className="mp-slide">
               <div className="mp-slide-content">
-                <h2>Select Your Diet Type</h2>
+                <h2>خوراک کی قسم منتخب کریں</h2>
                 <div className="mp-options-grid-three">
                   <div className={`mp-option-card ${dietType === 'veg' ? 'selected' : ''}`} onClick={() => { setDietType('veg'); setTargetAudience(''); setAgeGroup(''); setPatientCondition(''); }}>
                     <div className="mp-option-image"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400" alt="Vegetarian" /></div>
-                    <div className="mp-label">Vegetarian Only</div>
-                    <div className="mp-option-detail">Only plant-based meals</div>
+                    <div className="mp-label">صرف سبزی</div>
+                    <div className="mp-option-detail">صرف سبزیوں والا کھانا</div>
                   </div>
                   <div className={`mp-option-card ${dietType === 'mixed' ? 'selected' : ''}`} onClick={() => { setDietType('mixed'); setTargetAudience(''); setAgeGroup(''); setPatientCondition(''); }}>
                     <div className="mp-option-image"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400" alt="Mixed" /></div>
-                    <div className="mp-label">Mixed</div>
-                    <div className="mp-option-detail">Both veg & non-veg meals</div>
+                    <div className="mp-label">مکس</div>
+                    <div className="mp-option-detail">سبزی اور گوشت دونوں</div>
                   </div>
                   <div className={`mp-option-card ${dietType === 'non-veg' ? 'selected' : ''}`} onClick={() => { setDietType('non-veg'); setTargetAudience(''); setAgeGroup(''); setPatientCondition(''); }}>
                     <div className="mp-option-image"><img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400" alt="Non-Vegetarian" /></div>
-                    <div className="mp-label">Non-Vegetarian Only</div>
-                    <div className="mp-option-detail">Includes meat, fish and eggs</div>
+                    <div className="mp-label">صرف گوشت</div>
+                    <div className="mp-option-detail">گوشت، مچھلی اور انڈے شامل</div>
                   </div>
                 </div>
                 {dietType && (
                   <div className="mp-selection-indicator">
-                    Selected: <strong>{dietType === 'veg' ? 'Vegetarian Only' : dietType === 'mixed' ? 'Mixed' : 'Non-Vegetarian Only'}</strong>
+                    منتخب: <strong>{dietType === 'veg' ? 'صرف سبزی' : dietType === 'mixed' ? 'مکس' : 'صرف گوشت'}</strong>
                   </div>
                 )}
                 <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← Back</button>
-                  <button className="mp-btn mp-btn-primary" onClick={nextSlide} disabled={!dietType}>Next →</button>
+                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
+                  <button className="mp-btn mp-btn-primary" onClick={nextSlide} disabled={!dietType}>اگلا →</button>
                 </div>
               </div>
             </div>
@@ -213,19 +212,19 @@ const MealFeature = () => {
           {currentSlide === 4 && (
             <div className="mp-slide">
               <div className="mp-slide-content">
-                <h2>Who is this meal plan for?</h2>
+                <h2>یہ پلان کس کے لیے ہے؟</h2>
                 <div className="mp-target-audience-grid">
                   <div className={`mp-target-card ${targetAudience === 'general' ? 'selected' : ''}`}
                     onClick={() => { setTargetAudience('general'); setAgeGroup(''); setPatientCondition(''); }}>
                     <div className="mp-target-icon">👨‍👩‍👧‍👦</div>
-                    <div className="mp-target-title">General</div>
+                    <div className="mp-target-title">عام</div>
                   </div>
 
                   <div className="mp-target-card-wrapper">
                     <div className={`mp-target-card ${targetAudience === 'kids' ? 'selected' : ''}`}
                       onClick={() => { setTargetAudience('kids'); setPatientCondition(''); }}>
                       <div className="mp-target-icon">🧒</div>
-                      <div className="mp-target-title">Kids and Teens</div>
+                      <div className="mp-target-title">بچے اور نوعمر</div>
                     </div>
                     {targetAudience === 'kids' && (
                       <div className="mp-inline-dropdown">
@@ -235,11 +234,11 @@ const MealFeature = () => {
                           onChange={(e) => setAgeGroup(e.target.value)}
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <option value="">Select Age Group</option>
-                          <option value="toddlers">Toddlers (1-3 years)</option>
-                          <option value="kids">Kids (4-8 years)</option>
-                          <option value="preteens">Pre-teens (9-12 years)</option>
-                          <option value="teens">Teenagers (13-18 years)</option>
+                          <option value="">عمر کا گروپ منتخب کریں</option>
+                          <option value="toddlers">چھوٹے بچے (1-3 سال)</option>
+                          <option value="kids">بچے (4-8 سال)</option>
+                          <option value="preteens">نوعمر (9-12 سال)</option>
+                          <option value="teens">نوجوان (13-18 سال)</option>
                         </select>
                       </div>
                     )}
@@ -249,7 +248,7 @@ const MealFeature = () => {
                     <div className={`mp-target-card ${targetAudience === 'patient' ? 'selected' : ''}`}
                       onClick={() => { setTargetAudience('patient'); setAgeGroup(''); }}>
                       <div className="mp-target-icon">🏥</div>
-                      <div className="mp-target-title">Patient Meal Plan</div>
+                      <div className="mp-target-title">مریض کے لیے</div>
                     </div>
                     {targetAudience === 'patient' && (
                       <div className="mp-inline-dropdown">
@@ -259,10 +258,10 @@ const MealFeature = () => {
                           onChange={(e) => setPatientCondition(e.target.value)}
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <option value="">Select Condition</option>
-                          <option value="diabetes">Diabetes</option>
-                          <option value="heart">Heart/Cardiac</option>
-                          <option value="bp">High Blood Pressure</option>
+                          <option value="">بیماری منتخب کریں</option>
+                          <option value="diabetes">شوگر</option>
+                          <option value="heart">دل کی بیماری</option>
+                          <option value="bp">ہائی بلڈ پریشر</option>
                         </select>
                       </div>
                     )}
@@ -271,18 +270,18 @@ const MealFeature = () => {
 
                 {targetAudience && (
                   <div className="mp-selection-indicator">
-                    Selected: <strong>
-                      {targetAudience === 'general' ? 'General'
+                    منتخب: <strong>
+                      {targetAudience === 'general' ? 'عام'
                         : targetAudience === 'kids'
-                          ? `Kids & Teens${ageGroup ? ` — ${ageGroup === 'toddlers' ? 'Toddlers' : ageGroup === 'kids' ? 'Kids' : ageGroup === 'preteens' ? 'Pre-teens' : 'Teenagers'}` : ''}`
-                          : `Patient Meal Plan${patientCondition ? ` — ${patientCondition === 'diabetes' ? 'Diabetes' : patientCondition === 'heart' ? 'Heart/Cardiac' : 'High Blood Pressure'}` : ''}`
+                          ? `بچے${ageGroup ? ` — ${ageGroup === 'toddlers' ? 'چھوٹے بچے' : ageGroup === 'kids' ? 'بچے' : ageGroup === 'preteens' ? 'نوعمر' : 'نوجوان'}` : ''}`
+                          : `مریض${patientCondition ? ` — ${patientCondition === 'diabetes' ? 'شوگر' : patientCondition === 'heart' ? 'دل کی بیماری' : 'ہائی بلڈ پریشر'}` : ''}`
                       }
                     </strong>
                   </div>
                 )}
 
                 <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← Back</button>
+                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
                   <button
                     className="mp-btn mp-btn-primary"
                     onClick={nextSlide}
@@ -291,7 +290,7 @@ const MealFeature = () => {
                       (targetAudience === 'kids' && !ageGroup) ||
                       (targetAudience === 'patient' && !patientCondition)
                     }
-                  >Next →</button>
+                  >اگلا →</button>
                 </div>
               </div>
             </div>
@@ -301,10 +300,10 @@ const MealFeature = () => {
           {currentSlide === 5 && (
             <div className="mp-slide">
               <div className="mp-slide-content">
-                <h2>Any Food Allergies?</h2>
+                <h2>کیا آپ کو کھانے سے الرجی ہے؟</h2>
                 {allergies.length > 0 && (
                   <div className="mp-selection-indicator">
-                    Selected Allergies: <strong>{allergies.join(', ')}</strong>
+                    منتخب الرجیاں: <strong>{allergies.join(', ')}</strong>
                   </div>
                 )}
                 <div className="mp-allergy-input-wrapper">
@@ -319,7 +318,7 @@ const MealFeature = () => {
                       <input
                         type="text"
                         className="mp-tag-input"
-                        placeholder="Type an allergy and press Enter..."
+                        placeholder="الرجی لکھیں اور Enter دبائیں..."
                         value={allergyInput}
                         onChange={(e) => setAllergyInput(e.target.value)}
                         onKeyPress={addAllergy}
@@ -327,9 +326,9 @@ const MealFeature = () => {
                     </div>
                   </div>
                   <div className="mp-allergy-suggestions">
-                    <div className="mp-suggestions-header">Common Allergies (Click to add):</div>
+                    <div className="mp-suggestions-header">عام الرجیاں (شامل کرنے کے لیے کلک کریں):</div>
                     <div className="mp-suggestion-chips">
-                      {['Eggs', 'Fish', 'Nuts', 'Dairy', 'Wheat', 'Shellfish'].map(item => (
+                      {['انڈے', 'مچھلی', 'مغز', 'دودھ', 'گندم', 'شیل فش'].map(item => (
                         <div key={item} className="mp-suggestion-chip"
                           onClick={() => { if (!allergies.includes(item)) setAllergies([...allergies, item]); }}>
                           + {item}
@@ -338,13 +337,13 @@ const MealFeature = () => {
                     </div>
                   </div>
                   <div className="mp-info-card">
-                    <strong>Safety First:</strong> Recipes containing these ingredients will be automatically excluded from your meal plan.
+                    <strong>پہلے تحفظ:</strong> ان اشیاء پر مشتمل پکوان آپ کے پلان سے اپنے آپ خارج کر دیے جائیں گے۔
                   </div>
                 </div>
                 <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← Back</button>
-                  <button className="mp-btn mp-btn-skip" onClick={nextSlide}>Skip</button>
-                  <button className="mp-btn mp-btn-primary" onClick={nextSlide}>Next →</button>
+                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
+                  <button className="mp-btn mp-btn-skip" onClick={nextSlide}>چھوڑیں</button>
+                  <button className="mp-btn mp-btn-primary" onClick={nextSlide}>اگلا →</button>
                 </div>
               </div>
             </div>
@@ -354,10 +353,10 @@ const MealFeature = () => {
           {currentSlide === 6 && (
             <div className="mp-slide">
               <div className="mp-slide-content">
-                <h2>How Many Family Members?</h2>
+                <h2>خاندان کے کتنے افراد ہیں؟</h2>
                 {familyMembers && (
                   <div className="mp-selection-indicator">
-                    Cooking for: <strong>{familyMembers} {familyMembers === '1' ? 'person' : 'people'}</strong>
+                    کھانا پک رہا ہے: <strong>{familyMembers} {familyMembers === '1' ? 'فرد' : 'افراد'}</strong>
                   </div>
                 )}
                 <div className="mp-family-counter-container">
@@ -366,20 +365,20 @@ const MealFeature = () => {
                     disabled={familyMembers === '1'}>−</button>
                   <div className="mp-counter-display">
                     <div className="mp-counter-number">{familyMembers}</div>
-                    <div className="mp-counter-label">{familyMembers === '1' ? 'Person' : 'People'}</div>
+                    <div className="mp-counter-label">{familyMembers === '1' ? 'فرد' : 'افراد'}</div>
                   </div>
                   <button className="mp-counter-btn plus-btn"
                     onClick={() => { const num = familyMembers === '8+' ? 8 : parseInt(familyMembers); if (num < 8) setFamilyMembers(String(num + 1)); else setFamilyMembers('8+'); }}>+</button>
                 </div>
                 <div className="mp-family-size-guide">
-                  <div className="mp-size-guide-item" onClick={() => handleFamilySizeSelect('1-2')}><span className="mp-guide-number">1-2</span><span className="mp-guide-text">Single or Couple</span></div>
-                  <div className="mp-size-guide-item" onClick={() => handleFamilySizeSelect('3-4')}><span className="mp-guide-number">3-4</span><span className="mp-guide-text">Small Family</span></div>
-                  <div className="mp-size-guide-item" onClick={() => handleFamilySizeSelect('5-7')}><span className="mp-guide-number">5-7</span><span className="mp-guide-text">Medium Family</span></div>
-                  <div className="mp-size-guide-item" onClick={() => handleFamilySizeSelect('8+')}><span className="mp-guide-number">8+</span><span className="mp-guide-text">Large Family</span></div>
+                  <div className="mp-size-guide-item" onClick={() => handleFamilySizeSelect('1-2')}><span className="mp-guide-number">1-2</span><span className="mp-guide-text">اکیلا یا جوڑا</span></div>
+                  <div className="mp-size-guide-item" onClick={() => handleFamilySizeSelect('3-4')}><span className="mp-guide-number">3-4</span><span className="mp-guide-text">چھوٹا خاندان</span></div>
+                  <div className="mp-size-guide-item" onClick={() => handleFamilySizeSelect('5-7')}><span className="mp-guide-number">5-7</span><span className="mp-guide-text">درمیانی خاندان</span></div>
+                  <div className="mp-size-guide-item" onClick={() => handleFamilySizeSelect('8+')}><span className="mp-guide-number">8+</span><span className="mp-guide-text">بڑا خاندان</span></div>
                 </div>
                 <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← Back</button>
-                  <button className="mp-btn mp-btn-primary" onClick={nextSlide}>Next →</button>
+                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
+                  <button className="mp-btn mp-btn-primary" onClick={nextSlide}>اگلا →</button>
                 </div>
               </div>
             </div>
@@ -389,60 +388,60 @@ const MealFeature = () => {
           {currentSlide === 7 && (
             <div className="mp-slide">
               <div className="mp-slide-content">
-                <h2>Set Your Budget</h2>
+                <h2>اپنا بجٹ مقرر کریں</h2>
                 <div className="mp-options-grid-four">
-                  <div className={`mp-option-card ${budget === 'economy' ? 'selected' : ''}`} onClick={() => setBudget('economy')}><div className="mp-budget-icon">💰</div><div className="mp-label">Economy</div><div className="mp-option-detail">Budget friendly meals</div></div>
-                  <div className={`mp-option-card ${budget === 'standard' ? 'selected' : ''}`} onClick={() => setBudget('standard')}><div className="mp-budget-icon">💵</div><div className="mp-label">Standard</div><div className="mp-option-detail">Balanced options</div></div>
-                  <div className={`mp-option-card ${budget === 'premium' ? 'selected' : ''}`} onClick={() => setBudget('premium')}><div className="mp-budget-icon">💎</div><div className="mp-label">Premium</div><div className="mp-option-detail">More variety</div></div>
-                  <div className={`mp-option-card ${budget === 'deluxe' ? 'selected' : ''}`} onClick={() => setBudget('deluxe')}><div className="mp-budget-icon">👑</div><div className="mp-label">Deluxe</div><div className="mp-option-detail">Best ingredients</div></div>
+                  <div className={`mp-option-card ${budget === 'economy' ? 'selected' : ''}`} onClick={() => setBudget('economy')}><div className="mp-budget-icon">💰</div><div className="mp-label">کفایتی</div><div className="mp-option-detail">کم بجٹ والے کھانے</div></div>
+                  <div className={`mp-option-card ${budget === 'standard' ? 'selected' : ''}`} onClick={() => setBudget('standard')}><div className="mp-budget-icon">💵</div><div className="mp-label">معمولی</div><div className="mp-option-detail">متوازن اختیارات</div></div>
+                  <div className={`mp-option-card ${budget === 'premium' ? 'selected' : ''}`} onClick={() => setBudget('premium')}><div className="mp-budget-icon">💎</div><div className="mp-label">اعلی</div><div className="mp-option-detail">زیادہ اقسام</div></div>
+                  <div className={`mp-option-card ${budget === 'deluxe' ? 'selected' : ''}`} onClick={() => setBudget('deluxe')}><div className="mp-budget-icon">👑</div><div className="mp-label">بہترین</div><div className="mp-option-detail">بہترین اجزاء</div></div>
                 </div>
                 {budget && (
                   <div className="mp-selection-indicator">
-                    Selected: <strong>{budget.charAt(0).toUpperCase() + budget.slice(1)}</strong>
+                    منتخب: <strong>
+                      {budget === 'economy' ? 'کفایتی' : budget === 'standard' ? 'معمولی' : budget === 'premium' ? 'اعلی' : 'بہترین'}
+                    </strong>
                   </div>
                 )}
                 <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← Back</button>
-                  <button className="mp-btn mp-btn-primary" onClick={nextSlide} disabled={!budget}>Next →</button>
+                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
+                  <button className="mp-btn mp-btn-primary" onClick={nextSlide} disabled={!budget}>اگلا →</button>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Slide 8: AI Plan Generation - Summary only after card click */}
+          {/* Slide 8: AI Plan Generation */}
           {currentSlide === 8 && (
             <div className="mp-slide">
               <div className="mp-slide-content">
-                <h2>Generate Your AI Meal Plan</h2>
+                <h2>AI کھانے کا پلان بنائیں</h2>
                 <div className="mp-single-card-container">
                   <div className="mp-ai-card" onClick={handleCardClick}>
                     <div className="mp-ai-card-icon">🤖</div>
-                    <h3>Create Your Plan</h3>
-                    <p>Generate meal plan using AI based on the ingredients you already have in your pantry. Reduce waste and save money!</p>
+                    <h3>AI سے پلان بنائیں</h3>
+                    <p>AI آپ کی پینٹری میں موجود اشیاء کی بنیاد پر کھانے کا پلان تیار کرے گا۔ ضائع ہونے سے بچیں اور پیسے بچائیں۔</p>
                   </div>
                 </div>
 
-                {/* Summary box - only show after card is clicked */}
                 {isCardClicked && (
                   <div className="mp-plan-summary-box">
-                    <h3>Your Plan Summary:</h3>
+                    <h3>آپ کے پلان کا خلاصہ:</h3>
                     <ul>
-                      <li><strong>Duration:</strong> {duration === 'daily' ? '1 Day' : '7 Days'}</li>
-                      <li><strong>Diet:</strong> {dietType === 'veg' ? 'Vegetarian Only' : dietType === 'mixed' ? 'Mixed' : 'Non-Vegetarian Only'}</li>
-                      <li><strong>Target:</strong> {targetAudience === 'general' ? 'General' : targetAudience === 'kids' ? `Kids (${ageGroup})` : `Patient (${patientCondition})`}</li>
-                      <li><strong>Family Size:</strong> {familyMembers} {familyMembers === '1' ? 'person' : 'people'}</li>
-                      <li><strong>Budget:</strong> {budget.charAt(0).toUpperCase() + budget.slice(1)}</li>
-                      {allergies.length > 0 && <li><strong>Allergies:</strong> {allergies.join(', ')}</li>}
-                      <li><strong>Method:</strong> AI Plan (using your pantry)</li>
+                      <li><strong>مدت:</strong> {duration === 'daily' ? '1 دن' : '7 دن'}</li>
+                      <li><strong>خوراک:</strong> {dietType === 'veg' ? 'صرف سبزی' : dietType === 'mixed' ? 'مکس' : 'صرف گوشت'}</li>
+                      <li><strong>ٹارگٹ:</strong> {targetAudience === 'general' ? 'عام' : targetAudience === 'kids' ? `بچے (${ageGroup === 'toddlers' ? 'چھوٹے بچے' : ageGroup === 'kids' ? 'بچے' : ageGroup === 'preteens' ? 'نوعمر' : 'نوجوان'})` : `مریض (${patientCondition === 'diabetes' ? 'شوگر' : patientCondition === 'heart' ? 'دل کی بیماری' : 'ہائی بلڈ پریشر'})`}</li>
+                      <li><strong>خاندان:</strong> {familyMembers} {familyMembers === '1' ? 'فرد' : 'افراد'}</li>
+                      <li><strong>بجٹ:</strong> {budget === 'economy' ? 'کفایتی' : budget === 'standard' ? 'معمولی' : budget === 'premium' ? 'اعلی' : 'بہترین'}</li>
+                      {allergies.length > 0 && <li><strong>الرجیاں:</strong> {allergies.join(', ')}</li>}
+                      <li><strong>طریقہ:</strong> AI پلان (آپ کی پینٹری استعمال کرتے ہوئے)</li>
                     </ul>
                   </div>
                 )}
 
                 <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← Back</button>
-                  
+                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
                   <button className="mp-btn mp-btn-primary mp-btn-generate" onClick={goToCalendar}>
-                    Generate AI Plan →
+                    AI پلان بنائیں →
                   </button>
                 </div>
               </div>
@@ -455,4 +454,4 @@ const MealFeature = () => {
   );
 };
 
-export default MealFeature;
+export default UrduMealFeature;
