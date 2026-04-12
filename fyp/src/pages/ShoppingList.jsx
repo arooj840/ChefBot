@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './ShoppingList.css';
 import { useNavigate } from 'react-router-dom';
+import { showToast } from '../components/Toast';
+import './ShoppingList.css';
 
 const ShoppingList = () => {
   const [items, setItems] = useState([]);
@@ -13,51 +14,178 @@ const ShoppingList = () => {
     category: 'Groceries' 
   });
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  
+  const navigate = useNavigate();
 
   const categories = ['Groceries', 'Vegetables', 'Fruits', 'Dairy', 'Meat', 'Beverages', 'Snacks', 'Household', 'Other'];
   const units = ['pieces', 'kg', 'g', 'liters', 'ml', 'dozen', 'packets', 'bottles'];
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    
-    // ✅ ADDED: Check if redirected from pantry with item
-    const redirectedItem = localStorage.getItem('redirectedItem');
-    if (redirectedItem) {
-      const item = JSON.parse(redirectedItem);
-      
-      // Add to shopping list if not already present
-      if (!items.some(i => i.id === item.id)) {
-        setItems([...items, item]);
-      }
-      
-      // Clear the redirected item flag
-      localStorage.removeItem('redirectedItem');
-    }
-  }, []);
+  const getToken = () => localStorage.getItem('token');
 
-  const handleSaveItem = () => {
-    if (!currentItem.name || !currentItem.quantity) {
-      alert('Please fill all fields!');
+  // WhatsApp Share Function
+  const shareOnWhatsApp = () => {
+    if (items.length === 0) {
+      showToast('No items to share!', 'warning');
       return;
     }
 
-    if (editMode) {
-      setItems(items.map(item => item.id === currentItem.id ? currentItem : item));
-    } else {
-      setItems([...items, { ...currentItem, id: Date.now() }]);
-    }
+    let message = "🛒 *MY SHOPPING LIST* 🛒\n";
+    message += "─────────────────\n\n";
+    
+    categories.forEach(category => {
+      const categoryItems = items.filter(item => item.category === category);
+      if (categoryItems.length > 0) {
+        message += `📁 *${category.toUpperCase()}* (${categoryItems.length})\n`;
+        message += "─────────────────\n";
+        categoryItems.forEach((item, index) => {
+          message += `${index + 1}. ${item.quantity} ${item.unit} - ${item.name}\n`;
+        });
+        message += "\n";
+      }
+    });
+    
+    message += "─────────────────\n";
+    message += `📊 Total Items: ${items.length}\n`;
+    message += `📅 ${new Date().toLocaleDateString()}\n`;
+    message += `📍 ChefBot - Smart Kitchen\n`;
+    message += "─────────────────\n";
+    message += "✅ Happy Shopping! 🛒";
 
-    handleCloseModal();
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
-      setItems(items.filter(item => item.id !== id));
+  const fetchShoppingItems = async () => {
+    try {
+      setLoading(true);
+      const token = getToken();
+      if (!token) {
+        navigate('/login-page');
+        return;
+      }
+
+      const response = await fetch('http://localhost:5000/api/shopping', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setItems(data.items || []);
+      } else {
+        showToast(data.message || 'Failed', 'error');
+      }
+    } catch (err) {
+      showToast('Server error', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchShoppingItems();
+  }, []);
+
+  const handleSaveItem = async () => {
+    if (!currentItem.name || !currentItem.quantity) {
+      showToast('Please fill all fields!', 'warning');
+      return;
+    }
+
+    try {
+      const token = getToken();
+      const url = editMode 
+        ? `http://localhost:5000/api/shopping/${currentItem._id}`
+        : 'http://localhost:5000/api/shopping';
+      
+      const method = editMode ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: currentItem.name,
+          quantity: parseInt(currentItem.quantity),
+          unit: currentItem.unit,
+          category: currentItem.category
+        })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setItems(data.items);
+        handleCloseModal();
+        showToast(editMode ? 'Updated!' : 'Added!', 'success');
+      } else {
+        showToast(data.message || 'Failed', 'error');
+      }
+    } catch (err) {
+      showToast('Server error', 'error');
+    }
+  };
+
+  const markAsPurchased = async (id) => {
+    try {
+      const token = getToken();
+      const response = await fetch(`http://localhost:5000/api/shopping/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setItems(data.items);
+        showToast('Item purchased!', 'success');
+      } else {
+        showToast(data.message || 'Failed', 'error');
+      }
+    } catch (err) {
+      showToast('Server error', 'error');
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const token = getToken();
+      const response = await fetch(`http://localhost:5000/api/shopping/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setItems(data.items);
+        showToast('Item deleted!', 'success');
+      }
+    } catch (err) {
+      showToast('Server error', 'error');
     }
   };
 
   const handleEdit = (item) => {
-    setCurrentItem(item);
+    setCurrentItem({
+      _id: item._id,
+      name: item.name,
+      quantity: item.quantity,
+      unit: item.unit,
+      category: item.category
+    });
     setEditMode(true);
     setShowModal(true);
   };
@@ -79,20 +207,23 @@ const ShoppingList = () => {
     item.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const markAsPurchased = (id) => {
-    setItems(items.map(item => 
-      item.id === id ? { ...item, purchased: !item.purchased } : item
-    ));
-  };
-
   const totalItems = items.length;
   const purchasedItems = items.filter(item => item.purchased).length;
   const pendingItems = totalItems - purchasedItems;
 
+  if (loading) {
+    return (
+      <div className="shopping-page">
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="shopping-page">
-      
-      {/* Full Screen Food Image - Like Pantry */}
       <div className="shopping-fullscreen-food-image">
         <div className="shopping-fullscreen-food-content">
           <h1>Your Smart Shopping List</h1>
@@ -100,13 +231,20 @@ const ShoppingList = () => {
         </div>
       </div>
 
-      {/* Hero Section - Same as Pantry */}
+      {/* ✅ FIXED HERO SECTION - with content wrapper */}
       <div className="shopping-hero-section">
-        <h1 className="shopping-hero-title">My Shopping List</h1>
-        <p className="shopping-hero-subtitle">Manage items you need to purchase</p>
+        <div className="shopping-hero-content">
+          <h1 className="shopping-hero-title">My Shopping List</h1>
+          <p className="shopping-hero-subtitle">Manage items you need to purchase</p>
+        </div>
       </div>
 
-      {/* Stats Section - Shopping ke hisaab se */}
+      {error && (
+        <div className="shopping-error-message">
+          <i className="fas fa-exclamation-circle"></i> {error}
+        </div>
+      )}
+
       {items.length > 0 && (
         <div className="shopping-stats-section">
           <div className="shopping-stat-card">
@@ -124,7 +262,6 @@ const ShoppingList = () => {
         </div>
       )}
 
-      {/* Search + Add - Same as Pantry */}
       <div className="shopping-search-add-section">
         <input
           type="text"
@@ -138,7 +275,13 @@ const ShoppingList = () => {
         </button>
       </div>
 
-      {/* Categories Checklist - Same layout */}
+      {/* WhatsApp Share Button */}
+      <div className="whatsapp-share-container">
+        <button className="btn-whatsapp-share" onClick={shareOnWhatsApp}>
+          📱 Share on WhatsApp
+        </button>
+      </div>
+
       {items.length === 0 ? (
         <div className="shopping-empty-message">
           <h4>Your shopping list is empty</h4>
@@ -160,26 +303,34 @@ const ShoppingList = () => {
                 </div>
                 <div className="shopping-checklist-items">
                   {categoryItems.map(item => (
-                    <div key={item.id} className={`shopping-checklist-item ${item.purchased ? 'shopping-purchased-item' : ''}`}>
+                    <div key={item._id} className="shopping-checklist-item">
                       <span className="shopping-quantity-badge-simple">{item.quantity} {item.unit}</span>
-                      <h4 className="shopping-item-name-simple" style={{ 
-                        textDecoration: item.purchased ? 'line-through' : 'none',
-                        opacity: item.purchased ? 0.6 : 1 
-                      }}>
+                      <h4 className="shopping-item-name-simple">
                         {item.name}
+                        {item.fromPantry && <span className="from-pantry-badge"> (from pantry)</span>}
                       </h4>
                       <div className="shopping-checklist-actions">
-                        {/* Purchase Button */}
                         <button 
-                          className={`shopping-checklist-action-btn ${item.purchased ? 'shopping-purchased-btn' : 'shopping-purchase-btn'}`}
-                          onClick={() => markAsPurchased(item.id)}
-                          title={item.purchased ? "Mark as not purchased" : "Mark as purchased"}
+                          className="shopping-purchase-btn"
+                          onClick={() => markAsPurchased(item._id)}
+                          title="Mark as purchased"
                         >
-                          {item.purchased ? '✓' : '○'}
+                          ✓
                         </button>
-                        
-                        <button className="shopping-checklist-action-btn shopping-edit-action-btn" onClick={() => handleEdit(item)}>✏️</button>
-                        <button className="shopping-checklist-action-btn shopping-delete-action-btn" onClick={() => handleDelete(item.id)}>🗑️</button>
+                        <button 
+                          className="shopping-edit-action-btn" 
+                          onClick={() => handleEdit(item)}
+                          title="Edit"
+                        >
+                          ✏️
+                        </button>
+                        <button 
+                          className="shopping-delete-action-btn" 
+                          onClick={() => handleDelete(item._id)}
+                          title="Delete"
+                        >
+                          🗑️
+                        </button>
                       </div>
                     </div>
                   ))}
@@ -190,7 +341,6 @@ const ShoppingList = () => {
         </div>
       )}
 
-      {/* Modal - Same as Pantry */}
       {showModal && (
         <div className="shopping-modal-overlay" onClick={handleCloseModal}>
           <div className="shopping-modal" onClick={(e) => e.stopPropagation()}>
@@ -239,7 +389,13 @@ const ShoppingList = () => {
           </div>
         </div>
       )}
-
+    
+      {/* Back to Home Button */}
+      <div className="back-home-container">
+        <button className="btn-back-home" onClick={() => navigate('/')}>
+          ← Back to Home
+        </button>
+      </div>
     </div>
   );
 };
