@@ -703,7 +703,7 @@ const allGuides = [];
 toolsData.forEach(item => {
   allGuides.push({
     title: item.name,
-    content: item.fullDesc,
+    content: JSON.stringify(item),   // changed
     category: 'tools',
     image: item.image,
     video: ''
@@ -713,7 +713,7 @@ toolsData.forEach(item => {
 techniquesData.forEach(item => {
   allGuides.push({
     title: item.name,
-    content: item.fullDesc,
+    content: JSON.stringify(item),   // changed
     category: 'techniques',
     image: item.image,
     video: ''
@@ -723,7 +723,7 @@ techniquesData.forEach(item => {
 ingredientsData.forEach(item => {
   allGuides.push({
     title: item.name,
-    content: item.fullDesc,
+    content: JSON.stringify(item),   // changed
     category: 'ingredients',
     image: item.image,
     video: ''
@@ -733,7 +733,7 @@ ingredientsData.forEach(item => {
 temperatureData.forEach(item => {
   allGuides.push({
     title: item.name,
-    content: item.fullDesc,
+    content: JSON.stringify(item),   // changed
     category: 'temperature',
     image: item.image,
     video: ''
@@ -743,13 +743,13 @@ temperatureData.forEach(item => {
 decoratingData.forEach(item => {
   allGuides.push({
     title: item.name,
-    content: item.fullDesc,
+    content: JSON.stringify(item),   // changed
     category: 'decorating',
     image: item.image,
     video: ''
   });
 });
-// Map beginners skill cards
+// Map beginners skill cards (keep as before, no fullDesc)
 skillCards.forEach(card => {
   allGuides.push({
     title: card.title,
@@ -763,7 +763,7 @@ skillCards.forEach(card => {
 cookingMethods.forEach(method => {
   allGuides.push({
     title: method.name,
-    content: method.fullDesc,
+    content: JSON.stringify(method),   // changed (was method.fullDesc)
     category: 'cooking-methods',
     image: method.previewImg,
     video: ''
@@ -773,7 +773,7 @@ cookingMethods.forEach(method => {
 cuttingTechniques.forEach(tech => {
   allGuides.push({
     title: tech.name,
-    content: tech.fullDesc,
+    content: JSON.stringify(tech),   // changed (was tech.fullDesc)
     category: 'cutting-techniques',
     image: tech.previewImg,
     video: ''
@@ -791,8 +791,6 @@ const migrate = async () => {
       console.error('Admin not found! Please create admin first.');
       process.exit(1);
     }
-
- 
 
     const guidesToInsert = allGuides.map(g => ({ ...g, createdBy: admin._id }));
     const result = await BeginnersGuide.insertMany(guidesToInsert);

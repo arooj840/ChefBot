@@ -13,19 +13,19 @@ const allGuides = [];
 const addGuide = (item, category) => {
   if (!item) return;
   const title = item.name || item.title;
-  const content = item.fullDesc || item.content || item.description;
-  if (!title || !content) {
-    console.warn(`⚠️ Skipping item in category "${category}": missing title/content`, item);
+  if (!title) {
+    console.warn(`⚠️ Skipping item in category "${category}": missing title`, item);
     return;
   }
   allGuides.push({
     title: title,
-    content: content,
+    content: JSON.stringify(item),
     category: category,
     image: item.image || '',
     video: ''
   });
 };
+
 
 // ========== 1. KITCHEN TOOLS PAGE ==========
 // ⬇️ YAHAN APNE FRONTEND SE ARRAYS COPY KAREIN ⬇️
