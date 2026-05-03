@@ -98,12 +98,12 @@ body {
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* ===== HERO SECTION – ORIGINAL STYLING, ONLY SPACING REDUCED ===== */
+/* ===== HERO SECTION – ORIGINAL ===== */
 .mp-planning-hero {
   background: linear-gradient(135deg, #284a4b, #1d3a3b);
   backdrop-filter: blur(10px);
   color: white;
-  padding: 12px 20px;          /* was 22px */
+  padding: 12px 20px;
   text-align: center;
   flex-shrink: 0;
   position: relative;
@@ -112,8 +112,8 @@ body {
   width: 100%;
   margin-top: 0;
   border-radius: 0;
-  margin-bottom: 20px;         /* was 50px */
-  height: auto;                /* was 150px */
+  margin-bottom: 20px;
+  height: auto;
 }
 
 .mp-planning-hero::before {
@@ -161,7 +161,7 @@ body {
   max-width: 600px;
   margin: 0 auto;
   position: relative;
-  padding: 6px 0;              /* was 10px */
+  padding: 6px 0;
   font-style: italic;
 }
 
@@ -176,16 +176,16 @@ body {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
 }
 
-/* ── Stats – COMPACT (no fixed height) ── */
+/* ── Stats ── */
 .mp-planning-stats {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
-  margin: 0 auto 10px;         /* was 2px */
+  margin: 0 auto 10px;
   max-width: 500px;
   padding: 0 12px;
-  height: auto;                /* was 100px */
+  height: auto;
 }
 
 .mp-stat-card {
@@ -213,17 +213,44 @@ body {
   font-weight: 500;
 }
 
-/* ===== SLIDE CONTAINER – FIXED HEIGHT (ALL SLIDES EQUAL) ===== */
+/* ===== SLIDE HEADER (slides 2-8) ===== */
+/* ✅ FIX: margin-top: 160px — navbar ke neeche se start ho */
+.mp-slide-header {
+  max-width: 780px;
+  width: 92%;
+  margin: 160px auto 10px;
+}
+
+.mp-progress-indicator {
+  font-size: 0.72rem;
+  color: #284a4b;
+  font-weight: 600;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+/* Extra line hidden */
+.mp-progress-bar-mini {
+  display: none;
+}
+
+.mp-progress-fill {
+  background: #284a4b;
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+/* ===== SLIDE CONTAINER ===== */
 .mp-slide-container {
   max-width: 780px;
   width: 92%;
-  margin: 0 auto;
+  margin: 0 auto 30px;
   background: white;
   border-radius: 18px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.09);
-  overflow: visible;           /* no cut-off */
+  overflow: hidden;
   border-left: 4px solid #284a4b;
-  height: 500px;               /* FIXED – all slides same height */
+  height: 440px;
   display: flex;
   flex-direction: column;
 }
@@ -241,19 +268,18 @@ body {
   transition: width 0.4s ease;
 }
 
-/* ── Slide – content aligned to TOP (no vertical centering) ── */
 .mp-slide {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;   /* content top se start */
+  justify-content: flex-start;
   align-items: stretch;
-  overflow-y: auto;              /* safety scroll if needed */
+  overflow-y: auto;
   animation: mpSlideIn 0.4s ease;
 }
 
 .mp-slide-content {
-  padding: 12px 20px;            /* was 22px 28px 26px – minimal */
+  padding: 12px 20px;
   width: 100%;
 }
 
@@ -278,35 +304,36 @@ body {
   line-height: 1.4;
 }
 
-/* ── Welcome Slide – COMPACT ── */
+/* ── Welcome Slide ── */
 .mp-welcome-slide .mp-slide-content {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 12px 20px;            /* was 32px 28px */
-  gap: 6px;
+  height: 100%;
+  padding: 20px;
+  gap: 14px;
 }
 
 .mp-welcome-slide h2 {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
 }
 
 .mp-welcome-slide p {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: #666;
-  line-height: 1.5;
+  line-height: 1.6;
   max-width: 460px;
 }
 
-/* ── Info Card – margin fixed ── */
+/* ── Info Card ── */
 .mp-info-card {
   background: whitesmoke;
   border-left: 4px solid #284a4b;
   padding: 6px 10px;
   border-radius: 8px;
-  margin-bottom: 15px;          /* was 120px */
+  margin-bottom: 15px;
   color: #284a4b;
   font-size: 0.7rem;
   line-height: 1.4;
@@ -329,7 +356,7 @@ body {
   color: #284a4b;
 }
 
-/* ── Plan Summary Box (Slide 8) – compact ── */
+/* ── Plan Summary Box ── */
 .mp-plan-summary-box {
   background: whitesmoke;
   border: 2px solid #284a4b;
@@ -367,7 +394,7 @@ body {
   font-weight: 600;
 }
 
-/* ── Options Grids – compact spacing ── */
+/* ── Options Grids ── */
 .mp-options-grid-two {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -392,7 +419,7 @@ body {
   max-width: 620px;
 }
 
-/* ── Option Card – EQUAL HEIGHT (all same) ── */
+/* ── Option Card ── */
 .mp-option-card {
   background: whitesmoke;
   border: 2px solid #999;
@@ -404,7 +431,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 240px;            /* all cards same height (was 280, reduced for compactness) */
+  min-height: 240px;
 }
 
 .mp-option-card:hover {
@@ -424,7 +451,7 @@ body {
 
 .mp-option-image {
   width: 100%;
-  height: 110px;                 /* was 130px – smaller for compact */
+  height: 110px;
   border-radius: 9px;
   overflow: hidden;
   margin-bottom: 6px;
@@ -482,7 +509,7 @@ body {
   color: white;
 }
 
-/* ── Target Audience Grid – EQUAL CARD HEIGHT ── */
+/* ── Target Audience Grid ── */
 .mp-target-audience-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -508,7 +535,7 @@ body {
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s;
   width: 100%;
-  min-height: 110px;            /* equal height for all target cards */
+  height: 160px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -531,8 +558,8 @@ body {
 }
 
 .mp-target-icon {
-  font-size: 1.5rem;
-  margin-bottom: 5px;
+  font-size: 2.2rem;
+  margin-bottom: 8px;
   color: #284a4b;
 }
 
@@ -541,7 +568,7 @@ body {
 }
 
 .mp-target-title {
-  font-size: 0.8rem;
+  font-size: 0.88rem;
   font-weight: 700;
   color: #284a4b;
 }
@@ -555,7 +582,6 @@ body {
   color: #666;
 }
 
-/* Inline dropdown below card */
 .mp-inline-dropdown {
   width: 100%;
 }
@@ -591,7 +617,7 @@ body {
   background: white;
 }
 
-/* ── Allergy Input – compact ── */
+/* ── Allergy Input ── */
 .mp-allergy-input-wrapper {
   margin: 8px auto;
   max-width: 540px;
@@ -678,7 +704,7 @@ body {
   color: white;
 }
 
-/* ── Family Counter – compact ── */
+/* ── Family Counter ── */
 .mp-family-counter-container {
   display: flex;
   align-items: center;
@@ -781,7 +807,7 @@ body {
   color: #666;
 }
 
-/* ── AI Card (Slide 8) – compact ── */
+/* ── AI Card ── */
 .mp-single-card-container {
   display: flex;
   justify-content: center;
@@ -924,7 +950,7 @@ body {
   transform: none;
 }
 
-/* ── Modal – compact ── */
+/* ── Modal ── */
 .mp-modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -1046,7 +1072,7 @@ body {
 
 .mp-modal-add:hover { background: #397d7c; }
 
-/* ── Responsive – adjust fixed height for smaller screens ── */
+/* ── Responsive ── */
 @media (max-width: 1024px) {
   .mp-options-grid-three { grid-template-columns: repeat(2, 1fr); }
   .mp-options-grid-four  { grid-template-columns: repeat(2, 1fr); }
@@ -1054,7 +1080,8 @@ body {
 }
 
 @media (max-width: 768px) {
-  .mp-slide-container { width: 95%; height: 460px; }
+  .mp-slide-container { width: 95%; height: 420px; }
+  .mp-slide-header { margin-top: 120px; }
   .mp-slide h2 { font-size: 1rem; }
   .mp-options-grid-two, .mp-options-grid-three, .mp-options-grid-four { grid-template-columns: 1fr; max-width: 260px; }
   .mp-target-audience-grid { grid-template-columns: 1fr; max-width: 240px; }
@@ -1063,7 +1090,8 @@ body {
 }
 
 @media (max-width: 480px) {
-  .mp-slide-container { height: 420px; }
+  .mp-slide-container { height: 400px; }
+  .mp-slide-header { margin-top: 100px; }
   .mp-fullscreen-content h1 { font-size: 1.6rem; }
   .mp-planning-title { font-size: 1.6rem; }
   .mp-slide-content { padding: 8px 14px; }
