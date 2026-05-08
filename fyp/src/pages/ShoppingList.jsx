@@ -14,41 +14,20 @@ const ShoppingList = () => {
     category: 'Groceries' 
   });
   const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  
+  // State for delivery popup
+  const [showDeliveryModal, setShowDeliveryModal] = useState(false);
   
   const navigate = useNavigate();
 
   const categories = ['Groceries', 'Vegetables', 'Fruits', 'Dairy', 'Meat', 'Beverages', 'Snacks', 'Household', 'Other'];
   const units = ['pieces', 'kg', 'g', 'liters', 'ml', 'dozen', 'packets', 'bottles'];
 
-  // ========== LOCALSTORAGE FUNCTIONS (Mock Backend) ==========
-  const loadFromStorage = () => {
-    const stored = localStorage.getItem('shoppingList');
-    if (stored) {
-      setItems(JSON.parse(stored));
-    } else {
-      // Mock data for testing
-      const mockItems = [
-        { _id: '1', name: 'Milk', quantity: 2, unit: 'liters', category: 'Dairy', purchased: false },
-        { _id: '2', name: 'Bread', quantity: 1, unit: 'pieces', category: 'Groceries', purchased: false },
-        { _id: '3', name: 'Apples', quantity: 4, unit: 'pieces', category: 'Fruits', purchased: false },
-        { _id: '4', name: 'Chicken', quantity: 1, unit: 'kg', category: 'Meat', purchased: false }
-      ];
-      setItems(mockItems);
-      localStorage.setItem('shoppingList', JSON.stringify(mockItems));
-    }
-  };
+  const getToken = () => localStorage.getItem('token');
 
-  const saveToStorage = (newItems) => {
-    localStorage.setItem('shoppingList', JSON.stringify(newItems));
-    setItems(newItems);
-  };
-
-  useEffect(() => {
-    loadFromStorage();
-  }, []);
-
-  // ========== WHATSAPP SHARE FUNCTION (EXACTLY AS YOURS) ==========
+  // ========== WHATSAPP SHARE FUNCTION ==========
   const shareOnWhatsApp = () => {
     if (items.length === 0) {
       showToast('No items to share!', 'warning');
@@ -83,49 +62,134 @@ const ShoppingList = () => {
     window.open(whatsappUrl, '_blank');
   };
 
-  // ========== CRUD Operations (using localStorage) ==========
-  const handleSaveItem = () => {
+  // ========== BACKEND API CALLS ==========
+  const fetchShoppingItems = async () => {
+    try {
+      setLoading(true);
+      const token = getToken();
+      if (!token) {
+        navigate('/login-page');
+        return;
+      }
+
+      const response = await fetch('http://localhost:5000/api/shopping', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setItems(data.items || []);
+      } else {
+        showToast(data.message || 'Failed', 'error');
+      }
+    } catch (err) {
+      showToast('Server error', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchShoppingItems();
+  }, []);
+
+  const handleSaveItem = async () => {
     if (!currentItem.name || !currentItem.quantity) {
       showToast('Please fill all fields!', 'warning');
       return;
     }
 
-    const newItem = {
-      _id: editMode ? currentItem._id : Date.now().toString(),
-      name: currentItem.name,
-      quantity: parseInt(currentItem.quantity),
-      unit: currentItem.unit,
-      category: currentItem.category,
-      purchased: editMode ? currentItem.purchased : false
-    };
+    try {
+      const token = getToken();
+      const url = editMode 
+        ? `http://localhost:5000/api/shopping/${currentItem._id}`
+        : 'http://localhost:5000/api/shopping';
+      
+      const method = editMode ? 'PUT' : 'POST';
 
-    let updatedItems;
-    if (editMode) {
-      updatedItems = items.map(item => item._id === newItem._id ? newItem : item);
-    } else {
-      updatedItems = [...items, newItem];
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: currentItem.name,
+          quantity: parseInt(currentItem.quantity),
+          unit: currentItem.unit,
+          category: currentItem.category
+        })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setItems(data.items);
+        handleCloseModal();
+        showToast(editMode ? 'Updated!' : 'Added!', 'success');
+      } else {
+        showToast(data.message || 'Failed', 'error');
+      }
+    } catch (err) {
+      showToast('Server error', 'error');
     }
-    saveToStorage(updatedItems);
-    handleCloseModal();
-    showToast(editMode ? 'Updated!' : 'Added!', 'success');
   };
 
-  const markAsPurchased = (id) => {
-    const updatedItems = items.map(item => 
-      item._id === id ? { ...item, purchased: true } : item
-    );
-    saveToStorage(updatedItems);
-    showToast('Item marked as purchased!', 'success');
+  const markAsPurchased = async (id) => {
+    try {
+      const token = getToken();
+      const response = await fetch(`http://localhost:5000/api/shopping/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setItems(data.items);
+        showToast('Item purchased!', 'success');
+      } else {
+        showToast(data.message || 'Failed', 'error');
+      }
+    } catch (err) {
+      showToast('Server error', 'error');
+    }
   };
 
-  const handleDelete = (id) => {
-    const updatedItems = items.filter(item => item._id !== id);
-    saveToStorage(updatedItems);
-    showToast('Item deleted!', 'success');
+  const handleDelete = async (id) => {
+    try {
+      const token = getToken();
+      const response = await fetch(`http://localhost:5000/api/shopping/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setItems(data.items);
+        showToast('Item deleted!', 'success');
+      }
+    } catch (err) {
+      showToast('Server error', 'error');
+    }
   };
 
   const handleEdit = (item) => {
-    setCurrentItem({ ...item });
+    setCurrentItem({
+      _id: item._id,
+      name: item.name,
+      quantity: item.quantity,
+      unit: item.unit,
+      category: item.category
+    });
     setEditMode(true);
     setShowModal(true);
   };
@@ -140,6 +204,20 @@ const ShoppingList = () => {
     setShowModal(false);
     setEditMode(false);
     setCurrentItem({ name: '', quantity: '', unit: 'pieces', category: 'Groceries' });
+  };
+
+  // ========== Delivery popup functions ==========
+  const openDeliveryModal = () => setShowDeliveryModal(true);
+  const closeDeliveryModal = () => setShowDeliveryModal(false);
+  
+  const handleCityOrder = () => {
+    window.open('https://www.foodpanda.pk/', '_blank');
+    closeDeliveryModal();
+  };
+  
+  const handleVillageOrder = () => {
+    window.open('https://www.naheed.pk/', '_blank');
+    closeDeliveryModal();
   };
 
   const filteredItems = items.filter(item =>
@@ -178,6 +256,12 @@ const ShoppingList = () => {
         </div>
       </div>
 
+      {error && (
+        <div className="shopping-error-message">
+          <i className="fas fa-exclamation-circle"></i> {error}
+        </div>
+      )}
+
       {items.length > 0 && (
         <div className="shopping-stats-section">
           <div className="shopping-stat-card">
@@ -188,7 +272,8 @@ const ShoppingList = () => {
             <p className="shopping-stat-number">{pendingItems}</p>
             <p className="shopping-stat-label">To Buy</p>
           </div>
-          <div className="shopping-stat-card">
+          {/* Purchased card with orange color */}
+          <div className="shopping-stat-card shopping-purchased-card">
             <p className="shopping-stat-number">{purchasedItems}</p>
             <p className="shopping-stat-label">Purchased</p>
           </div>
@@ -274,6 +359,7 @@ const ShoppingList = () => {
         </div>
       )}
 
+      {/* Item Add/Edit Modal */}
       {showModal && (
         <div className="shopping-modal-overlay" onClick={handleCloseModal}>
           <div className="shopping-modal" onClick={(e) => e.stopPropagation()}>
@@ -323,12 +409,45 @@ const ShoppingList = () => {
         </div>
       )}
     
-      {/* Back to Home Button */}
-      <div className="back-home-container">
-        <button className="btn-back-home" onClick={() => navigate('/')}>
-          ← Back to Home
-        </button>
+      {/* Shop Online & Back to Home Buttons (side by side) */}
+      <div className="shopping-action-buttons">
+        <div className="shop-online-button-container">
+          <button className="btn-shop-online" onClick={openDeliveryModal}>
+            🛒 Shop Online
+          </button>
+        </div>
+        <div className="back-home-container">
+          <button className="btn-back-home" onClick={() => navigate('/')}>
+            ← Back to Home
+          </button>
+        </div>
       </div>
+
+      {/* Delivery Options Popup Modal */}
+      {showDeliveryModal && (
+        <div className="shopping-modal-overlay" onClick={closeDeliveryModal}>
+          <div className="delivery-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="delivery-modal-header">
+              <h3>Choose Delivery Service</h3>
+              <button className="delivery-modal-close" onClick={closeDeliveryModal}>×</button>
+            </div>
+            <div className="delivery-modal-body">
+              <div className="delivery-option" onClick={handleCityOrder}>
+                <div className="delivery-option-text">
+                  <strong>foodpanda (pandamart)</strong>
+                  <p>For cities – 30 minute delivery</p>
+                </div>
+              </div>
+              <div className="delivery-option" onClick={handleVillageOrder}>
+                <div className="delivery-option-text">
+                  <strong>Naheed.pk</strong>
+                  <p>For villages – Nationwide delivery (1-3 days)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -74,7 +74,7 @@ body, html {
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* ===== SHOPPING HERO SECTION - EXACTLY LIKE PANTRY ===== */
+/* ===== SHOPPING HERO SECTION ===== */
 .shopping-hero-section {
   background: linear-gradient(135deg, #284a4b, #1d3a3b);
   backdrop-filter: blur(10px);
@@ -108,7 +108,6 @@ body, html {
   padding: 0 20px;
 }
 
-/* Dashes before and after title */
 .shopping-hero-title::before,
 .shopping-hero-title::after {
   content: '';
@@ -151,13 +150,13 @@ body, html {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
 }
 
-/* Stats Section */
+/* Stats Section - Reduced Size */
 .shopping-stats-section {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin: 30px auto 40px;
-  gap: 25px;
+  margin: 20px auto 30px;
+  gap: 20px;
   width: 100%;
   max-width: 1200px;
   padding: 0 20px;
@@ -166,20 +165,20 @@ body, html {
 
 .shopping-stat-card {
   background: white;
-  border-radius: 12px;
-  padding: 20px 15px;
+  border-radius: 10px;
+  padding: 12px 10px;
   flex: 1;
-  min-width: 140px;
-  max-width: 180px;
+  min-width: 100px;
+  max-width: 130px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-top: 4px solid #284a4b;
+  border-top: 3px solid #284a4b;
 }
 
 .shopping-stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .shopping-low-stock-card {
@@ -187,11 +186,11 @@ body, html {
 }
 
 .shopping-stat-number {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: 800;
   color: #284a4b;
   line-height: 1;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .shopping-low-stock-card .shopping-stat-number {
@@ -199,7 +198,7 @@ body, html {
 }
 
 .shopping-stat-label {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: #666;
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -217,7 +216,14 @@ body, html {
   padding: 0 20px;
   box-sizing: border-box;
 }
+/* Purchased card - orange border */
+.shopping-stat-card:last-child {
+  border-top-color: #ff6b6b !important;
+}
 
+.shopping-stat-card:last-child .shopping-stat-number {
+  color: #ff6b6b !important;
+}
 .shopping-search-field {
   flex: 1;
   min-width: 220px;
@@ -257,7 +263,7 @@ body, html {
   box-shadow: 0 4px 12px rgba(40, 74, 75, 0.3);
 }
 
-/* Categories Section - NO ARROW, DIRECT SHOW */
+/* Categories Section */
 .shopping-categories-checklist {
   display: flex;
   flex-direction: column;
@@ -281,7 +287,6 @@ body, html {
   transition: all 0.3s ease;
 }
 
-/* Category Header - NO ARROW, just title */
 .shopping-category-header-simple {
   display: flex;
   justify-content: space-between;
@@ -303,7 +308,6 @@ body, html {
   gap: 10px;
 }
 
-/* Items always visible (no collapse) */
 .shopping-checklist-items {
   display: flex;
   flex-direction: column;
@@ -311,8 +315,6 @@ body, html {
   width: 100%;
 }
 
-/* Checklist Item */
-/* Checklist Item */
 .shopping-checklist-item {
   display: flex;
   align-items: center;
@@ -333,7 +335,6 @@ body, html {
   transform: translateX(3px);
 }
 
-/* Item Elements */
 .shopping-item-name-simple {
   flex: 1;
   font-weight: 500;
@@ -356,7 +357,6 @@ body, html {
   flex-shrink: 0;
 }
 
-/* Action Buttons */
 .shopping-checklist-actions {
   display: flex;
   gap: 6px;
@@ -369,7 +369,6 @@ body, html {
   opacity: 1;
 }
 
-/* Purchase Button (Green) */
 .shopping-purchase-btn {
   background: #28a745;
   color: white;
@@ -391,7 +390,6 @@ body, html {
   transform: scale(1.05);
 }
 
-/* Edit Button */
 .shopping-edit-action-btn {
   background: #ffc107;
   color: #856404;
@@ -413,7 +411,6 @@ body, html {
   transform: scale(1.05);
 }
 
-/* Delete Button */
 .shopping-delete-action-btn {
   background: #dc3545;
   color: white;
@@ -442,8 +439,7 @@ body, html {
   margin-left: 5px;
 }
 
-/* Empty State */
-.shopping-empty-message {
+.empty-state {
   text-align: center;
   padding: 50px 30px;
   background: white;
@@ -454,22 +450,6 @@ body, html {
   margin: 40px auto;
 }
 
-.shopping-empty-message h4 {
-  color: #284a4b;
-  font-size: 1.8rem;
-  margin-bottom: 12px;
-  font-weight: 700;
-}
-
-.shopping-empty-message p {
-  color: #666;
-  max-width: 400px;
-  margin: 0 auto 25px;
-  line-height: 1.5;
-  font-size: 1rem;
-}
-
-/* Error Message */
 .shopping-error-message {
   background: #f8d7da;
   color: #721c24;
@@ -566,16 +546,13 @@ body, html {
 .shopping-modal-body select {
   width: 100%;
   padding: 8px 12px;
-  border: 2px solid #666;  /* Light gray border */
+  border: 2px solid #666;
   border-radius: 8px;
   font-size: 13px;
   transition: all 0.3s ease;
   box-sizing: border-box;
-    background: whitesmoke;
-      color: #1a1a1a !important;  /* ✅ Dark text (almost black) */
-
-      /* ✅ Light gray background (white se thoda different) */
-
+  background: whitesmoke;
+  color: #1a1a1a;
 }
 
 .shopping-modal-body input:focus,
@@ -610,17 +587,14 @@ body, html {
   background: #284a4b;
   color: white;
 }
-/* Placeholder Styling - Make it visible */
+
 .shopping-modal-body input::placeholder {
   color: #999;
   font-size: 12px;
   opacity: 1;
 }
 
-.shopping-modal-body input:focus::placeholder {
-  color: #ccc;
-}
-/* Loading State */
+/* Loading */
 .loading-container {
   display: flex;
   flex-direction: column;
@@ -642,120 +616,6 @@ body, html {
   to { transform: rotate(360deg); }
 }
 
-/* Back to Home Button */
-.back-home-container {
-  max-width: 1200px;
-  margin: 20px auto 40px;
-  padding: 0 20px;
-  width: 100%;
-  box-sizing: border-box;
-  text-align: center;
-}
-
-.btn-back-home {
-  background: transparent;
-  border: 2px solid #284a4b;
-  color: #284a4b;
-  padding: 10px 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-back-home:hover {
-  background: #284a4b;
-  color: white;
-  transform: translateX(-3px);
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .shopping-hero-title {
-    font-size: 2rem;
-  }
-  
-  .shopping-hero-title::before,
-  .shopping-hero-title::after {
-    display: none;
-  }
-  
-  .shopping-stats-section {
-    gap: 12px;
-  }
-  
-  .shopping-stat-card {
-    min-width: 100px;
-    padding: 12px 10px;
-  }
-  
-  .shopping-stat-number {
-    font-size: 1.8rem;
-  }
-  
-  .shopping-stat-label {
-    font-size: 0.75rem;
-  }
-  
-  .shopping-category-section {
-    padding: 12px 15px;
-  }
-  
-  .shopping-checklist-item {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  
-  .shopping-item-name-simple {
-    width: 100%;
-    padding: 5px 0;
-  }
-  
-  .shopping-checklist-actions {
-    opacity: 1;
-    margin-left: auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .shopping-hero-title {
-    font-size: 1.5rem;
-  }
-  
-  .shopping-hero-subtitle {
-    font-size: 12px;
-  }
-  
-  .shopping-fullscreen-food-content h1 {
-    font-size: 1.8rem;
-  }
-  
-  .shopping-stats-section {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .shopping-stat-card {
-    width: 100%;
-    max-width: 200px;
-  }
-  
-  .shopping-search-add-section {
-    flex-direction: column;
-  }
-  
-  .shopping-btn-primary-custom {
-    width: 100%;
-  }
-  
-  .shopping-category-title-simple {
-    font-size: 0.9rem;
-  }
-}
 /* WhatsApp Share Button */
 .whatsapp-share-container {
   max-width: 1200px;
@@ -779,11 +639,232 @@ body, html {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 2px 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .btn-whatsapp-share:hover {
   background: #397d7c;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* ========== BUTTONS SIDE BY SIDE (Shop Online & Back to Home) ========== */
+.shopping-action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+.shop-online-button-container,
+.back-home-container {
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+/* Button sizes - same as original */
+.btn-shop-online {
+  background: #284a4b;
+  color: white;
+  border: none;
+  padding: 10px 28px;   /* original size */
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-shop-online:hover {
+  background: #1d3a3b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-back-home {
+  background: transparent;
+  border: 2px solid #284a4b;
+  color: #284a4b;
+  padding: 10px 24px;   /* original size */
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-back-home:hover {
+  background: #284a4b;
+  color: white;
+  transform: translateX(-3px);
+}
+
+/* Delivery Popup Modal Styles */
+.delivery-modal {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.delivery-modal-header {
+  background: linear-gradient(135deg, #284a4b, #1d3a3b);
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delivery-modal-header h3 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.delivery-modal-close {
+  background: white;
+  border: none;
+  color: #284a4b;
+  font-size: 1.3rem;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.delivery-modal-close:hover {
+  background: #284a4b;
+  color: white;
+  transform: rotate(90deg);
+}
+
+.delivery-modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.delivery-option {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #e0e0e0;
+}
+
+.delivery-option:hover {
+  background: #eef3f3;
+  border-color: #284a4b;
+  transform: translateX(5px);
+}
+
+.delivery-option-icon {
+  font-size: 2rem;
+}
+
+.delivery-option-text strong {
+  display: block;
+  font-size: 1rem;
+  color: #284a4b;
+  margin-bottom: 4px;
+}
+
+.delivery-option-text p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Responsive: stack buttons on mobile */
+@media (max-width: 600px) {
+  .shopping-action-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .btn-shop-online, .btn-back-home {
+    width: 200px;
+    text-align: center;
+  }
+  .delivery-option {
+    padding: 12px;
+  }
+  .delivery-option-icon {
+    font-size: 1.5rem;
+  }
+  .delivery-option-text strong {
+    font-size: 0.9rem;
+  }
+  .delivery-option-text p {
+    font-size: 0.7rem;
+  }
+}
+
+/* Small extra tweaks */
+@media (max-width: 480px) {
+  .shopping-hero-title {
+    font-size: 1.5rem;
+  }
+  .shopping-hero-subtitle {
+    font-size: 12px;
+  }
+  .shopping-fullscreen-food-content h1 {
+    font-size: 1.8rem;
+  }
+  .shopping-stats-section {
+    flex-direction: column;
+    align-items: center;
+  }
+  .shopping-stat-card {
+    width: 100%;
+    max-width: 180px;
+  }
+  .shopping-search-add-section {
+    flex-direction: column;
+  }
+  .shopping-btn-primary-custom {
+    width: 100%;
+  }
+  .shopping-category-title-simple {
+    font-size: 0.9rem;
+  }
+  /* FORCE reduce gap between Shop Online and Back to Home */
+.shopping-action-buttons {
+  gap: 2px !important;
+}
+
+.shop-online-button-container,
+.back-home-container {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.btn-shop-online,
+.btn-back-home {
+  margin: 0 !important;
+}
+  
 }
