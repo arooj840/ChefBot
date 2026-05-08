@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const pantryItemSchema = new mongoose.Schema({
+const pantryShoppingItemSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -9,7 +9,7 @@ const pantryItemSchema = new mongoose.Schema({
   quantity: {
     type: Number,
     required: true,
-    default: 0
+    default: 1
   },
   unit: {
     type: String,
@@ -19,24 +19,20 @@ const pantryItemSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['Vegetables', 'Fruits', 'Dairy', 'Grains', 
+    enum: ['Vegetables', 'Fruits', 'Dairy', 'Grains',
            'Spices', 'Meat', 'Beverages', 'Other'],
     default: 'Vegetables'
-  },
-  isLowStock: {
-    type: Boolean,
-    default: false
   }
 });
 
-const pantrySchema = new mongoose.Schema({
+const pantryShoppingSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
     unique: true
   },
-  items: [pantryItemSchema]
+  items: [pantryShoppingItemSchema]
 }, { timestamps: true });
 
-module.exports = mongoose.model('Pantry', pantrySchema);
+module.exports = mongoose.model('PantryShopping', pantryShoppingSchema);

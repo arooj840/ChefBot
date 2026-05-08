@@ -3,23 +3,31 @@ import { useNavigate } from 'react-router-dom';
 import { showToast } from '../components/Toast';
 import './PantryPage.css';
 
+const CATEGORY_ICONS = {
+  Vegetables: '🥦',
+  Fruits:     '🍎',
+  Dairy:      '🥛',
+  Grains:     '🌾',
+  Spices:     '🌶️',
+  Meat:       '🥩',
+  Beverages:  '🧃',
+  Other:      '📦',
+};
+
 const PantryPage = () => {
   const [items, setItems] = useState([]);
   const [pantryShoppingList, setPantryShoppingList] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [currentItem, setCurrentItem] = useState({ 
-    name: '', 
-    quantity: '', 
-    unit: 'kg', 
-    category: 'Vegetables' 
+  const [currentItem, setCurrentItem] = useState({
+    name: '', quantity: '', unit: 'kg', category: 'Vegetables'
   });
   const [searchTerm, setSearchTerm] = useState('');
+  const [activeTab, setActiveTab] = useState('All');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [addingAll, setAddingAll] = useState(false);
-  const [openCategories, setOpenCategories] = useState({});
-  
+
   const navigate = useNavigate();
 
   const categories = ['Vegetables', 'Fruits', 'Dairy', 'Grains', 'Spices', 'Meat', 'Beverages', 'Other'];
@@ -27,36 +35,17 @@ const PantryPage = () => {
 
   const getToken = () => localStorage.getItem('token');
 
-  // Toggle category function
-  const toggleCategory = (categoryName) => {
-    setOpenCategories(prev => ({
-      ...prev,
-      [categoryName]: !prev[categoryName]
-    }));
-  };
-
-  // Fetch pantry items
+  /* ── API calls (unchanged) ── */
   const fetchPantryItems = async () => {
     try {
       setLoading(true);
       const token = getToken();
-      if (!token) {
-        navigate('/login-page');
-        return;
-      }
-
+      if (!token) { navigate('/login-page'); return; }
       const response = await fetch('http://localhost:5000/api/pantry', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
       });
-
       const data = await response.json();
-      if (response.ok) {
-        setItems(data.items || []);
-      }
+      if (response.ok) setItems(data.items || []);
     } catch (err) {
       console.error(err);
       showToast('Server error', 'error');
@@ -65,194 +54,93 @@ const PantryPage = () => {
     }
   };
 
-  // Fetch pantry shopping list
   const fetchPantryShoppingList = async () => {
     try {
       const token = getToken();
       if (!token) return;
-
       const response = await fetch('http://localhost:5000/api/pantry-shopping', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
       });
-
       const data = await response.json();
-      if (response.ok) {
-        setPantryShoppingList(data.items || []);
-      }
-    } catch (err) {
-      console.error(err);
-    }
+      if (response.ok) setPantryShoppingList(data.items || []);
+    } catch (err) { console.error(err); }
   };
 
-  // Add single item to pantry shopping list
   const addToPantryShoppingList = async (item) => {
     try {
       const token = getToken();
-      
       const response = await fetch('http://localhost:5000/api/pantry-shopping', {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: item.name,
-          quantity: item.quantity,
-          unit: item.unit,
-          category: item.category
-        })
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: item.name, quantity: item.quantity, unit: item.unit, category: item.category })
       });
-
       const data = await response.json();
-      if (response.ok) {
-        setPantryShoppingList(data.items);
-        showToast(`${item.name} added!`, 'success');
-      } else {
-        showToast(data.message || 'Failed', 'error');
-      }
-    } catch (err) {
-      showToast('Server error', 'error');
-    }
+      if (response.ok) { setPantryShoppingList(data.items); showToast(`${item.name} added!`, 'success'); }
+      else showToast(data.message || 'Failed', 'error');
+    } catch (err) { showToast('Server error', 'error'); }
   };
 
-  // Remove single item from pantry shopping list
   const removeFromPantryShoppingList = async (id) => {
     try {
       const token = getToken();
       const response = await fetch(`http://localhost:5000/api/pantry-shopping/${id}`, {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
       });
-
       const data = await response.json();
-      if (response.ok) {
-        setPantryShoppingList(data.items);
-        showToast('Item removed', 'info');
-      }
-    } catch (err) {
-      showToast('Server error', 'error');
-    }
+      if (response.ok) { setPantryShoppingList(data.items); showToast('Item removed', 'info'); }
+    } catch (err) { showToast('Server error', 'error'); }
   };
 
-  // Clear pantry shopping list
   const clearPantryShoppingList = async () => {
     try {
       const token = getToken();
       const response = await fetch('http://localhost:5000/api/pantry-shopping', {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
       });
-
       const data = await response.json();
-      if (response.ok) {
-        setPantryShoppingList([]);
-        showToast('Shopping list cleared!', 'success');
-      }
-    } catch (err) {
-      showToast('Server error', 'error');
-    }
+      if (response.ok) { setPantryShoppingList([]); showToast('Shopping list cleared!', 'success'); }
+    } catch (err) { showToast('Server error', 'error'); }
   };
 
-  // Add all to main shopping list and redirect
   const addAllToShoppingAndRedirect = async () => {
-    if (pantryShoppingList.length === 0) {
-      showToast('No items to add!', 'warning');
-      return;
-    }
-
+    if (pantryShoppingList.length === 0) { showToast('No items to add!', 'warning'); return; }
     setAddingAll(true);
     let successCount = 0;
-
     try {
       const token = getToken();
-      
       for (const item of pantryShoppingList) {
         const response = await fetch('http://localhost:5000/api/shopping', {
           method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name: item.name,
-            quantity: item.quantity,
-            unit: item.unit,
-            category: item.category,
-            fromPantry: true
-          })
+          headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: item.name, quantity: item.quantity, unit: item.unit, category: item.category, fromPantry: true })
         });
-
-        if (response.ok) {
-          successCount++;
-        }
+        if (response.ok) successCount++;
       }
-
       if (successCount > 0) {
         showToast(`${successCount} items added to shopping list!`, 'success');
         await clearPantryShoppingList();
         navigate('/smart-shopping');
-      } else {
-        showToast('Failed to add items', 'error');
-      }
-      
-    } catch (err) {
-      console.error(err);
-      showToast('Server error', 'error');
-    } finally {
-      setAddingAll(false);
-    }
+      } else showToast('Failed to add items', 'error');
+    } catch (err) { showToast('Server error', 'error'); }
+    finally { setAddingAll(false); }
   };
 
-  // Pantry CRUD
   const handleSaveItem = async () => {
-    if (!currentItem.name || !currentItem.quantity) {
-      showToast('Please fill all fields!', 'warning');
-      return;
-    }
-
+    if (!currentItem.name || !currentItem.quantity) { showToast('Please fill all fields!', 'warning'); return; }
     try {
       const token = getToken();
-      const url = editMode 
-        ? `http://localhost:5000/api/pantry/${currentItem._id}`
-        : 'http://localhost:5000/api/pantry';
-      
-      const method = editMode ? 'PUT' : 'POST';
-
+      const url = editMode ? `http://localhost:5000/api/pantry/${currentItem._id}` : 'http://localhost:5000/api/pantry';
       const response = await fetch(url, {
-        method: method,
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: currentItem.name,
-          quantity: parseInt(currentItem.quantity),
-          unit: currentItem.unit,
-          category: currentItem.category
-        })
+        method: editMode ? 'PUT' : 'POST',
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: currentItem.name, quantity: parseInt(currentItem.quantity), unit: currentItem.unit, category: currentItem.category })
       });
-
       const data = await response.json();
-      if (response.ok) {
-        setItems(data.items);
-        handleCloseModal();
-        showToast(editMode ? 'Updated!' : 'Added!', 'success');
-      } else {
-        showToast(data.message || 'Failed', 'error');
-      }
-    } catch (err) {
-      showToast('Server error', 'error');
-    }
+      if (response.ok) { setItems(data.items); handleCloseModal(); showToast(editMode ? 'Updated!' : 'Added!', 'success'); }
+      else showToast(data.message || 'Failed', 'error');
+    } catch (err) { showToast('Server error', 'error'); }
   };
 
   const handleDelete = async (id) => {
@@ -260,30 +148,15 @@ const PantryPage = () => {
       const token = getToken();
       const response = await fetch(`http://localhost:5000/api/pantry/${id}`, {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
       });
-
       const data = await response.json();
-      if (response.ok) {
-        setItems(data.items);
-        showToast('Item deleted!', 'success');
-      }
-    } catch (err) {
-      showToast('Server error', 'error');
-    }
+      if (response.ok) { setItems(data.items); showToast('Item deleted!', 'success'); }
+    } catch (err) { showToast('Server error', 'error'); }
   };
 
   const handleEdit = (item) => {
-    setCurrentItem({
-      _id: item._id,
-      name: item.name,
-      quantity: item.quantity,
-      unit: item.unit,
-      category: item.category
-    });
+    setCurrentItem({ _id: item._id, name: item.name, quantity: item.quantity, unit: item.unit, category: item.category });
     setEditMode(true);
     setShowModal(true);
   };
@@ -305,37 +178,49 @@ const PantryPage = () => {
     fetchPantryShoppingList();
   }, []);
 
-  const filteredItems = items.filter(item =>
+  /* ── Derived data ── */
+  const searchFiltered = items.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const totalItems = items.length;
-  const lowStockItems = items.filter(item => item.quantity <= 2).length;
-  const totalCategories = [...new Set(items.map(item => item.category))].length;
-  
-  // Check if search is active
   const isSearchActive = searchTerm.trim().length > 0;
 
-  if (loading) {
-    return (
-      <div className="pantry-page">
-        <div className="loading-container">
-          <div className="spinner"></div>
-          <p>Loading...</p>
-        </div>
+  // Tabs = "All" + only categories that have items
+  const activeCategoryTabs = ['All', ...categories.filter(c =>
+    items.some(i => i.category === c)
+  )];
+
+  const tabItems = isSearchActive
+    ? searchFiltered
+    : activeTab === 'All'
+      ? items
+      : items.filter(i => i.category === activeTab);
+
+  const totalItems    = items.length;
+  const lowStockItems = items.filter(i => i.quantity <= 2).length;
+  const totalCategories = [...new Set(items.map(i => i.category))].length;
+
+  /* ── Loading ── */
+  if (loading) return (
+    <div className="pantry-page">
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Loading...</p>
       </div>
-    );
-  }
+    </div>
+  );
 
   return (
     <div className="pantry-page">
+
+      {/* Hero Banner */}
       <div className="fullscreen-food-image">
         <div className="fullscreen-food-content">
           <h1>Your Smart Kitchen Pantry</h1>
         </div>
       </div>
-      
-      {/* Pantry Hero Section */}
+
+      {/* Hero Section */}
       <div className="p-hero-section">
         <div className="p-hero-content">
           <h1 className="p-hero-title">Your Pantry Items</h1>
@@ -349,6 +234,7 @@ const PantryPage = () => {
         </div>
       )}
 
+      {/* Stats */}
       {items.length > 0 && (
         <div className="stats-section">
           <div className="stat-card">
@@ -366,35 +252,31 @@ const PantryPage = () => {
         </div>
       )}
 
+      {/* Search + Add */}
       <div className="search-add-section">
         <input
           type="text"
           placeholder="Search items..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => { setSearchTerm(e.target.value); setActiveTab('All'); }}
           className="search-field-pantry"
         />
-        <button className="btn-add-new-item" onClick={handleAddNew}>
-          + Add New Item
-        </button>
+        <button className="btn-add-new-item" onClick={handleAddNew}>+ Add New Item</button>
       </div>
 
-      {/* Pantry Shopping List Section - Direct Show (No Arrow) */}
+      {/* Shopping List */}
       <div className="shopping-list-section">
         <div className="shopping-list-header">
           <h3 className="shopping-list-title">🛒 Shopping List ({pantryShoppingList.length})</h3>
           <div className="shopping-list-actions">
-            <button 
-              className="btn-add-all-to-shopping" 
+            <button
+              className="btn-add-all-to-shopping"
               onClick={addAllToShoppingAndRedirect}
               disabled={addingAll || pantryShoppingList.length === 0}
             >
               {addingAll ? 'Adding...' : '➕ Add All to Shopping List'}
             </button>
-            <button 
-              className="btn-clear-shopping-list" 
-              onClick={clearPantryShoppingList}
-            >
+            <button className="btn-clear-shopping-list" onClick={clearPantryShoppingList}>
               Clear All
             </button>
           </div>
@@ -409,10 +291,7 @@ const PantryPage = () => {
               <div key={item._id} className="shopping-list-item">
                 <span className="quantity-badge-simple">{item.quantity} {item.unit}</span>
                 <h4 className="shopping-item-name">{item.name}</h4>
-                <button 
-                  className="btn-remove-shopping-item" 
-                  onClick={() => removeFromPantryShoppingList(item._id)}
-                >
+                <button className="btn-remove-shopping-item" onClick={() => removeFromPantryShoppingList(item._id)}>
                   Remove
                 </button>
               </div>
@@ -421,104 +300,83 @@ const PantryPage = () => {
         </div>
       </div>
 
-      {/* Pantry Items List */}
+      {/* ── MAIN CONTENT ── */}
       {items.length === 0 ? (
         <div className="p-empty-message">
           <h4>Your pantry is empty</h4>
           <p>Start adding items to your pantry!</p>
-          <button className="btn-add-first-item" onClick={handleAddNew}>
-            + Add First Item
-          </button>
-        </div>
-      ) : isSearchActive ? (
-        /* ✅ SEARCH ACTIVE - Flat list, no categories */
-        <div className="search-results-section">
-          <div className="category-section">
-            <div className="search-results-header">
-              <h3 className="category-title-simple">
-                Search Results ({filteredItems.length})
-              </h3>
-            </div>
-            {filteredItems.length === 0 ? (
-              <div className="no-results-message">
-                <p>No items found matching "{searchTerm}"</p>
-              </div>
-            ) : (
-              <div className="checklist-items open">
-                {filteredItems.map(item => {
-                  const isLowStock = item.quantity <= 2;
-                  const isInShoppingList = pantryShoppingList.some(i => i.name === item.name);
-                  
-                  return (
-                    <div key={item._id} className={`checklist-item ${isLowStock ? 'low-stock-checklist' : ''}`}>
-                      <span className="quantity-badge-simple">{item.quantity} {item.unit}</span>
-                      <h4 className="item-name-simple">{item.name}</h4>
-                      <div className="checklist-actions">
-                        <button 
-                          className={`btn-add-item ${isInShoppingList ? 'added' : ''}`}
-                          onClick={() => addToPantryShoppingList(item)}
-                          disabled={isInShoppingList}
-                        >
-                          {isInShoppingList ? '✓ Added' : '🛒 Add'}
-                        </button>
-                        <button className="btn-edit-item" onClick={() => handleEdit(item)}>✏️</button>
-                        <button className="btn-delete-item" onClick={() => handleDelete(item._id)}>🗑️</button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          <button className="btn-add-first-item" onClick={handleAddNew}>+ Add First Item</button>
         </div>
       ) : (
-        /* ✅ NO SEARCH - Collapsible Categories */
-        <div className="categories-checklist">
-          {categories.map(category => {
-            const categoryItems = filteredItems.filter(item => item.category === category);
-            if (categoryItems.length === 0) return null;
-            
-            return (
-              <div key={category} className="category-section">
-                <div 
-                  className="category-header-simple" 
-                  onClick={() => toggleCategory(category)}
-                >
-                  <div className="category-title-simple">
-                    {category}
-                    <span className="category-count">({categoryItems.length})</span>
+        <div className="tabs-wrapper">
+
+          {/* Tab Pills Nav */}
+          {!isSearchActive && (
+            <div className="tabs-nav-bar">
+              {activeCategoryTabs.map(cat => {
+                const count = cat === 'All' ? items.length : items.filter(i => i.category === cat).length;
+                const hasLow = cat !== 'All' && items.some(i => i.category === cat && i.quantity <= 2);
+                return (
+                  <button
+                    key={cat}
+                    className={`tab-pill-btn ${activeTab === cat ? 'active' : ''}`}
+                    onClick={() => setActiveTab(cat)}
+                  >
+                   
+                    {cat}
+                    {hasLow && <span className="tab-low-dot" title="Low stock">●</span>}
+                    <span className="tab-count-badge">{count}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Search label */}
+          {isSearchActive && (
+            <div className="search-results-label">
+              Search Results for "<strong>{searchTerm}</strong>" — {tabItems.length} found
+            </div>
+          )}
+
+          {/* Items Grid */}
+          {tabItems.length === 0 ? (
+            <div className="tab-empty-state">
+              <p>No items found{isSearchActive ? ` for "${searchTerm}"` : ` in ${activeTab}`}</p>
+            </div>
+          ) : (
+            <div className="tab-items-grid">
+              {tabItems.map(item => {
+                const isLowStock = item.quantity <= 2;
+                const isInShoppingList = pantryShoppingList.some(i => i.name === item.name);
+                return (
+                  <div key={item._id} className={`tab-item-card ${isLowStock ? 'low-stock' : ''}`}>
+                    <div className="tab-card-top">
+                      <span className={`tab-qty-badge ${isLowStock ? 'low' : ''}`}>
+                        {item.quantity} {item.unit}
+                      </span>
+                      {isLowStock && <span className="low-stock-flag">⚠️ Low</span>}
+                    </div>
+                    <h4 className="tab-item-name">{item.name}</h4>
+                    <p className="tab-item-cat">
+                      {item.category}
+                    </p>
+                    <div className="tab-card-actions">
+                      <button
+                        className={`tab-btn-cart ${isInShoppingList ? 'added' : ''}`}
+                        onClick={() => addToPantryShoppingList(item)}
+                        disabled={isInShoppingList}
+                      >
+                        {isInShoppingList ? '✓ Added' : '🛒 Add'}
+                      </button>
+                      <button className="tab-btn-icon edit" onClick={() => handleEdit(item)}>✏️</button>
+                      <button className="tab-btn-icon del" onClick={() => handleDelete(item._id)}>🗑️</button>
+                    </div>
                   </div>
-                  <div className={`category-arrow ${openCategories[category] ? 'open' : ''}`}>
-                    ▼
-                  </div>
-                </div>
-                <div className={`checklist-items ${openCategories[category] ? 'open' : ''}`}>
-                  {categoryItems.map(item => {
-                    const isLowStock = item.quantity <= 2;
-                    const isInShoppingList = pantryShoppingList.some(i => i.name === item.name);
-                    
-                    return (
-                      <div key={item._id} className={`checklist-item ${isLowStock ? 'low-stock-checklist' : ''}`}>
-                        <span className="quantity-badge-simple">{item.quantity} {item.unit}</span>
-                        <h4 className="item-name-simple">{item.name}</h4>
-                        <div className="checklist-actions">
-                          <button 
-                            className={`btn-add-item ${isInShoppingList ? 'added' : ''}`}
-                            onClick={() => addToPantryShoppingList(item)}
-                            disabled={isInShoppingList}
-                          >
-                            {isInShoppingList ? '✓ Added' : '🛒 Add'}
-                          </button>
-                          <button className="btn-edit-item" onClick={() => handleEdit(item)}>✏️</button>
-                          <button className="btn-delete-item" onClick={() => handleDelete(item._id)}>🗑️</button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
 
@@ -533,21 +391,15 @@ const PantryPage = () => {
             <div className="pantry-modal-body">
               <div className="form-group">
                 <label>Name</label>
-                <input 
-                  type="text" 
-                  value={currentItem.name} 
+                <input type="text" value={currentItem.name}
                   onChange={(e) => setCurrentItem({ ...currentItem, name: e.target.value })}
-                  placeholder="e.g., Tomato, Rice, Milk"
-                />
+                  placeholder="e.g., Tomato, Rice, Milk" />
               </div>
               <div className="form-group">
                 <label>Quantity</label>
-                <input 
-                  type="number" 
-                  value={currentItem.quantity} 
+                <input type="number" value={currentItem.quantity}
                   onChange={(e) => setCurrentItem({ ...currentItem, quantity: e.target.value })}
-                  placeholder="Enter quantity"
-                />
+                  placeholder="Enter quantity" />
               </div>
               <div className="form-group">
                 <label>Unit</label>
@@ -570,14 +422,13 @@ const PantryPage = () => {
             </div>
           </div>
         </div>
-        
       )}
-     {/* ✅ Back to Home Button - LAST MEIN */}
+
+      {/* Back to Home */}
       <div className="back-home-container">
-        <button className="btn-back-home" onClick={() => navigate('/')}>
-          ← Back to Home
-        </button>
+        <button className="btn-back-home" onClick={() => navigate('/')}>← Back to Home</button>
       </div>
+
     </div>
   );
 };

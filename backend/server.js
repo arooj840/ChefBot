@@ -18,6 +18,8 @@ const settingsRoutes = require('./routes/settingsRoutes');
 const beginnersGuideRoutes = require('./routes/beginnersGuideRoutes');
 const aboutContentRoutes = require('./routes/aboutContentRoutes');
 const contactRoutes = require('./routes/contactRoutes');
+const pantryShoppingRoutes = require('./routes/pantryShoppingRoutes');
+
 const app = express();
 
 // Middleware
@@ -36,6 +38,7 @@ app.use('/api/settings', settingsRoutes);
 app.use('/api/beginners-guides', beginnersGuideRoutes);
 app.use('/api/about-content', aboutContentRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/pantry-shopping', pantryShoppingRoutes); // ← yeh add karo
 
 
 // Test Route
