@@ -5,19 +5,9 @@ const mongoose = require('mongoose');
 // ─────────────────────────────────────────────────────────
 const ingredientSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    quantity: {
-      type: String, // "2", "1/2", "handful" etc
-      default: '',
-    },
-    unit: {
-      type: String, // "cup", "tbsp", "kg", "g" etc
-      default: '',
-    },
+    name: { type: String, required: true, trim: true },
+    quantity: { type: String, default: '' },
+    unit: { type: String, default: '' },
   },
   { _id: false }
 );
@@ -27,421 +17,245 @@ const ingredientSchema = new mongoose.Schema(
 // ─────────────────────────────────────────────────────────
 const stepSchema = new mongoose.Schema(
   {
-    stepNumber: {
-      type: Number,
-      required: true,
-    },
-    instruction: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+    stepNumber: { type: Number, required: true },
+    instruction: { type: String, required: true, trim: true },
   },
   { _id: false }
 );
 
 // ─────────────────────────────────────────────────────────
-// MAIN RECIPE SCHEMA
+// MAIN RECIPE SCHEMA (DUPLICATES REMOVED)
 // ─────────────────────────────────────────────────────────
 const recipeSchema = new mongoose.Schema(
   {
-    // ── Basic Info
+    // ────────── BASIC INFO ──────────
+    title: { type: String, required: true, unique: true, trim: true },
+    tagline: { type: String, trim: true, default: '' },
+    description: { type: String, default: '' },
+    image: { type: String, default: '' },
 
-    title: {
-      type: String,
-      required: [true, 'Recipe title is required'],
-      trim: true,
-    },
+    // ────────── INGREDIENTS & STEPS ──────────
+    ingredientsRaw: { type: [String], default: [] },
+    stepsRaw: { type: [String], default: [] },
+    ingredients: { type: [ingredientSchema], default: [] },
+    steps: { type: [stepSchema], default: [] },
+    voiceUrl: { type: String, default: '' },
 
-    tagline: {
-      // Short description on recipe cards
-    
-      type: String,
-      trim: true,
-      default: '',
-    },
-
-    image: {
-      // Unsplash URL or uploaded image path
-      type: String,
-      default: '',
-    },
-
-    // ── Ingredients ──
-
-    // Structured version (for admin panel / future use)
-    ingredients: {
-      type: [ingredientSchema],
-      default: [],
-    },
-
-    // Plain string array —
-    ingredientsRaw: {
-      type: [String],
-      default: [],
-    },
-
-    // ── Instructions / Steps ─
-
-    // Plain text instructions (legacy / simple use)
-    instructions: {
-      type: String,
-      default: '',
-    },
-
-    // Structured steps (for admin panel / future use)
-    steps: {
-      type: [stepSchema],
-      default: [],
-    },
-
-    // Plain string array
-    // Used by voice guide (speakStep) in EVERY page
-    // e.g. ["Heat oil in a pan...", "Add cumin seeds..."]
-    stepsRaw: {
-      type: [String],
-      default: [],
-    },
-
-    // Voice guide audio URL
-   
-    voiceUrl: {
-      type: String,
-      default: '',
-    },
-
-    // ── Main Category ──
- 
-
+    // ────────── CATEGORY (Meal Time: Lunch/Dinner/Breakfast) ──────────
     category: {
-      type: String,
-      required: [true, 'Category is required'],
-      enum: [
-       
-        'Breakfast',
-        'Lunch',
-        'Dinner',
-        'Appetizers',
-        'Snacks',
-        'Soups',
-        'Salads',
-        'Desserts',
-        'Beverages',
-        'Baking',
-        'Regional',
-        'CheatMeal',
-        'Student',
-        'Quick',
-        'Budget',
-        'Vegetarian',  
-        'BBQ',         
-        'Rice',
-        'Breads',      
-        'HeavyGravy',  
-        'LightDinner', 
-      ],
-    },
+  type: String,
+  required: true,
+  enum: ['Breakfast', 'Lunch', 'Dinner', 'LightDinner', 'Snacks', 'Anytime'],
+  default: 'Lunch'
+},
 
-    // ── Sub-Category ────────────────────────────────────────────────────────
-    subCategory: {
-      type: String,
-      enum: [
-
-        // ── Pure Meat types ────────────────────────────────────────────
-        'Chicken',
-        'Mutton',
-        'Beef',
-        'Keema',   
-        'Fish',
-        'Egg',
-
-        // ── Meat + Veg combos ───
-        'ChickenVegetable',
-        
-        'MuttonVegetable',
-
-        // ── Meat + Dal combos ──────
-        'ChickenDal',
-        'MuttonDal',
-        // ── Plain Dal ───────
-        'Dal',
-        // ── Plain Vegetables ─────────
-        'Vegetables',
-        // ── Rice types ────────
-        'Biryani',
-        'Pulao',
-        'FriedRice',
-        'Khichdi',
-        'Tahari',
-        'Zarda',
-        'RiceDessert',
-
-        // ── BBQ types — 
-        'Tikka',
-        // Boti section (id 7-10): Chicken Boti, Malai, Achari, Beef Boti
-        'Boti',
-        // Seekh section (id 11-15): Chicken, Mutton, Beef, Hariyali, Cheese Seekh
-        'Seekh',
-        // Chapli section (id 16-18): Chapli, Chicken Chapli, Peshawari Chapli
-        'Chapli',
-        // Bihari section (id 19-21): Bihari Kebab, Chicken Bihari, Bihari Boti
-        'Bihari',
-        // Reshmi section (id 25-27): Reshmi Kebab, Reshmi Tikka, Malai Reshmi
-        'Reshmi',
-        // Galouti section (id 28-29): Galouti Kebab, Chicken Galouti
-        'Galouti',
-        // Grilled Fish (id 30-32): Fish Tikka, Grilled Fish, Tandoori Fish
-        'GrilledFish',
-        // Grilled Veg (id 33-35): Grilled Veg Platter, Tandoori Mushroom, Tandoori Paneer
-        'GrilledVeg',
-        // Tandoori Special (id 38-40): Tandoori Raan, Mutton Chops, Tandoori Quail
-        'TandooriSpecial',
-        // BBQ Sauces (id 41-43): Mint Chutney, Tamarind Chutney, Garlic Yogurt Sauce
-        'BBQSauce',
-        // Kebab in Masala Gravy (id 36-37): Seekh Kebab Masala, Chapli Kebab Karahi
-        'KebabMasala',
-
-        // ── Heavy Gravy — 
-        // Nihari (id 1-5): Beef, Mutton, Chicken, Bong, Special
-        'Nihari',
-        // Haleem (id 6-10): Beef, Mutton, Chicken, Hyderabadi, Special
-        'Haleem',
-        // Paye (id 11-14): Mutton, Beef, Kashmiri, Special
-        'Paye',
-        // Khichda (id 15-17): Beef, Mutton, Chicken
-        'Khichda',
-        // Korma (id 18-21): Chicken, Mutton, Shahi, Nawabi
-        'Korma',
-        // Karahi (id 22-24, 35-38): Chicken, Mutton, White, Lahori, Peshawari
-        'Karahi',
-        // Handi (id 25-27): Chicken, Mutton, Vegetable
-        'Handi',
-        // Dal Gravy (id 28-30): Dal Makhani, Dal Bukhara, Dal Fry
-        'DalGravy',
-        // Achaar Gosht (id 31-32): Achaar Gosht, Chicken Achaar
-        'AchaariGosht',
-        // Rogan Josh (id 33-34): Kashmiri Rogan Josh, Rogan Josh Gravy
-        'RoganJosh',
-        // Bhuna Gosht (id 39-40): Bhuna Gosht, Chicken Bhuna
-        'BhunaGosht',
-        // Kofta (id 41-43, 45): Meatball Curry, Nargisi, Malai, Bheja Masala
-        'Kofta',
-
-        // ── Beverages ──────────────────────────────────────────────────
-        'HotDrinks',
-        'ColdDrinks',
-        'Smoothies',
-        'Mocktails',
-        'Cocktails',
-        'TraditionalDrinks',
-
-        // ── Light Dinner —
-        // Soups (id 1-6): Chicken Corn, Hot & Sour, Tomato, Veg, Lentil, Noodle
-        'Soup',
-        // Salads (id 7-11): Caesar, Greek, Fruit Chaat, Chicken Avocado, Pasta Salad
-        'Salad',
-        // Sandwiches (id 12-16): Grilled Chicken, Club, Veg, Egg, Tuna
-        'Sandwich',
-        // Wraps & Rolls (id 17-21): Chicken Wrap, Shawarma, Seekh Roll, Veg Wrap, Egg Roll
-        'Wrap',
-
-        // ── Breads —
-        // Roti (id 1-4): Tawa Roti, Phulka, Jowar, Bajra
-        // Paratha (id 5-10): Simple, Lachha, Aloo, Gobhi, Mooli, Paneer
-        // Naan (id 11-15): Tandoori, Garlic, Butter, Cheese, Peshawari
-        // Roghni Naan (id 16-18): Roghni, Kabuli, Ammi's
-        // Sheermal (id 19-20): Sheermal, Kashmiri Sheermal
-        // Kulcha (id 21-23): Plain, Aloo, Paneer Kulcha
-        // Bread Pakora (id 24-25)
-        // Sandwich (id 26-28): Grilled, Bombay, Cheese
-        // Bread Roll (id 29-30): Bread Roll, Veg Roll
-        // Sweet Bread (id 31-35): Meetha Paratha, Banana Bread, Puri, Bhatura, Roomali
-        // Flatbreads (id 36-38): Missi Roti, Thepla, Makki di Roti
-        'Bread',
-
-        // ── Cheat Meal — RecipeCheatMeal.jsx (115 recipes) ────────────
-        // Burger (15 types): Classic, BBQ, Double, Zinger, Mushroom, etc.
-        'Burger',
-        // Fried Chicken (types): Crispy, Popcorn, Wings, Drumsticks, Nuggets
-        'FriedChicken',
-        // Pizza (12 types): Margherita, BBQ Chicken, Desi, White Sauce, etc.
-        'Pizza',
-        // Pasta (types): Red, White, Pink, Baked, Mac & Cheese, etc.
-        'Pasta',
-        // Fries: French Fries, Wedges, Cheese Fries, Loaded, etc.
-        'Fries',
-        // Rolls: Chicken Roll, Egg Roll, Veg Roll, Seekh Roll, etc.
-        'Rolls',
-        // Wraps: Chicken Wrap, Shawarma, Fajita, etc.
-        'Wraps',
-        // Chinese Fast Food: Chow Mein, Chilli Chicken, Manchurian, etc.
-        'ChineseFastFood',
-        // Desi Street Food: Samosa, Pakora, Chaat, Gol Gappay, Bun Kebab, etc.
-        'DesiStreetFood',
-        'Tacos',
-        'Nachos',
-        'Quesadilla',
-        // Sides: Garlic Bread, Mozzarella Sticks, Onion Rings, Coleslaw, etc.
-        'Sides',
-
-        // ── Egg Dishes — RecipesEggDishes.jsx (35 recipes) ────────────
-        // Egg Curries (id 1-8): Anda Curry, Masala, Dhaba, Aloo, Matar, Palak, Kerala, Do Pyaza
-        'EggCurry',
-        // Egg Masala / Bhurji (id 9-13): Anda Bhurji, Masala, with Paneer, Pav, Ghotala
-        'EggBhurji',
-        // Egg + Vegetables (id 14-18): Aloo Matar, Shimla Mirch, Gobhi, Baingan, Palak
-        'EggWithVeg',
-        // Egg Keema (id 19-21): Anda Keema, Keema Matar, Keema Aloo
-        'EggKeema',
-        // Egg + Dal (id 22-24): Anda Dal, Chana Dal, Dal Palak
-        'EggDal',
-        // Egg Rice (id 25-27): Egg Fried Rice, Egg Biryani, Egg Pulao
-        'EggRice',
-        // Egg Paratha (id 28-30): Anda Paratha, Cheese Paratha, Keema Paratha
-        'EggParatha',
-        // Egg Sandwiches (id 31-32): Egg Sandwich, Egg Mayo Sandwich
-        'EggSandwich',
-        // Egg Appetizers / Snacks (id 33-35): Egg Pakora, Egg Devil, Egg Cutlet
-        'EggSnack',
-
-        // ── Fish Dishes — 
-        // Fish Curries (id 1-8): Classic, Masala, Coconut, Kadhai, Do Pyaza, Jalfrezi, Malai, Kofta
-        'FishCurry',
-        // Fish Fry (id 9-13): Fish Fry, Karachi, Tawa, Andhra, Fish Finger
-        'FishFry',
-        // Fish Tikka (id 14-17): Fish Tikka, Malai, Hariyali, Boti
-        'FishTikka',
-        // Fish Rice (id 18-20): Fish Pulao, Biryani, Fried Rice
-        'FishRice',
-        // Fish Snacks (id 21-24): Fish Pakora, Manchurian, Cutlet, Kebab
-        'FishSnack',
-        // Fish Masala (id 25-27): Masala Fry, Fish 65, Chilli Fish
-        'FishMasala',
-        // Fish + Veg (id 28-30): Fish Aloo, Palak, Matar
-        'FishWithVeg',
-        // Fish Rolls/Sandwiches (id 31-32): Fish Roll, Fish Sandwich
-        'FishRoll',
-        // Fish Soups (id 33-34): Fish Soup, Manchow Soup
-        'FishSoup',
-        // Fish Pickle (id 35)
-        'FishPickle',
-
-        // ── Misc ──
-        'Appetizer',
-        'Other',
-      ],
-      default: 'Other',
-    },
-
-    // ── Cuisine ─────────────────────────────────────────────────────────────
-    // Pakistani(30), Continental(20), Chinese(20), Italian(20), Turkish(20)
+    // ────────── SUB-CATEGORY (Recipe Type: Egg/Chicken/Rice/Vegetables) ──────────
+   subCategory: {
+  type: String,
+  enum: [
+    'plain-vegetables',
+    'veg-mutton',
+    'veg-chicken',
+    'pure-mutton',
+    'pure-chicken',
+    'rice',
+    'baking',
+    'beverages',
+    'breakfast',
+    'desserts',
+    'quick',
+    'regional',
+    'cheat-meal',
+    'salads',
+    'bbq',
+    'bread',
+    'dal-chicken',
+    'appetizers',
+    'plain-dal',
+    'egg-dishes',
+    'fish-dish',
+    'heavy-gravy',
+    'student',
+    'qeema',
+    'light-dinner',
+    'soups',
+    'snacks',
+    'dal-mutton',
+  ],
+  default: 'other',
+},
+    // ────────── CUISINE ──────────
     cuisine: {
       type: String,
       enum: [
-        'Pakistani', 'Continental', 'Chinese',
-        'Italian', 'Turkish', 'Indian', 'Arabic', 'Afghan', 'Other',
+        'Pakistani', 'pakistani', 'Continental', 'continental',
+        'Chinese', 'chinese', 'Italian', 'italian', 'Turkish', 'turkish'
       ],
       default: 'Pakistani',
     },
 
-    // ── Beverage Category ────────────────────────────────────────────────────
+    // ────────── BEVERAGE CATEGORY ──────────
     beverageCategory: {
       type: String,
-      enum: ['Hot Drinks', 'Cold Drinks', 'Smoothies', 'Mocktails', 'Cocktails', 'Traditional', null],
+      enum: ['Hot Drinks', 'hot drinks', 'Cold Drinks', 'cold drinks', 'Smoothies', 'smoothies', 'Mocktails', 'mocktails', 'Cocktails', 'cocktails', 'Traditional', 'traditional', null],
       default: null,
     },
 
-    // ── Pantry Keywords ──────────────────────────────────────────────────────
-    // e.g. ["chicken", "bun", "lettuce", "mayo"]
-    pantryKeywords: {
-      type: [String],
-      default: [],
-    },
+    // ────────── PANTRY KEYWORDS ──────────
+    pantryKeywords: { type: [String], default: [] },
 
-    // ── Dietary Flags ────────────────────────────────────────────────────────
-    isVegetarian: {
-      type: Boolean,
-      default: false,
+    // ────────── DIETARY (SINGLE FIELD - NO DUPLICATE) ──────────
+    dietType: {
+      type: String,
+      enum: ['Vegetarian', 'Non-Vegetarian', 'Mixed'],
+      default: 'Non-Vegetarian'
     },
+    isHalal: { type: Boolean, default: true },
 
-    isHalal: {
-      type: Boolean,
-      default: true,
-    },
-
-    // ── Cooking Info ─────────────────────────────────────────────────────────
-    cookingTime: {
-      type: Number, // minutes
-      default: null,
-    },
-
-    servings: {
-      type: Number,
-      default: null,
-    },
-
+    // ────────── COOKING INFO ──────────
+    cookingTime: { type: Number, default: null },
     difficulty: {
       type: String,
-      enum: ['Easy', 'Medium', 'Hard'],
+      enum: ['Easy', 'easy', 'Medium', 'medium', 'Hard', 'hard'],
       default: 'Medium',
     },
-
-    mealTime: {
+    
+    // ────────── MEAL TYPE (SINGLE FIELD - Lunch/Dinner/Breakfast) ──────────
+    suitableForMeals: {
       type: [String],
-      enum: ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Dessert', 'Anytime'],
-      default: ['Anytime'],
+      enum: ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Appetizer', 'Dessert','Anytime'],
+      default: ['Lunch', 'Dinner']
+    },
+    
+    // ────────── ALLERGENS ──────────
+    allergens: {
+      type: [String],
+      enum: ['dairy', 'nuts', 'eggs', 'soy', 'wheat', 'fish', 'shellfish', 'gluten', 'peanuts', 'none'],
+      default: []
+    },
+    
+    // ────────── BUDGET ──────────
+    budget: {
+      type: String,
+      enum: ['economy', 'standard', 'premium', 'deluxe'],
+      default: 'standard',
+    },
+    costPerServing: { type: Number, default: 0 },
+    
+    // ────────── BASE SERVINGS (SINGLE FIELD - for scaling) ──────────
+    baseServings: { type: Number, default: 4 },
+    calories: { type: Number, default: 0 },
+
+    // ────────── TARGET AUDIENCE ──────────
+    ageGroup: {
+      type: [String],
+      enum: ['toddlers', 'kids', 'preteens', 'teens', 'adults', 'seniors'],
+      default: ['adults'],
+    },
+    patientFriendly: {
+      type: [String],
+      enum: ['general', 'diabetes', 'heart', 'bp', 'lowsalt', 'lowfat', 'kidney'],
+      default: ['general'],
     },
 
-    // ── Admin Info ───────────────────────────────────────────────────────────
-    createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      default: null,
-    },
+    // ────────── SEARCH KEYWORDS ──────────
+    searchKeywords: { type: [String], default: [] },
 
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
-
-    isFeatured: {
-      type: Boolean,
-      default: false,
-    },
-
-    // ── Ratings (future use) ─────────────────────────────────────────────────
-    averageRating: {
-      type: Number,
-      default: 0,
-      min: 0,
-      max: 5,
-    },
-
-    totalRatings: {
-      type: Number,
-      default: 0,
-    },
+    // ────────── ADMIN FIELDS ──────────
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+    isActive: { type: Boolean, default: true },
+    isFeatured: { type: Boolean, default: false },
+    averageRating: { type: Number, default: 0, min: 0, max: 5 },
+    totalRatings: { type: Number, default: 0 },
+    
+    // ────────── USAGE STATS ──────────
+    timesSuggested: { type: Number, default: 0 },
+    timesUsedInPlans: { type: Number, default: 0 },
   },
-  {
-    timestamps: true, // createdAt, updatedAt
-  }
+  { timestamps: true }
 );
 
-// ─────────────────────────────────────────────────────────
-// INDEXES — faster search & filter queries
-// ─────────────────────────────────────────────────────────
-recipeSchema.index({ title: 'text', tagline: 'text' }); // full-text search
+// ────────── INDEXES ──────────
+recipeSchema.index({ title: 'text', tagline: 'text', description: 'text' });
 recipeSchema.index({ category: 1 });
 recipeSchema.index({ subCategory: 1 });
 recipeSchema.index({ cuisine: 1 });
-recipeSchema.index({ isVegetarian: 1 });
+recipeSchema.index({ dietType: 1 });
 recipeSchema.index({ pantryKeywords: 1 });
-recipeSchema.index({ mealTime: 1 });
+recipeSchema.index({ suitableForMeals: 1 });
 recipeSchema.index({ difficulty: 1 });
-recipeSchema.index({ isFeatured: 1 });
+recipeSchema.index({ budget: 1 });
+recipeSchema.index({ ageGroup: 1 });
+recipeSchema.index({ patientFriendly: 1 });
+recipeSchema.index({ allergens: 1 });
+recipeSchema.index({ baseServings: 1 });
 recipeSchema.index({ isActive: 1 });
+recipeSchema.index({ isFeatured: 1 });
+recipeSchema.index({ cookingTime: 1 });
+recipeSchema.index({ timesSuggested: 1 });
 
-// ─────────────────────────────────────────────────────────
+// ────────── VIRTUAL for formatted cooking time ──────────
+recipeSchema.virtual('cookingTimeFormatted').get(function() {
+  if (!this.cookingTime) return null;
+  const hours = Math.floor(this.cookingTime / 60);
+  const minutes = this.cookingTime % 60;
+  if (hours === 0) return `${minutes} min`;
+  if (minutes === 0) return `${hours} hr`;
+  return `${hours} hr ${minutes} min`;
+});
+
+// ────────── METHOD to convert raw ingredients to structured format ──────────
+recipeSchema.methods.convertRawIngredients = function() {
+  if (!this.ingredientsRaw || this.ingredientsRaw.length === 0) return;
+  
+  this.ingredients = this.ingredientsRaw.map(raw => {
+    const match = raw.match(/^([\d/]+\s*)?(.*)$/);
+    const quantity = match[1]?.trim() || '';
+    const name = match[2]?.trim() || raw;
+    
+    return { name, quantity, unit: '' };
+  });
+};
+
+// ────────── METHOD to convert raw steps to structured format ──────────
+recipeSchema.methods.convertRawSteps = function() {
+  if (!this.stepsRaw || this.stepsRaw.length === 0) return;
+  
+  this.steps = this.stepsRaw.map((instruction, index) => ({
+    stepNumber: index + 1,
+    instruction: instruction.trim()
+  }));
+};
+
+// ────────── METHOD: Check if recipe matches user preferences ──────────
+recipeSchema.methods.matchesPreferences = function(preferences) {
+  // Diet type match
+  if (preferences.dietType) {
+    const userDiet = preferences.dietType === 'veg' ? 'Vegetarian' : 'Non-Vegetarian';
+    if (this.dietType !== userDiet) return false;
+  }
+  
+  // Allergies match
+  if (preferences.allergies && preferences.allergies.length > 0) {
+    for (const allergy of preferences.allergies) {
+      if (this.allergens.includes(allergy.toLowerCase())) return false;
+    }
+  }
+  
+  // Budget match
+  if (preferences.budget && this.budget !== preferences.budget) return false;
+  
+  // Meal time match
+  if (preferences.mealTime && !this.suitableForMeals.includes(preferences.mealTime)) return false;
+  
+  // Age group match
+  if (preferences.ageGroup && !this.ageGroup.includes(preferences.ageGroup)) return false;
+  
+  // Patient condition match
+  if (preferences.patientCondition && !this.patientFriendly.includes(preferences.patientCondition)) return false;
+  
+  return true;
+};
+
 const Recipe = mongoose.model('Recipe', recipeSchema);
-
 module.exports = Recipe;

@@ -272,7 +272,6 @@ const ShoppingList = () => {
             <p className="shopping-stat-number">{pendingItems}</p>
             <p className="shopping-stat-label">To Buy</p>
           </div>
-          {/* Purchased card with orange color */}
           <div className="shopping-stat-card shopping-purchased-card">
             <p className="shopping-stat-number">{purchasedItems}</p>
             <p className="shopping-stat-label">Purchased</p>
@@ -280,6 +279,7 @@ const ShoppingList = () => {
         </div>
       )}
 
+      {/* Search + Add New Item */}
       <div className="shopping-search-add-section">
         <input
           type="text"
@@ -293,8 +293,11 @@ const ShoppingList = () => {
         </button>
       </div>
 
-      {/* WhatsApp Share Button */}
-      <div className="whatsapp-share-container">
+      {/* Shop Online + WhatsApp Share - Side by Side (UPAR) */}
+      <div className="shopping-top-action-buttons">
+        <button className="btn-shop-online" onClick={openDeliveryModal}>
+          🛒 Shop Online
+        </button>
         <button className="btn-whatsapp-share" onClick={shareOnWhatsApp}>
           📱 Share on WhatsApp
         </button>
@@ -408,19 +411,12 @@ const ShoppingList = () => {
           </div>
         </div>
       )}
-    
-      {/* Shop Online & Back to Home Buttons (side by side) */}
-      <div className="shopping-action-buttons">
-        <div className="shop-online-button-container">
-          <button className="btn-shop-online" onClick={openDeliveryModal}>
-            🛒 Shop Online
-          </button>
-        </div>
-        <div className="back-home-container">
-          <button className="btn-back-home" onClick={() => navigate('/')}>
-            ← Back to Home
-          </button>
-        </div>
+
+      {/* Back to Home - Sirf Neeche */}
+      <div className="back-home-container">
+        <button className="btn-back-home" onClick={() => navigate('/')}>
+          ← Back to Home
+        </button>
       </div>
 
       {/* Delivery Options Popup Modal */}

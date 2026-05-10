@@ -25,7 +25,7 @@ import RecipeSoupPage from './pages/RecipeSoupPage';
 import RecipeBakingPage from './pages/RecipeBakingPage';
 import RecipeBeveragesPage from './pages/RecipeBeveragesPage';
 import RecipeDessertsPage from './pages/RecipeDessertsPage';
-import MealCalendar from './pages/MealCalender';
+
 import MealFeature from './pages/MealFeature';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
@@ -33,6 +33,7 @@ import PantryBasicsPage from './pages/PantryBasicsPage';
 import BakeryEssentialsPage from './pages/BakeryEssentialsPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
+import RecipeDetail from './pages/RecipeDetail';
 import RecipeVegetablePage from './pages/RecipeVegetablePage';
 import RecipeStudentPage from './pages/RecipeStudentPage';
 import RecipeRegionalPage from './pages/RecipeRegionalPage';
@@ -59,6 +60,7 @@ import RecipesBread from './pages/RecipesBread';
 import RecipesBBQ from './pages/RecipesBBQ';
 import RecipesLightDinner from './pages/RecipesLightDinner';
 import Dinner from './pages/Dinner';
+
 import RecipesDinner from './pages/RecipesDinner';
 import RecipesAppetizers from './pages/RecipesAppetizers';
 import RecipeCheatMeal from './pages/RecipeCheatMeal';
@@ -109,8 +111,9 @@ function AppWrapper() {
           <Route path="/soups" element={<RecipeSoupPage/>} />    
           <Route path="/Beverages" element={<RecipeBeveragesPage/>} />    
           <Route path="/desserts" element={<RecipeDessertsPage/>} />    
+          <Route path="/recipe/:id" element={<RecipeDetail />} />
           <Route path="/baking" element={<RecipeBakingPage/>} />    
-          <Route path="/calender" element={<MealCalendar/>} />
+        
           <Route path="/meal-planner" element={<MealFeature/>} />
           <Route path="/login-page" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />

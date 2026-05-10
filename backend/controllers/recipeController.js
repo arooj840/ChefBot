@@ -1,10 +1,5 @@
 const Recipe = require('../models/Recipe');
 
-// ============================================================
-// RECIPE CONTROLLER - ChefBot FYP
-// All 34 frontend pages covered
-// ============================================================
-
 // ─────────────────────────────────────────────────────────
 // @desc    Add new recipe
 // @route   POST /api/recipes
@@ -16,7 +11,6 @@ const addRecipe = async (req, res) => {
       ...req.body,
       createdBy: req.user._id,
     });
-
     const saved = await recipe.save();
     res.status(201).json({ message: 'Recipe added successfully', recipe: saved });
   } catch (error) {
@@ -28,39 +22,21 @@ const addRecipe = async (req, res) => {
 // @desc    Get all recipes (with optional filters)
 // @route   GET /api/recipes
 // @access  Public
-// Query params:
-//   category       - e.g. BBQ, HeavyGravy, CheatMeal, Vegetarian
-//   subCategory    - e.g. Tikka, Nihari, Burger, EggCurry, FishFry
-//   cuisine        - e.g. Pakistani, Chinese, Italian
-//   isVegetarian   - true/false
-//   isHalal        - true/false
-//   difficulty     - Easy/Medium/Hard
-//   mealTime       - Breakfast/Lunch/Dinner/Snack/Anytime
-//   isFeatured     - true/false
-//   page, limit    - pagination
 // ─────────────────────────────────────────────────────────
 const getAllRecipes = async (req, res) => {
   try {
     const {
-      category,
-      subCategory,
-      cuisine,
-      isVegetarian,
-      isHalal,
-      difficulty,
-      mealTime,
-      isFeatured,
-      page = 1,
-      limit = 20,
+      category, subCategory, cuisine, isVegetarian, isHalal,
+      difficulty, mealTime, isFeatured, page = 1, limit = 20,
     } = req.query;
 
     const filter = { isActive: true };
 
-    if (category)     filter.category    = category;
-    if (subCategory)  filter.subCategory = subCategory;
-    if (cuisine)      filter.cuisine     = cuisine;
-    if (difficulty)   filter.difficulty  = difficulty;
-    if (mealTime)     filter.mealTime    = mealTime;
+    if (category)    filter.category    = category;
+    if (subCategory) filter.subCategory = subCategory;
+    if (cuisine)     filter.cuisine     = cuisine;
+    if (difficulty)  filter.difficulty  = difficulty;
+    if (mealTime)    filter.mealTime    = mealTime;
 
     if (isVegetarian !== undefined) filter.isVegetarian = isVegetarian === 'true';
     if (isHalal      !== undefined) filter.isHalal      = isHalal      === 'true';
@@ -69,7 +45,7 @@ const getAllRecipes = async (req, res) => {
     const skip = (Number(page) - 1) * Number(limit);
 
     const recipes = await Recipe.find(filter)
-      .select('title tagline image category subCategory cuisine difficulty mealTime isVegetarian isHalal isFeatured cookingTime servings')
+      .select('title name tagline image category subCategory cuisine difficulty mealTime isVegetarian isHalal isFeatured cookingTime servings')
       .skip(skip)
       .limit(Number(limit))
       .sort({ createdAt: -1 });
@@ -88,23 +64,56 @@ const getAllRecipes = async (req, res) => {
 };
 
 // ─────────────────────────────────────────────────────────
-// @desc    Get single recipe by ID (full details)
+// @desc    Get single recipe by ID (full details + scaling)
 // @route   GET /api/recipes/:id
 // @access  Public
-// Returns: full recipe including ingredientsRaw, stepsRaw, voiceUrl
-// Used by: recipe detail modal in ALL frontend pages
 // ─────────────────────────────────────────────────────────
 const getRecipeById = async (req, res) => {
   try {
-    const recipe = await Recipe.findById(req.params.id);
+    const recipe = await Recipe.findById(req.params.id).lean();
 
     if (!recipe || !recipe.isActive) {
-      return res.status(404).json({ message: 'Recipe not found' });
+      return res.status(404).json({ success: false, message: 'Recipe not found' });
     }
 
-    res.status(200).json(recipe);
+    const members = parseInt(req.query.members) || 4;
+    const scaleFactor = members / (recipe.baseServings || 4);
+
+    // Scale ingredientsRaw if needed
+    let scaledIngredients = recipe.ingredientsRaw || [];
+    if (scaleFactor !== 1) {
+      scaledIngredients = scaledIngredients.map(ing => {
+        const match = ing.match(/^(\d+)(.*)/);
+        if (match) {
+          let qty = parseInt(match[1]) * scaleFactor;
+          const newQty = Number.isInteger(qty) ? qty : qty.toFixed(1);
+          return newQty + match[2];
+        }
+        return ing;
+      });
+    }
+
+    res.json({
+      success: true,
+      _id: recipe._id,
+      // ✅ both name and title send karo
+      title: recipe.title,
+      name: recipe.name || recipe.title,
+      tagline: recipe.tagline,
+      image: recipe.image,
+      ingredientsRaw: scaledIngredients,
+      stepsRaw: recipe.stepsRaw,
+      cookingTime: recipe.cookingTime,
+      difficulty: recipe.difficulty,
+      cuisine: recipe.cuisine,
+      dietType: recipe.dietType,
+      category: recipe.category,
+      baseServings: recipe.baseServings,
+      requestedMembers: members,
+      scaleFactor: scaleFactor
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -112,24 +121,52 @@ const getRecipeById = async (req, res) => {
 // @desc    Search recipes by title or tagline
 // @route   GET /api/recipes/search?q=biryani
 // @access  Public
-// Uses MongoDB text index on title + tagline fields
 // ─────────────────────────────────────────────────────────
 const searchRecipes = async (req, res) => {
   try {
     const { q } = req.query;
 
     if (!q) {
-      return res.status(400).json({ message: 'Search query is required' });
+      return res.status(400).json({ success: false, message: 'Search query is required' });
     }
 
-    const recipes = await Recipe.find({
-      isActive: true,
-      $text: { $search: q },
-    }).select('title tagline image category subCategory cuisine isVegetarian');
+    // Try text search first, fallback to regex if no text index
+    let recipes = [];
+    try {
+      recipes = await Recipe.find({
+        isActive: true,
+        $text: { $search: q },
+      }).select('title name tagline image category cuisine dietType isVegetarian allergens');
+    } catch (e) {
+      // Fallback: regex search if text index not available
+      recipes = await Recipe.find({
+        isActive: true,
+        $or: [
+          { title: { $regex: q, $options: 'i' } },
+          { name:  { $regex: q, $options: 'i' } },
+          { tagline: { $regex: q, $options: 'i' } },
+        ]
+      }).select('title name tagline image category cuisine dietType isVegetarian allergens').limit(20);
+    }
 
-    res.status(200).json({ total: recipes.length, recipes });
+    // ✅ FIX: success:true add kiya, name field ensure kiya
+    const formatted = recipes.map(r => {
+      const obj = r.toObject ? r.toObject() : r;
+      return {
+        ...obj,
+        name: obj.name || obj.title,   // frontend name field expect karta hai
+        title: obj.title || obj.name,
+      };
+    });
+
+    res.status(200).json({
+      success: true,
+      total: formatted.length,
+      recipes: formatted
+    });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -137,7 +174,6 @@ const searchRecipes = async (req, res) => {
 // @desc    Get recipes by pantry keywords
 // @route   GET /api/recipes/pantry?keywords=egg,milk,flour
 // @access  Public
-// Used by: RecipeCheatMeal.jsx pantry suggestion feature
 // ─────────────────────────────────────────────────────────
 const getRecipesByPantry = async (req, res) => {
   try {
@@ -155,9 +191,9 @@ const getRecipesByPantry = async (req, res) => {
     const recipes = await Recipe.find({
       isActive: true,
       pantryKeywords: { $in: keywordArray },
-    }).select('title tagline image category subCategory pantryKeywords');
+    }).select('title name tagline image category subCategory pantryKeywords');
 
-    res.status(200).json({ total: recipes.length, recipes });
+    res.status(200).json({ success: true, total: recipes.length, recipes });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -167,20 +203,15 @@ const getRecipesByPantry = async (req, res) => {
 // @desc    Get recipes by category
 // @route   GET /api/recipes/category/:category
 // @access  Public
-// Used by: RecipeFeature.jsx category navigation
-// e.g. /api/recipes/category/BBQ
-//      /api/recipes/category/HeavyGravy
-//      /api/recipes/category/CheatMeal
 // ─────────────────────────────────────────────────────────
 const getRecipesByCategory = async (req, res) => {
   try {
     const { category } = req.params;
     const { page = 1, limit = 20 } = req.query;
-
     const skip = (Number(page) - 1) * Number(limit);
 
     const recipes = await Recipe.find({ isActive: true, category })
-      .select('title tagline image category subCategory cuisine isVegetarian cookingTime difficulty')
+      .select('title name tagline image category subCategory cuisine isVegetarian cookingTime difficulty')
       .skip(skip)
       .limit(Number(limit))
       .sort({ isFeatured: -1, createdAt: -1 });
@@ -202,21 +233,15 @@ const getRecipesByCategory = async (req, res) => {
 // @desc    Get recipes by subCategory
 // @route   GET /api/recipes/subcategory/:subCategory
 // @access  Public
-// Used by: sub-pages like RecipesBBQ, RecipesEggDishes etc.
-// e.g. /api/recipes/subcategory/Tikka
-//      /api/recipes/subcategory/EggCurry
-//      /api/recipes/subcategory/FishFry
-//      /api/recipes/subcategory/Nihari
 // ─────────────────────────────────────────────────────────
 const getRecipesBySubCategory = async (req, res) => {
   try {
     const { subCategory } = req.params;
     const { page = 1, limit = 20 } = req.query;
-
     const skip = (Number(page) - 1) * Number(limit);
 
     const recipes = await Recipe.find({ isActive: true, subCategory })
-      .select('title tagline image category subCategory cuisine isVegetarian cookingTime difficulty')
+      .select('title name tagline image category subCategory cuisine isVegetarian cookingTime difficulty')
       .skip(skip)
       .limit(Number(limit))
       .sort({ createdAt: -1 });
@@ -238,12 +263,11 @@ const getRecipesBySubCategory = async (req, res) => {
 // @desc    Get featured recipes
 // @route   GET /api/recipes/featured
 // @access  Public
-// Used by: RecipeFeature.jsx homepage featured section
 // ─────────────────────────────────────────────────────────
 const getFeaturedRecipes = async (req, res) => {
   try {
     const recipes = await Recipe.find({ isActive: true, isFeatured: true })
-      .select('title tagline image category subCategory cuisine isVegetarian cookingTime difficulty')
+      .select('title name tagline image category subCategory cuisine isVegetarian cookingTime difficulty')
       .limit(12)
       .sort({ createdAt: -1 });
 
@@ -257,20 +281,15 @@ const getFeaturedRecipes = async (req, res) => {
 // @desc    Get recipes by cuisine
 // @route   GET /api/recipes/cuisine/:cuisine
 // @access  Public
-// Used by: RecipeRegionalPage.jsx
-// e.g. /api/recipes/cuisine/Pakistani  → 30 recipes
-//      /api/recipes/cuisine/Chinese    → 20 recipes
-//      /api/recipes/cuisine/Italian    → 20 recipes
 // ─────────────────────────────────────────────────────────
 const getRecipesByCuisine = async (req, res) => {
   try {
     const { cuisine } = req.params;
     const { page = 1, limit = 20 } = req.query;
-
     const skip = (Number(page) - 1) * Number(limit);
 
     const recipes = await Recipe.find({ isActive: true, cuisine })
-      .select('title tagline image category subCategory cuisine isVegetarian cookingTime difficulty')
+      .select('title name tagline image category subCategory cuisine isVegetarian cookingTime difficulty')
       .skip(skip)
       .limit(Number(limit))
       .sort({ createdAt: -1 });
@@ -312,7 +331,7 @@ const updateRecipe = async (req, res) => {
 };
 
 // ─────────────────────────────────────────────────────────
-// @desc    Delete recipe (soft delete - isActive = false)
+// @desc    Delete recipe (soft delete)
 // @route   DELETE /api/recipes/:id
 // @access  Private (Admin only)
 // ─────────────────────────────────────────────────────────

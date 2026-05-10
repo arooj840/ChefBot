@@ -150,7 +150,7 @@ body, html {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
 }
 
-/* Stats Section - Reduced Size */
+/* Stats Section */
 .shopping-stats-section {
   display: flex;
   justify-content: center;
@@ -181,20 +181,12 @@ body, html {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
-.shopping-low-stock-card {
-  border-top-color: #ff6b6b;
-}
-
 .shopping-stat-number {
   font-size: 1.8rem;
   font-weight: 800;
   color: #284a4b;
   line-height: 1;
   margin-bottom: 4px;
-}
-
-.shopping-low-stock-card .shopping-stat-number {
-  color: #ff6b6b;
 }
 
 .shopping-stat-label {
@@ -204,19 +196,7 @@ body, html {
   letter-spacing: 0.5px;
 }
 
-/* Search + Add Section */
-.shopping-search-add-section {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 0 auto 25px;
-  gap: 12px;
-  width: 100%;
-  max-width: 700px;
-  padding: 0 20px;
-  box-sizing: border-box;
-}
-/* Purchased card - orange border */
+/* Purchased card - orange */
 .shopping-stat-card:last-child {
   border-top-color: #ff6b6b !important;
 }
@@ -224,6 +204,20 @@ body, html {
 .shopping-stat-card:last-child .shopping-stat-number {
   color: #ff6b6b !important;
 }
+
+/* Search + Add Section */
+.shopping-search-add-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto 16px;
+  gap: 12px;
+  width: 100%;
+  max-width: 700px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
 .shopping-search-field {
   flex: 1;
   min-width: 220px;
@@ -261,6 +255,92 @@ body, html {
   background: linear-gradient(135deg, #1d3a3b, #0f2a2a);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(40, 74, 75, 0.3);
+}
+
+/* ===== SHOP ONLINE + WHATSAPP - UPAR SIDE BY SIDE ===== */
+.shopping-top-action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.btn-shop-online {
+  background: #284a4b;
+  color: white;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-shop-online:hover {
+  background: #1d3a3b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-whatsapp-share {
+  background: #284a4b;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.btn-whatsapp-share:hover {
+  background: #397d7c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* ===== BACK TO HOME - SIRF NEECHE ===== */
+.back-home-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto 40px;
+  padding: 0 20px;
+}
+
+.btn-back-home {
+  background: transparent;
+  border: 2px solid #284a4b;
+  color: #284a4b;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-back-home:hover {
+  background: #284a4b;
+  color: white;
+  transform: translateX(-3px);
 }
 
 /* Categories Section */
@@ -439,17 +519,6 @@ body, html {
   margin-left: 5px;
 }
 
-.empty-state {
-  text-align: center;
-  padding: 50px 30px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  border: 2px dashed #e0e0e0;
-  max-width: 500px;
-  margin: 40px auto;
-}
-
 .shopping-error-message {
   background: #f8d7da;
   color: #721c24;
@@ -616,100 +685,6 @@ body, html {
   to { transform: rotate(360deg); }
 }
 
-/* WhatsApp Share Button */
-.whatsapp-share-container {
-  max-width: 1200px;
-  margin: 0 auto 20px;
-  padding: 0 20px;
-  width: 100%;
-  box-sizing: border-box;
-  text-align: right;
-}
-
-.btn-whatsapp-share {
-  background: #284a4b;
-  color: white;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.btn-whatsapp-share:hover {
-  background: #397d7c;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-/* ========== BUTTONS SIDE BY SIDE (Shop Online & Back to Home) ========== */
-.shopping-action-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 5px;
-  flex-wrap: wrap;
-  margin: 20px auto;
-  max-width: 1200px;
-  padding: 0 20px;
-}
-
-.shop-online-button-container,
-.back-home-container {
-  margin: 0;
-  padding: 0;
-  width: auto;
-}
-
-/* Button sizes - same as original */
-.btn-shop-online {
-  background: #284a4b;
-  color: white;
-  border: none;
-  padding: 10px 28px;   /* original size */
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.btn-shop-online:hover {
-  background: #1d3a3b;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.btn-back-home {
-  background: transparent;
-  border: 2px solid #284a4b;
-  color: #284a4b;
-  padding: 10px 24px;   /* original size */
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.btn-back-home:hover {
-  background: #284a4b;
-  color: white;
-  transform: translateX(-3px);
-}
-
 /* Delivery Popup Modal Styles */
 .delivery-modal {
   background: white;
@@ -781,10 +756,6 @@ body, html {
   transform: translateX(5px);
 }
 
-.delivery-option-icon {
-  font-size: 2rem;
-}
-
 .delivery-option-text strong {
   display: block;
   font-size: 1rem;
@@ -798,22 +769,17 @@ body, html {
   color: #666;
 }
 
-/* Responsive: stack buttons on mobile */
+/* Responsive */
 @media (max-width: 600px) {
-  .shopping-action-buttons {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
+  .shopping-top-action-buttons {
+    justify-content: center;
   }
-  .btn-shop-online, .btn-back-home {
-    width: 200px;
-    text-align: center;
+  .btn-shop-online,
+  .btn-whatsapp-share {
+    width: auto;
   }
   .delivery-option {
     padding: 12px;
-  }
-  .delivery-option-icon {
-    font-size: 1.5rem;
   }
   .delivery-option-text strong {
     font-size: 0.9rem;
@@ -823,7 +789,6 @@ body, html {
   }
 }
 
-/* Small extra tweaks */
 @media (max-width: 480px) {
   .shopping-hero-title {
     font-size: 1.5rem;
@@ -851,20 +816,9 @@ body, html {
   .shopping-category-title-simple {
     font-size: 0.9rem;
   }
-  /* FORCE reduce gap between Shop Online and Back to Home */
-.shopping-action-buttons {
-  gap: 2px !important;
-}
-
-.shop-online-button-container,
-.back-home-container {
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-.btn-shop-online,
-.btn-back-home {
-  margin: 0 !important;
-}
-  
+  .shopping-top-action-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 }
