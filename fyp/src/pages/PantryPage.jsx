@@ -131,8 +131,7 @@ const PantryPage = () => {
       const data = await response.json();
       if (response.ok) { setPantryShoppingList([]); showToast('Shopping list cleared!', 'success'); }
     } catch (err) { showToast('Server error', 'error'); }
-  };
-const addAllToShoppingAndRedirect = async () => {
+  };const addAllToShoppingAndRedirect = async () => {
   if (pantryShoppingList.length === 0) {
     showToast('No items to add!', 'warning');
     return;
@@ -166,6 +165,10 @@ const addAllToShoppingAndRedirect = async () => {
           })
         });
         if (response.ok) successCount++;
+        else {
+          const errorData = await response.json();
+          console.error('Failed to add', item.name, errorData);
+        }
       } catch (err) {
         console.error('Error adding', item.name, err);
       }
@@ -173,10 +176,11 @@ const addAllToShoppingAndRedirect = async () => {
 
     if (successCount > 0) {
       showToast(`${successCount} item(s) added to main shopping list!`, 'success');
-      // Clear the pantry shopping list after successful addition
+      // Clear pantry shopping list from backend and state
       await clearPantryShoppingList();
-      // Optional: refresh the page to update any UI (like shopping list count)
-      // window.location.reload(); // agar chahte ho refresh ho jaye
+      
+      // ✅ REDIRECT TO SHOPPING LIST PAGE
+      navigate('/smart-shopping');  // <-- YEH LINE ADD KARO
     } else {
       showToast('Failed to add items. Check console.', 'error');
     }
