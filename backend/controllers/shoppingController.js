@@ -1,63 +1,68 @@
 const ShoppingList = require('../models/ShoppingList');
 
+// Helper to get consistent userId (works with both .id and ._id)
+const getUserId = (req) => req.user.id || req.user._id;
+
 // ==================
-// GET SHOPPING ITEMS
-// ==================
+// GET SHOPPING ITEMS (FIXED)
 const getShoppingItems = async (req, res) => {
   try {
-    let shoppingList = await ShoppingList.findOne({ userId: req.user._id });
-    
+    const userId = req.user.id || req.user._id;  // ✅ ensure yeh line hai
+    let shoppingList = await ShoppingList.findOne({ userId });
     if (!shoppingList) {
-      shoppingList = await ShoppingList.create({ 
-        userId: req.user._id, 
-        items: [] 
-      });
+      shoppingList = await ShoppingList.create({ userId, items: [] });
     }
-    
     res.status(200).json({ success: true, items: shoppingList.items });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
 // ==================
-// ADD SHOPPING ITEM
+// ADD SHOPPING ITEM (FIXED)
 // ==================
 const addShoppingItem = async (req, res) => {
   try {
     const { name, quantity, unit, category, fromPantry } = req.body;
+    const userId = getUserId(req);
 
-    if (!name || !quantity || !unit || !category) {
-      return res.status(400).json({ message: 'Please fill all fields!' });
+    if (!name || !quantity) {
+      return res.status(400).json({ success: false, message: 'Name and quantity are required!' });
     }
 
-    let shoppingList = await ShoppingList.findOne({ userId: req.user._id });
-    
+    const qty = Number(quantity);
+    if (isNaN(qty) || qty <= 0) {
+      return res.status(400).json({ success: false, message: 'Quantity must be a positive number' });
+    }
+
+    const finalUnit = unit || 'pieces';
+    const finalCategory = category || 'Other';
+
+    let shoppingList = await ShoppingList.findOne({ userId });
+
     if (!shoppingList) {
-      shoppingList = await ShoppingList.create({ 
-        userId: req.user._id, 
-        items: [] 
-      });
+      shoppingList = await ShoppingList.create({ userId, items: [] });
     }
 
-    shoppingList.items.push({ 
-      name, 
-      quantity, 
-      unit, 
-      category, 
+    shoppingList.items.push({
+      name: name.trim(),
+      quantity: qty,
+      unit: finalUnit,
+      category: finalCategory,
       fromPantry: fromPantry || false,
       purchased: false
     });
-    
+
     await shoppingList.save();
 
-    res.status(201).json({ 
-      success: true, 
-      message: 'Item added successfully!', 
-      items: shoppingList.items 
+    res.status(201).json({
+      success: true,
+      message: 'Item added successfully!',
+      items: shoppingList.items
     });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('ADD shopping error:', error);
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
   }
 };
 
@@ -68,33 +73,31 @@ const updateShoppingItem = async (req, res) => {
   try {
     const { itemId } = req.params;
     const { name, quantity, unit, category } = req.body;
+    const userId = getUserId(req);
 
-    const shoppingList = await ShoppingList.findOne({ userId: req.user._id });
-    
+    const shoppingList = await ShoppingList.findOne({ userId });
     if (!shoppingList) {
-      return res.status(404).json({ message: 'Shopping list not found!' });
+      return res.status(404).json({ success: false, message: 'Shopping list not found!' });
     }
 
     const item = shoppingList.items.id(itemId);
-    
     if (!item) {
-      return res.status(404).json({ message: 'Item not found!' });
+      return res.status(404).json({ success: false, message: 'Item not found!' });
     }
 
-    item.name = name || item.name;
-    item.quantity = quantity || item.quantity;
-    item.unit = unit || item.unit;
-    item.category = category || item.category;
+    if (name) item.name = name;
+    if (quantity) {
+      const qty = Number(quantity);
+      if (!isNaN(qty) && qty > 0) item.quantity = qty;
+    }
+    if (unit) item.unit = unit;
+    if (category) item.category = category;
 
     await shoppingList.save();
-
-    res.status(200).json({ 
-      success: true, 
-      message: 'Item updated successfully!', 
-      items: shoppingList.items 
-    });
+    res.status(200).json({ success: true, message: 'Item updated!', items: shoppingList.items });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('UPDATE shopping error:', error);
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
   }
 };
 
@@ -104,30 +107,29 @@ const updateShoppingItem = async (req, res) => {
 const markAsPurchased = async (req, res) => {
   try {
     const { itemId } = req.params;
+    const userId = getUserId(req);
 
-    const shoppingList = await ShoppingList.findOne({ userId: req.user._id });
-    
+    const shoppingList = await ShoppingList.findOne({ userId });
     if (!shoppingList) {
-      return res.status(404).json({ message: 'Shopping list not found!' });
+      return res.status(404).json({ success: false, message: 'Shopping list not found!' });
     }
 
     const item = shoppingList.items.id(itemId);
-    
     if (!item) {
-      return res.status(404).json({ message: 'Item not found!' });
+      return res.status(404).json({ success: false, message: 'Item not found!' });
     }
 
-    // Toggle purchased
     item.purchased = !item.purchased;
     await shoppingList.save();
 
-    res.status(200).json({ 
-      success: true, 
-      message: item.purchased ? 'Item marked as purchased!' : 'Item marked as not purchased!',
-      items: shoppingList.items 
+    res.status(200).json({
+      success: true,
+      message: item.purchased ? 'Marked as purchased!' : 'Marked as not purchased!',
+      items: shoppingList.items
     });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('MARK purchased error:', error);
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
   }
 };
 
@@ -137,33 +139,27 @@ const markAsPurchased = async (req, res) => {
 const deleteShoppingItem = async (req, res) => {
   try {
     const { itemId } = req.params;
+    const userId = getUserId(req);
 
-    const shoppingList = await ShoppingList.findOne({ userId: req.user._id });
-    
+    const shoppingList = await ShoppingList.findOne({ userId });
     if (!shoppingList) {
-      return res.status(404).json({ message: 'Shopping list not found!' });
+      return res.status(404).json({ success: false, message: 'Shopping list not found!' });
     }
 
-    shoppingList.items = shoppingList.items.filter(
-      item => item._id.toString() !== itemId
-    );
-
+    shoppingList.items = shoppingList.items.filter(item => item._id.toString() !== itemId);
     await shoppingList.save();
 
-    res.status(200).json({ 
-      success: true, 
-      message: 'Item deleted successfully!', 
-      items: shoppingList.items 
-    });
+    res.status(200).json({ success: true, message: 'Item deleted!', items: shoppingList.items });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('DELETE shopping error:', error);
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
   }
 };
 
-module.exports = { 
-  getShoppingItems, 
-  addShoppingItem, 
-  updateShoppingItem, 
+module.exports = {
+  getShoppingItems,
+  addShoppingItem,
+  updateShoppingItem,
   markAsPurchased,
-  deleteShoppingItem 
+  deleteShoppingItem
 };

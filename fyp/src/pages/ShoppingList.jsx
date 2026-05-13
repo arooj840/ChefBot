@@ -292,14 +292,15 @@ const ShoppingList = () => {
           + Add New Item
         </button>
       </div>
+      
 
       {/* Shop Online + WhatsApp Share - Side by Side (UPAR) */}
       <div className="shopping-top-action-buttons">
         <button className="btn-shop-online" onClick={openDeliveryModal}>
-          🛒 Shop Online
+          Shop Online
         </button>
         <button className="btn-whatsapp-share" onClick={shareOnWhatsApp}>
-          📱 Share on WhatsApp
+           Share on WhatsApp
         </button>
       </div>
 
@@ -331,27 +332,29 @@ const ShoppingList = () => {
                         {item.fromPantry && <span className="from-pantry-badge"> (from pantry)</span>}
                       </h4>
                       <div className="shopping-checklist-actions">
-                        <button 
-                          className="shopping-purchase-btn"
-                          onClick={() => markAsPurchased(item._id)}
-                          title="Mark as purchased"
-                        >
-                          ✓
-                        </button>
-                        <button 
-                          className="shopping-edit-action-btn" 
-                          onClick={() => handleEdit(item)}
-                          title="Edit"
-                        >
-                          ✏️
-                        </button>
-                        <button 
-                          className="shopping-delete-action-btn" 
-                          onClick={() => handleDelete(item._id)}
-                          title="Delete"
-                        >
-                          🗑️
-                        </button>
+                     <div className="shopping-checklist-actions">
+  <button 
+    className="shopping-purchase-btn"
+    onClick={() => markAsPurchased(item._id)}
+    title="Mark as purchased"
+  >
+    Mark
+  </button>
+  <button 
+    className="shopping-edit-action-btn" 
+    onClick={() => handleEdit(item)}
+    title="Edit"
+  >
+    Edit
+  </button>
+  <button 
+    className="shopping-delete-action-btn" 
+    onClick={() => handleDelete(item._id)}
+    title="Delete"
+  >
+    Delete
+  </button>
+</div>
                       </div>
                     </div>
                   ))}

@@ -143,11 +143,6 @@ const generateMealPlan = async (req, res) => {
       baseQuery.patientFriendly = { $in: ['diabetes','heart','bp','lowsalt','lowfat'] };
     }
 
-    // 5. Budget
-    if (budget && budget !== '') {
-      baseQuery.budget = budget.toLowerCase();
-    }
-
     const totalDays  = duration === 'daily' ? 1 : 7;
     const FETCH_LIMIT = 30; // enough variety
 

@@ -16,13 +16,12 @@ const shoppingItemSchema = new mongoose.Schema({
     required: true,
     enum: ['pieces', 'kg', 'g', 'liters', 'ml', 'dozen', 'packets', 'bottles']
   },
-  category: {
-    type: String,
-    required: true,
-    enum: ['Groceries', 'Vegetables', 'Fruits', 'Dairy', 
-           'Meat', 'Beverages', 'Snacks', 'Household', 'Other'],
-    default: 'Groceries'
-  },
+ category: {
+  type: String,
+  required: true,
+  enum: ['Groceries', 'Vegetables', 'Fruits', 'Dairy', 'Meat', 'Beverages', 'Snacks', 'Household', 'Other', 'Grains', 'Spices'],
+  default: 'Groceries'
+},
   purchased: {
     type: Boolean,
     default: false

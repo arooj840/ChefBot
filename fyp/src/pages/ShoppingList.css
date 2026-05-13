@@ -585,6 +585,12 @@ body, html {
   justify-content: center;
   border-radius: 50%;
   transition: all 0.3s ease;
+}.shopping-purchase-btn,
+.shopping-edit-action-btn,
+.shopping-delete-action-btn {
+  min-width: 55px;
+  padding: 6px 12px;
+  text-align: center;
 }
 
 .shopping-btn-close:hover {
