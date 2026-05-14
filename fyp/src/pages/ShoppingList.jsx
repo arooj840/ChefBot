@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaCheck, FaEdit, FaTrash } from 'react-icons/fa';
 import { showToast } from '../components/Toast';
 import './ShoppingList.css';
 
 const ShoppingList = () => {
   const [items, setItems] = useState([]);
+  const [purchasedIds, setPurchasedIds] = useState(new Set());
   const [showModal, setShowModal] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [currentItem, setCurrentItem] = useState({ 
@@ -17,7 +19,6 @@ const ShoppingList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
-  // State for delivery popup
   const [showDeliveryModal, setShowDeliveryModal] = useState(false);
   
   const navigate = useNavigate();
@@ -43,22 +44,23 @@ const ShoppingList = () => {
         message += `📁 *${category.toUpperCase()}* (${categoryItems.length})\n`;
         message += "─────────────────\n";
         categoryItems.forEach((item, index) => {
-          message += `${index + 1}. ${item.quantity} ${item.unit} - ${item.name}\n`;
+          const isPurchased = purchasedIds.has(item._id);
+          message += `${index + 1}. ${item.quantity} ${item.unit} - ${item.name}${isPurchased ? ' ✅' : ''}\n`;
         });
         message += "\n";
       }
     });
     
     message += "─────────────────\n";
-    message += `📊 Total Items: ${items.length}\n`;
-    message += `📅 ${new Date().toLocaleDateString()}\n`;
-    message += `📍 ChefBot - Smart Kitchen\n`;
+    message += `Total Items: ${items.length}\n`;
+    message += ` Purchased: ${purchasedIds.size}\n`;
+    message += ` ${new Date().toLocaleDateString()}\n`;
+    message += ` ChefBot - Smart Kitchen\n`;
     message += "─────────────────\n";
-    message += "✅ Happy Shopping! 🛒";
+    message += "Happy Shopping! ";
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
-    
     window.open(whatsappUrl, '_blank');
   };
 
@@ -138,27 +140,19 @@ const ShoppingList = () => {
     }
   };
 
-  const markAsPurchased = async (id) => {
-    try {
-      const token = getToken();
-      const response = await fetch(`http://localhost:5000/api/shopping/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        setItems(data.items);
-        showToast('Item purchased!', 'success');
+  // ========== MARK AS PURCHASED (Frontend toggle) ==========
+  const markAsPurchased = (id) => {
+    setPurchasedIds(prev => {
+      const updated = new Set(prev);
+      if (updated.has(id)) {
+        updated.delete(id);
+        showToast('Marked as pending!', 'warning');
       } else {
-        showToast(data.message || 'Failed', 'error');
+        updated.add(id);
+        showToast('Marked as purchased! ', 'success');
       }
-    } catch (err) {
-      showToast('Server error', 'error');
-    }
+      return updated;
+    });
   };
 
   const handleDelete = async (id) => {
@@ -175,6 +169,11 @@ const ShoppingList = () => {
       const data = await response.json();
       if (response.ok) {
         setItems(data.items);
+        setPurchasedIds(prev => {
+          const updated = new Set(prev);
+          updated.delete(id);
+          return updated;
+        });
         showToast('Item deleted!', 'success');
       }
     } catch (err) {
@@ -206,7 +205,6 @@ const ShoppingList = () => {
     setCurrentItem({ name: '', quantity: '', unit: 'pieces', category: 'Groceries' });
   };
 
-  // ========== Delivery popup functions ==========
   const openDeliveryModal = () => setShowDeliveryModal(true);
   const closeDeliveryModal = () => setShowDeliveryModal(false);
   
@@ -226,7 +224,7 @@ const ShoppingList = () => {
   );
 
   const totalItems = items.length;
-  const purchasedItems = items.filter(item => item.purchased).length;
+  const purchasedItems = purchasedIds.size;
   const pendingItems = totalItems - purchasedItems;
 
   if (loading) {
@@ -289,18 +287,17 @@ const ShoppingList = () => {
           className="shopping-search-field"
         />
         <button className="shopping-btn-primary-custom" onClick={handleAddNew}>
-          + Add New Item
+          Add New Item
         </button>
       </div>
-      
 
-      {/* Shop Online + WhatsApp Share - Side by Side (UPAR) */}
+      {/* Shop Online + WhatsApp Share */}
       <div className="shopping-top-action-buttons">
         <button className="btn-shop-online" onClick={openDeliveryModal}>
           Shop Online
         </button>
         <button className="btn-whatsapp-share" onClick={shareOnWhatsApp}>
-           Share on WhatsApp
+          Share on WhatsApp
         </button>
       </div>
 
@@ -309,7 +306,7 @@ const ShoppingList = () => {
           <h4>Your shopping list is empty</h4>
           <p>Start adding items you need to buy!</p>
           <button className="shopping-btn-primary-custom" onClick={handleAddNew}>
-            + Add First Item
+            Add First Item
           </button>
         </div>
       ) : (
@@ -322,42 +319,51 @@ const ShoppingList = () => {
               <div key={category} className="shopping-category-section">
                 <div className="shopping-category-header-simple">
                   <h3 className="shopping-category-title-simple">{category}</h3>
+                  <span className="category-count-badge">{categoryItems.length}</span>
                 </div>
                 <div className="shopping-checklist-items">
-                  {categoryItems.map(item => (
-                    <div key={item._id} className="shopping-checklist-item">
-                      <span className="shopping-quantity-badge-simple">{item.quantity} {item.unit}</span>
-                      <h4 className="shopping-item-name-simple">
-                        {item.name}
-                        {item.fromPantry && <span className="from-pantry-badge"> (from pantry)</span>}
-                      </h4>
-                      <div className="shopping-checklist-actions">
-                     <div className="shopping-checklist-actions">
+                  {categoryItems.map(item => {
+                    const isPurchased = purchasedIds.has(item._id);
+                    return (
+                      <div 
+                        key={item._id} 
+                        className={`shopping-checklist-item ${isPurchased ? 'item-purchased' : ''}`}
+                      >
+                        <span className="shopping-quantity-badge-simple">
+                          {item.quantity} {item.unit}
+                        </span>
+                        <h4 className={`shopping-item-name-simple ${isPurchased ? 'item-name-purchased' : ''}`}>
+                          {item.name}
+                          {item.fromPantry && <span className="from-pantry-badge"> (from pantry)</span>}
+                        </h4>
+<div className="shopping-checklist-actions">
+  <div className="shopping-checklist-actions">
   <button 
-    className="shopping-purchase-btn"
+    className="shopping-purchase-btn" 
     onClick={() => markAsPurchased(item._id)}
     title="Mark as purchased"
   >
-    Mark
+    <FaCheck />
   </button>
   <button 
     className="shopping-edit-action-btn" 
     onClick={() => handleEdit(item)}
-    title="Edit"
+    title="Edit item"
   >
-    Edit
+    <FaEdit />
   </button>
   <button 
     className="shopping-delete-action-btn" 
     onClick={() => handleDelete(item._id)}
-    title="Delete"
+    title="Delete item"
   >
-    Delete
+    <FaTrash />
   </button>
 </div>
+</div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             );
@@ -383,6 +389,19 @@ const ShoppingList = () => {
                   onChange={(e) => setCurrentItem({ ...currentItem, name: e.target.value })}
                 />
               </div>
+              
+              <div className="shopping-form-group">
+                <label>Category</label>
+                <select value={currentItem.category} onChange={(e) => setCurrentItem({ ...currentItem, category: e.target.value })}>
+                  {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+              <div className="shopping-form-group">
+                <label>Unit</label>
+                <select value={currentItem.unit} onChange={(e) => setCurrentItem({ ...currentItem, unit: e.target.value })}>
+                  {units.map(u => <option key={u} value={u}>{u}</option>)}
+                </select>
+              </div>
               <div className="shopping-form-group">
                 <label>Quantity</label>
                 <input 
@@ -392,33 +411,21 @@ const ShoppingList = () => {
                   onChange={(e) => setCurrentItem({ ...currentItem, quantity: e.target.value })}
                 />
               </div>
-              <div className="shopping-form-group">
-                <label>Unit</label>
-                <select value={currentItem.unit} onChange={(e) => setCurrentItem({ ...currentItem, unit: e.target.value })}>
-                  {units.map(u => <option key={u} value={u}>{u}</option>)}
-                </select>
-              </div>
-              <div className="shopping-form-group">
-                <label>Category</label>
-                <select value={currentItem.category} onChange={(e) => setCurrentItem({ ...currentItem, category: e.target.value })}>
-                  {categories.map(c => <option key={c} value={c}>{c}</option>)}
-                </select>
-              </div>
             </div>
             <div className="shopping-modal-footer">
               <button className="shopping-btn-outline-custom" onClick={handleCloseModal}>Cancel</button>
               <button className="shopping-btn-primary-custom" onClick={handleSaveItem}>
-                {editMode ? 'Update' : 'Add to List'}
+                {editMode ? 'Update Item' : 'Add to List'}
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Back to Home - Sirf Neeche */}
+      {/* Back to Home */}
       <div className="back-home-container">
         <button className="btn-back-home" onClick={() => navigate('/')}>
-          ← Back to Home
+           Back to Home
         </button>
       </div>
 

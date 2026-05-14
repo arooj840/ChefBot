@@ -420,7 +420,7 @@ const MealFeature = () => {
                   {['breakfast','lunch','dinner'].map(mealType => {
                     const meal = mealPlan[dayIndex]?.[mealType];
                     return (
-                      <div key={mealType} className="mc-meal-cell">
+                      <div key={mealType} className="mc-meal-cell" data-meal={mealType.charAt(0).toUpperCase() + mealType.slice(1)}>
                         {meal ? (
                           <div className="mc-meal-inner">
                             <div className="mc-thumb" style={{ backgroundImage: `url(${meal.image})` }} onClick={() => viewRecipe(meal._id, meal.name)}>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaCartPlus, FaEdit, FaTrash } from 'react-icons/fa';
 import { showToast } from '../components/Toast';
 import './PantryPage.css';
 
@@ -328,12 +329,7 @@ const PantryPage = () => {
               Low Stock ({lowStockItems.length})
             </button>
           )}
-          <button
-            className="btn-alert-filter"
-            onClick={() => setShowLowStockModal(true)}
-          >
-             Alert
-          </button>
+        
         </div>
       </div>
 
@@ -444,15 +440,28 @@ const PantryPage = () => {
                     <h4 className="tab-item-name">{item.name}</h4>
                     <p className="tab-item-cat">{item.category}</p>
                     <div className="tab-card-actions">
-                      <button
-                        className={`tab-btn-cart ${isInShoppingList ? 'added' : ''}`}
-                        onClick={() => addToPantryShoppingList(item)}
-                        disabled={isInShoppingList}
-                      >
-                        {isInShoppingList ? 'Added' : 'Add'}
-                      </button>
-                      <button className="tab-btn-icon edit" onClick={() => handleEdit(item)}>Edit</button>
-                      <button className="tab-btn-icon del" onClick={() => handleDelete(item._id)}>Delete</button>
+                      <button 
+  className={`tab-btn-cart ${isInShoppingList ? 'added' : ''}`}
+  onClick={() => addToPantryShoppingList(item)}
+  disabled={isInShoppingList}
+  title="Add to shopping list"
+>
+  <FaCartPlus />
+</button>
+<button 
+  className="tab-btn-icon edit" 
+  onClick={() => handleEdit(item)}
+  title="Edit item"
+>
+  <FaEdit />
+</button>
+<button 
+  className="tab-btn-icon del" 
+  onClick={() => handleDelete(item._id)}
+  title="Delete item"
+>
+  <FaTrash />
+</button>
                     </div>
                   </div>
                 );
@@ -486,15 +495,28 @@ const PantryPage = () => {
                         <h4 className="modal-item-name">{item.name}</h4>
                         <p className="modal-item-cat">{item.category}</p>
                         <div className="modal-card-actions">
-                          <button
-                            className={`modal-btn-cart ${isInShoppingList ? 'added' : ''}`}
-                            onClick={() => addToPantryShoppingList(item)}
-                            disabled={isInShoppingList}
-                          >
-                            {isInShoppingList ? 'Added' : 'Add to Cart'}
-                          </button>
-                          <button className="modal-btn-icon edit" onClick={() => { handleEdit(item); setShowLowStockModal(false); }}>Edit</button>
-                          <button className="modal-btn-icon del" onClick={() => { handleDelete(item._id); setShowLowStockModal(false); }}>Delete</button>
+                         <button
+  className={`modal-btn-cart ${isInShoppingList ? 'added' : ''}`}
+  onClick={() => addToPantryShoppingList(item)}
+  disabled={isInShoppingList}
+  title="Add to shopping list"
+>
+  <FaCartPlus />
+</button>
+<button 
+  className="modal-btn-icon edit" 
+  onClick={() => { handleEdit(item); setShowLowStockModal(false); }}
+  title="Edit item"
+>
+  <FaEdit />
+</button>
+<button 
+  className="modal-btn-icon del" 
+  onClick={() => { handleDelete(item._id); setShowLowStockModal(false); }}
+  title="Delete item"
+>
+  <FaTrash />
+</button>
                         </div>
                       </div>
                     );
@@ -525,10 +547,11 @@ const PantryPage = () => {
                   placeholder="e.g., Tomato, Rice, Milk" />
               </div>
               <div className="form-group">
-                <label>Quantity</label>
-                <input type="number" step="any" value={currentItem.quantity}
-                  onChange={(e) => setCurrentItem({ ...currentItem, quantity: e.target.value })}
-                  placeholder="Enter quantity" />
+                 <div className="form-group">
+                <label>Category</label>
+                <select value={currentItem.category} onChange={(e) => setCurrentItem({ ...currentItem, category: e.target.value })}>
+                  {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
               </div>
               <div className="form-group">
                 <label>Unit</label>
@@ -536,11 +559,10 @@ const PantryPage = () => {
                   {units.map(u => <option key={u} value={u}>{u}</option>)}
                 </select>
               </div>
-              <div className="form-group">
-                <label>Category</label>
-                <select value={currentItem.category} onChange={(e) => setCurrentItem({ ...currentItem, category: e.target.value })}>
-                  {categories.map(c => <option key={c} value={c}>{c}</option>)}
-                </select>
+              <label>Quantity</label>
+                <input type="number" step="any" value={currentItem.quantity}
+                  onChange={(e) => setCurrentItem({ ...currentItem, quantity: e.target.value })}
+                  placeholder="Enter quantity" />
               </div>
             </div>
             <div className="pantry-modal-footer">
