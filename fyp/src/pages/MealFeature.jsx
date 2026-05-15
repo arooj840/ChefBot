@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MealFeature.css';
@@ -37,7 +38,7 @@ const CustomSelect = ({ label, options, value, onChange, required }) => {
               onMouseDown={(e) => { e.preventDefault(); onChange(o.value); setOpen(false); }}
             >
               {o.label}
-              {value === o.value && <span className="csel__tick"></span>}
+              {value === o.value && <span className="csel__tick">✓</span>}
             </li>
           ))}
         </ul>
@@ -46,19 +47,14 @@ const CustomSelect = ({ label, options, value, onChange, required }) => {
   );
 };
 
-/* ══════════════════════════════════════════════════════
-   MAIN MEAL FEATURE
-══════════════════════════════════════════════════════ */
 const MealFeature = () => {
   const navigate = useNavigate();
 
-  // Load from localStorage on mount
   const loadFromStorage = () => {
     const savedFilters = localStorage.getItem('mealPlanFilters');
     const savedPlan = localStorage.getItem('mealPlanData');
     const savedGenerated = localStorage.getItem('mealPlanGenerated');
     const savedCustomMembers = localStorage.getItem('mealPlanCustomMembers');
-
     if (savedFilters && savedPlan && savedGenerated === 'true') {
       try {
         return {
@@ -112,7 +108,6 @@ const MealFeature = () => {
     { value:'gluten', label:'Gluten' },
     { value:'lactose', label:'Lactose' },
     { value:'shellfish', label:'Shellfish' },
-   
   ];
   const ageGroupOptions = [
     { value:'general', label:'General' },
@@ -127,7 +122,6 @@ const MealFeature = () => {
 
   useEffect(() => { fetchPantry(); }, []);
   useEffect(() => {
-    // Save to localStorage whenever filters/plan change
     if (generated && Object.keys(mealPlan).length > 0) {
       localStorage.setItem('mealPlanFilters', JSON.stringify(filters));
       localStorage.setItem('mealPlanData', JSON.stringify(mealPlan));
@@ -231,7 +225,6 @@ const MealFeature = () => {
       const data = await res.json();
       if (data.success) {
         alert('Meal plan saved!');
-        // Clear localStorage and reset state (plan khatam)
         localStorage.removeItem('mealPlanFilters');
         localStorage.removeItem('mealPlanData');
         localStorage.removeItem('mealPlanGenerated');
@@ -248,11 +241,8 @@ const MealFeature = () => {
   };
 
   const viewRecipe = (id, name) => {
-    if (id) {
-      navigate(`/recipe/${id}?members=${getFamilyCount()}`);
-    } else if (name) {
-      navigate(`/recipes?search=${encodeURIComponent(name)}`);
-    }
+    if (id) navigate(`/recipe/${id}?members=${getFamilyCount()}`);
+    else if (name) navigate(`/recipes?search=${encodeURIComponent(name)}`);
   };
 
   const openSearchModal = (dayIndex, mealType) => {
@@ -300,6 +290,8 @@ const MealFeature = () => {
       </div>
 
       <div className="mc-page-wrapper">
+
+        {/* ── FILTER BAR ── */}
         <div className="mc-filters-bar">
           <CustomSelect label="Diet Type" options={dietOptions} value={filters.dietType} onChange={v => setFilters(p => ({ ...p, dietType: v }))} required />
           <CustomSelect label="Allergy" options={allergyOptions} value={filters.allergy} onChange={v => setFilters(p => ({ ...p, allergy: v }))} required />
@@ -353,6 +345,7 @@ const MealFeature = () => {
           </div>
         </div>
 
+        {/* ── EMPTY STATE ── */}
         {!generated && !generating && (
           <div className="mc-empty-state">
             <div className="mc-empty-icon">🍽️</div>
@@ -361,6 +354,7 @@ const MealFeature = () => {
           </div>
         )}
 
+        {/* ── LOADING ── */}
         {generating && (
           <div className="mc-loading-state">
             <div className="mc-spinner" />
@@ -368,8 +362,11 @@ const MealFeature = () => {
           </div>
         )}
 
+        {/* ── CALENDAR ── */}
         {generated && !generating && Object.keys(mealPlan).length > 0 && (
           <div id="mc-calendar" className="mc-calendar-section">
+
+            {/* Week nav & day tabs — outside the scroll wrapper, stay fixed */}
             {isWeekly && (
               <div className="mc-week-nav">
                 <button className="mc-nav-arrow" onClick={() => setCurrentWeekOffset(p => p - 1)}>&#8249;</button>
@@ -402,51 +399,57 @@ const MealFeature = () => {
               <span className="mc-members-pill">For {getMemberDisplay()}</span>
             </div>
 
-            <div className="mc-calendar-grid">
-              <div className="mc-grid-head">
-                <div className="mc-grid-head-day" />
-                <div className="mc-grid-head-cell">Breakfast</div>
-                <div className="mc-grid-head-cell">Lunch</div>
-                <div className="mc-grid-head-cell">Dinner</div>
-              </div>
+            {/* ─────────────────────────────────────────────
+                SCROLL WRAPPER — only this div scrolls on mobile
+                mc-calendar-grid is inside this wrapper
+            ───────────────────────────────────────────── */}
+            <div className="mc-grid-scroll-wrapper">
+              <div className="mc-calendar-grid">
+                <div className="mc-grid-head">
+                  <div className="mc-grid-head-day" />
+                  <div className="mc-grid-head-cell">Breakfast</div>
+                  <div className="mc-grid-head-cell">Lunch</div>
+                  <div className="mc-grid-head-cell">Dinner</div>
+                </div>
 
-              {Array.from({ length: isWeekly ? 7 : 1 }, (_, dayIndex) => (
-                <div key={dayIndex} className={`mc-grid-row ${dayIndex === selectedDay && isWeekly ? 'mc-row-active' : ''}`}>
-                  <div className="mc-grid-day-cell" onClick={() => isWeekly && setSelectedDay(dayIndex)}>
-                    <span className="mc-day-short">{dayShortNames[dayIndex]}</span>
-                    <span className="mc-day-num">{dates[dayIndex]}</span>
-                  </div>
+                {Array.from({ length: isWeekly ? 7 : 1 }, (_, dayIndex) => (
+                  <div key={dayIndex} className={`mc-grid-row ${dayIndex === selectedDay && isWeekly ? 'mc-row-active' : ''}`}>
+                    <div className="mc-grid-day-cell" onClick={() => isWeekly && setSelectedDay(dayIndex)}>
+                      <span className="mc-day-short">{dayShortNames[dayIndex]}</span>
+                      <span className="mc-day-num">{dates[dayIndex]}</span>
+                    </div>
 
-                  {['breakfast','lunch','dinner'].map(mealType => {
-                    const meal = mealPlan[dayIndex]?.[mealType];
-                    return (
-                      <div key={mealType} className="mc-meal-cell" data-meal={mealType.charAt(0).toUpperCase() + mealType.slice(1)}>
-                        {meal ? (
-                          <div className="mc-meal-inner">
-                            <div className="mc-thumb" style={{ backgroundImage: `url(${meal.image})` }} onClick={() => viewRecipe(meal._id, meal.name)}>
-                              <span className={`mc-dot ${meal.available ? 'mc-dot--green' : 'mc-dot--red'}`} />
-                              <span className="mc-pct">{meal.matchScore}%</span>
-                            </div>
-                            <div className="mc-meal-text">
-                              <p className="mc-meal-name" onClick={() => viewRecipe(meal._id, meal.name)} title={meal.name}>{meal.name}</p>
-                              <div className="mc-meal-btns">
-                                <button className="mc-btn-view" onClick={() => viewRecipe(meal._id, meal.name)}>View</button>
-                                <button className="mc-btn-change" onClick={() => openSearchModal(dayIndex, mealType)}>Change</button>
+                    {['breakfast','lunch','dinner'].map(mealType => {
+                      const meal = mealPlan[dayIndex]?.[mealType];
+                      return (
+                        <div key={mealType} className="mc-meal-cell" data-meal={mealType.charAt(0).toUpperCase() + mealType.slice(1)}>
+                          {meal ? (
+                            <div className="mc-meal-inner">
+                              <div className="mc-thumb" style={{ backgroundImage: `url(${meal.image})` }} onClick={() => viewRecipe(meal._id, meal.name)}>
+                                <span className="mc-pct">{meal.matchScore}%</span>
+                              </div>
+                              <div className="mc-meal-text">
+                                <p className="mc-meal-name" onClick={() => viewRecipe(meal._id, meal.name)} title={meal.name}>{meal.name}</p>
+                                <div className="mc-meal-btns">
+                                  <button className="mc-btn-view" onClick={() => viewRecipe(meal._id, meal.name)}>View Recipe</button>
+                                  <button className="mc-btn-change" onClick={() => openSearchModal(dayIndex, mealType)}>Change</button>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        ) : (
-                          <div className="mc-add-cell" onClick={() => openSearchModal(dayIndex, mealType)}>
-                            <span className="mc-add-plus">+</span>
-                            <span className="mc-add-lbl">Add Recipe</span>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              ))}
+                          ) : (
+                            <div className="mc-add-cell" onClick={() => openSearchModal(dayIndex, mealType)}>
+                              <span className="mc-add-plus">+</span>
+                              <span className="mc-add-lbl">Add Recipe</span>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
             </div>
+            {/* ── end scroll wrapper ── */}
 
             <div className="mc-save-row">
               <div className="mc-save-card">
@@ -457,10 +460,12 @@ const MealFeature = () => {
                 <button className="mc-save-btn" onClick={savePlan}>Save Plan</button>
               </div>
             </div>
+
           </div>
         )}
       </div>
 
+      {/* ── SEARCH MODAL ── */}
       {showSearchModal && (
         <div className="mc-overlay" onClick={() => setShowSearchModal(false)}>
           <div className="mc-modal" onClick={e => e.stopPropagation()}>
@@ -503,6 +508,7 @@ const MealFeature = () => {
         </div>
       )}
 
+      {/* ── NO RECIPES POPUP ── */}
       {noRecipesPopup && (
         <div className="mc-overlay" onClick={() => setNoRecipesPopup(null)}>
           <div className="mc-modal" onClick={e => e.stopPropagation()}>

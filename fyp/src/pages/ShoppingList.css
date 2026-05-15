@@ -145,7 +145,7 @@ body, html {
 .shopping-stat-number { font-size: 2rem; font-weight: 800; color: #284a4b; line-height: 1; margin-bottom: 6px; }
 .shopping-stat-label { font-size: 0.72rem; color: #666; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; }
 .shopping-purchased-card { border-top-color: #ff6b6b !important; }
-.shopping-purchased-card .shopping-stat-number { color: #ff6b6b !important; }
+.shopping-purchased-card .shopping-stat-number { color: #ff4444 !important; }
 
 /* Search + Add */
 .shopping-search-add-section {
@@ -165,7 +165,7 @@ body, html {
   padding: 11px 16px;
   font-size: 0.9rem;
   border-radius: 10px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid #e0e8e5;
   background: white;
   transition: all 0.3s ease;
   color: #333;
@@ -174,7 +174,7 @@ body, html {
 
 /* Buttons Primary */
 .shopping-btn-primary-custom {
-  background: linear-gradient(135deg, #284a4b, #1d3a3b);
+  background: linear-gradient(135deg, #284a4b, #1a3334);
   color: white;
   border: none;
   padding: 11px 24px;
@@ -188,7 +188,7 @@ body, html {
   white-space: nowrap;
 }
 .shopping-btn-primary-custom:hover {
-  background: linear-gradient(135deg, #1d3a3b, #0f2a2a);
+  background: linear-gradient(135deg, #1a3334, #0f2a2a);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(40,74,75,0.35);
 }
@@ -206,7 +206,7 @@ body, html {
   box-sizing: border-box;
 }
 .btn-shop-online {
-  background: linear-gradient(135deg, #284a4b, #1d3a3b);
+  background: linear-gradient(135deg, #284a4b, #1a3334);
   color: white;
   border: none;
   padding: 11px 24px;
@@ -222,7 +222,7 @@ body, html {
 }
 .btn-shop-online:hover { background: linear-gradient(135deg, #1d3a3b, #0f2a2a); transform: translateY(-2px); }
 .btn-whatsapp-share {
-  background: linear-gradient(135deg, #25d366, #128c7e);
+  background: linear-gradient(135deg, #379d9c, #1a3334);
   color: white;
   border: none;
   padding: 11px 22px;
@@ -236,7 +236,7 @@ body, html {
   box-shadow: 0 3px 8px rgba(37,211,102,0.3);
   white-space: nowrap;
 }
-.btn-whatsapp-share:hover { background: linear-gradient(135deg, #128c7e, #075e54); transform: translateY(-2px); }
+.btn-whatsapp-share:hover { background: linear-gradient(135deg, #379d9c, #1a3334); transform: translateY(-2px); }
 
 /* Back to Home */
 .back-home-container {
@@ -277,7 +277,7 @@ body, html {
   border-radius: 14px;
   padding: 20px 22px;
   box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-  border: 1px solid #e8e8e8;
+  border: 1px solid #e0e8e5;
   border-left: 5px solid #284a4b;
   width: 100%;
   box-sizing: border-box;
@@ -290,7 +290,7 @@ body, html {
   align-items: center;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 2px solid #e8e8e8;
+  border-bottom: 2px solid #e0e8e5;
 }
 .shopping-category-title-simple {
   font-weight: 700;
@@ -325,7 +325,7 @@ body, html {
   padding: 10px 12px;
   background: #f8f9fa;
   border-radius: 10px;
-  border: 1.5px solid #e8e8e8;
+  border: 1.5px solid #e0e8e5;
   transition: all 0.25s ease;
   width: 100%;
   box-sizing: border-box;
@@ -349,7 +349,7 @@ body, html {
 }
 .item-name-purchased { text-decoration: line-through; color: #888 !important; }
 .shopping-quantity-badge-simple {
-  background: linear-gradient(135deg, #284a4b, #1d3a3b);
+  background: linear-gradient(135deg, #284a4b, #1a3334);
   color: white;
   padding: 5px 12px;
   border-radius: 20px;
@@ -391,8 +391,8 @@ body, html {
 
 /* Delete button – red border & text */
 .shopping-delete-action-btn {
-  border-color: #ff6b6b;
-  color: #ff6b6b;
+  border-color: #ff4444;
+  color: #ff4444;
 }
 
 /* Hover effects – background fill, text white */
@@ -438,8 +438,8 @@ body, html {
 
 /* Delete button - red border and red icon */
 .shopping-delete-action-btn {
-  border-color: #ff6b6b;
-  color: #ff6b6b;
+  border-color: #ff4444;
+  color: #ff4444;
 }
 
 /* Hover effects: background fills, icon becomes white */
@@ -543,7 +543,7 @@ body, html {
 
 .shopping-delete-action-btn {
   border-color: #ff6b6b !important;
-  color: #ff6b6b !important;
+  color: #ff4444 !important;
 }
 
 .shopping-purchase-btn:hover,
@@ -560,7 +560,7 @@ body, html {
 /* Active/Purchased state (optional) */
 .btn-purchased-active {
   background: #e0e0e0 !important;
-  border-color: #aaa !important;
+  border-color: #e0e8e5!important;
   color: #888 !important;
   cursor: not-allowed;
   transform: none !important;
@@ -577,14 +577,14 @@ body, html {
 
 .from-pantry-badge {
   font-size: 0.7rem;
-  color: #ff6b35;
+  color: #ff4444;
   font-weight: normal;
   margin-left: 5px;
 }
 
 .shopping-error-message {
   background: #f8d7da;
-  color: #721c24;
+  color: #ff4444;
   padding: 12px 20px;
   border-radius: 8px;
   margin: 20px auto;
@@ -663,7 +663,7 @@ body, html {
   gap: 12px;
   padding: 16px 20px;
   background: #f8f9fa;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid #e0e8e5;
 }
 .shopping-btn-outline-custom {
   background: white;
@@ -679,7 +679,7 @@ body, html {
 
 /* Loading */
 .loading-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; }
-.spinner { width: 44px; height: 44px; border: 3px solid #e0e0e0; border-top-color: #284a4b; border-radius: 50%; animation: spin 1s linear infinite; }
+.spinner { width: 44px; height: 44px; border: 3px solid #e0e8e5; border-top-color: #284a4b; border-radius: 50%; animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* Delivery Popup */
@@ -692,7 +692,7 @@ body, html {
   box-shadow: 0 25px 50px rgba(0,0,0,0.25);
 }
 .delivery-modal-header {
-  background: linear-gradient(135deg, #284a4b, #1d3a3b);
+  background: linear-gradient(135deg, #284a4b, #1a3334);
   color: white;
   padding: 16px 20px;
   display: flex;
@@ -725,14 +725,14 @@ body, html {
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
-  border: 1.5px solid #e0e0e0;
+  border: 1.5px solid #e0e8e5;
 }
 .delivery-option:hover { background: #eef3f3; border-color: #284a4b; transform: translateX(6px); }
 .delivery-option-text strong { display: block; font-size: 1rem; color: #284a4b; margin-bottom: 4px; }
 .delivery-option-text p { margin: 0; font-size: 0.8rem; color: #777; }
 
 /* ========== RESPONSIVE (MOBILE FIXES) ========== */
-/* Tablet se neeche: buttons inline rahein, full width nahi */
+
 @media (max-width: 768px) {
   .shopping-top-action-buttons { justify-content: center; }
   .shopping-category-section { padding: 14px; }
@@ -783,12 +783,11 @@ body, html {
     padding-bottom: 20px !important;
   }
   
-  /* Category select ko uper rakhne ke liye (agar pehle se kiya hai to bhi theek) */
   .shopping-form-group:first-of-type select {
     margin-top: 5px;
   }
   
-  /* Select dropdown ko neeche khulne ka hint */
+ 
   select {
     transform: translateY(0) !important;
     transform-origin: top !important;

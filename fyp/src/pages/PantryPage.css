@@ -104,9 +104,9 @@ body, html {
   border-top: 4px solid #284a4b;
 }
 .stat-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
-.low-stock-card { border-top-color: #ff6b6b; }
+.low-stock-card { border-top-color: #ff4444; }
 .stat-number { font-size: 2.5rem; font-weight: 800; color: #284a4b; line-height: 1; margin-bottom: 5px; }
-.low-stock-card .stat-number { color: #ff6b6b; }
+.low-stock-card .stat-number { color: #ff4444; }
 .stat-label { font-size: 0.9rem; color: #666; font-weight: 500; letter-spacing: 0.5px; }
 
 /* ── Top Controls Row ── */
@@ -143,7 +143,7 @@ body, html {
 .search-field-pantry:focus { outline: none; border-color: #284a4b; box-shadow: 0 2px 8px rgba(40,74,75,0.1); }
 
 .btn-low-stock-filter {
-  background: #dc3545;
+  background: #ff4444;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -153,10 +153,10 @@ body, html {
   font-size: 0.85rem;
   transition: all 0.3s ease;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(220,53,69,0.3);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   flex-shrink: 0;
 }
-.btn-low-stock-filter:hover { background: #c82333; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(220,53,69,0.4); }
+.btn-low-stock-filter:hover { background: #ff4444; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.05); }
 
 @media (max-width: 700px) {
   .top-controls-row {
@@ -219,7 +219,7 @@ body, html {
 }
 .btn-add-all-to-shopping:hover:not(:disabled) { background: #1d3a3b; transform: translateY(-2px); }
 .btn-clear-shopping-list {
-  background: #dc3545;
+  background: #ff4444;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -230,7 +230,7 @@ body, html {
   transition: all 0.3s ease;
   white-space: nowrap;
 }
-.btn-clear-shopping-list:hover { background: #c82333; transform: translateY(-2px); }
+.btn-clear-shopping-list:hover { background: #ff4444; transform: translateY(-2px); }
 
 .shopping-list-section {
   background: white;
@@ -240,7 +240,7 @@ body, html {
   width: 100%;
   max-width: 1000px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  border: 1px solid #e8e8e8;
+  border: 1px solid #e0e8e5;
   box-sizing: border-box;
 }
 .shopping-list-header {
@@ -271,7 +271,7 @@ body, html {
 .shopping-item-name { flex: 1; font-weight: 500; font-size: 0.9rem; color: #333; margin: 0; }
 .btn-remove-shopping-item {
   background: #ffcccc;
-  color: #ff6b6b;
+  color: #ff4444;
   border: none;
   padding: 5px 12px;
   border-radius: 6px;
@@ -281,7 +281,7 @@ body, html {
   transition: all 0.3s ease;
   white-space: nowrap;
 }
-.btn-remove-shopping-item:hover { background: #ff6b6b; color: white; }
+.btn-remove-shopping-item:hover { background: #ff4444; color: white; }
 .empty-shopping-message { text-align: center; padding: 25px; background: #f9f9f9; border-radius: 10px; color: #888; font-size: 0.9rem; }
 
 @media (max-width: 550px) {
@@ -400,7 +400,7 @@ body, html {
 }
 .tab-btn-icon.del {
   border-color: #ff6b6b;
-  color: #ff6b6b;
+  color: #ff4444;
 }
 .tab-btn-cart:hover:not(:disabled),
 .tab-btn-icon.edit:hover {
@@ -413,11 +413,11 @@ body, html {
   background: #ff6b6b;
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(255,107,107,0.2);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 .tab-btn-cart.added {
   background: #e0e0e0;
-  border-color: #aaa;
+  border-color: e0e88e5;
   color: #aaa;
   cursor: not-allowed;
   transform: none;
@@ -479,7 +479,7 @@ body, html {
 }
 .low-stock-modal-card {
   background: white;
-  border: 1px solid #e4eaea;
+  border: 1px solid #e0e8e0;
   border-left: 4px solid #ff4444;
   border-radius: 14px;
   padding: 14px;
@@ -517,7 +517,7 @@ body, html {
 .modal-item-name {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #c62828;
+  color: #ff4444;
   margin: 4px 0 0;
 }
 .modal-item-cat {
@@ -557,7 +557,7 @@ body, html {
 }
 .modal-btn-icon.del {
   border-color: #ff6b6b;
-  color: #ff6b6b;
+  color: #ff4444;
 }
 .modal-btn-cart:hover:not(.added),
 .modal-btn-icon.edit:hover {
@@ -574,7 +574,7 @@ body, html {
 }
 .modal-btn-cart.added {
   background: #e0e0e0;
-  border-color: #aaa;
+  border-color: #e8e8e8;
   color: #aaa;
   cursor: not-allowed;
   transform: none;
@@ -831,7 +831,7 @@ body, html {
 }
 .pantry-error-message {
   background: #f8d7da;
-  color: #721c24;
+  color: #ff4444;
   padding: 12px 20px;
   border-radius: 8px;
   margin: 20px auto;
