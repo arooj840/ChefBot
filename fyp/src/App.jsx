@@ -1,14 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-// ❌ Remove ToastContainer imports completely
-// import { ToastContainer } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+
+// ✅ Auth Provider (fix for useAuth error)
+import { AuthProvider } from './context/AuthContext';
+
+// ❌ ToastContainer removed – no invalid hook call error
 
 // ✅ Headers & Footers
 import Header from './components/Header';
 import Footer from './components/Footer';
 
-// ✅ Pages - English (all your imports – keep them)
+// ✅ Pages - English
 import HomePage from './pages/HomePage';
 import PublicHome from './pages/PublicHome';
 import PantryPage from './pages/PantryPage';
@@ -71,22 +73,17 @@ import UrduPantryPage from './pages/Urdu/UrduPantryPage';
 import UrduShoppingList from './pages/Urdu/UrduShoppingList';
 import UrduMealFeature from './pages/Urdu/UrduMealFeature';
 
-// ✅ Alarm Modal (if you need it)
-import AlarmModal from './components/AlarmModal';
+// Optional Alarm Modal (if needed)
+// import AlarmModal from './components/AlarmModal';
 
 import './App.css';
 
 function AppWrapper() {
   const location = useLocation();
-  const isUrdu = false; // Disable Urdu for now – or use location.pathname.startsWith('/urdu') if you have Urdu components
+  const isUrdu = false; // disable Urdu mode for now – or use location.pathname.startsWith('/urdu')
 
   return (
-    <>
-      {/* ✅ ToastContainer REMOVED – no more invalid hook call error */}
-      
-      {/* Alarm Modal if needed */}
-      {/* <AlarmModal /> */}
-      
+    <AuthProvider>
       <div 
         className={`app-wrapper ${isUrdu ? 'urdu-mode' : 'english-mode'}`} 
         dir={isUrdu ? "rtl" : "ltr"}
@@ -94,27 +91,26 @@ function AppWrapper() {
         <Header />
 
         <Routes>
-          {/* All your routes – unchanged */}
           <Route path="/" element={<PublicHome />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/smart-pantry" element={<PantryPage />} />
           <Route path="/smart-shopping" element={<ShoppingList />} />
-          <Route path="/guidance" element={<BeginnersPage/>} />
-          <Route path="/measuring-skills" element={<MeasuringSkillsPage/>} />
-          <Route path="/kitchen-appliances" element={<KitchenAppliancesPage/>} />
-          <Route path="/cutting-techniques" element={<CuttingTechniquesPage/>} />
-          <Route path="/kitchen-tools" element={<KitchenToolsPage/>} />
-          <Route path="/cooking-methods" element={<CookingMethodsPage/>} />
-          <Route path="/meat-cuts" element={<MeatProcessingPage/>} />  
-          <Route path="/pantry-basics" element={<PantryBasicsPage/>} />    
-          <Route path="/recipes" element={<RecipeFeature/>} />    
-          <Route path="/soups" element={<RecipeSoupPage/>} />    
-          <Route path="/Beverages" element={<RecipeBeveragesPage/>} />    
-          <Route path="/desserts" element={<RecipeDessertsPage/>} />    
+          <Route path="/guidance" element={<BeginnersPage />} />
+          <Route path="/measuring-skills" element={<MeasuringSkillsPage />} />
+          <Route path="/kitchen-appliances" element={<KitchenAppliancesPage />} />
+          <Route path="/cutting-techniques" element={<CuttingTechniquesPage />} />
+          <Route path="/kitchen-tools" element={<KitchenToolsPage />} />
+          <Route path="/cooking-methods" element={<CookingMethodsPage />} />
+          <Route path="/meat-cuts" element={<MeatProcessingPage />} />
+          <Route path="/pantry-basics" element={<PantryBasicsPage />} />
+          <Route path="/recipes" element={<RecipeFeature />} />
+          <Route path="/soups" element={<RecipeSoupPage />} />
+          <Route path="/Beverages" element={<RecipeBeveragesPage />} />
+          <Route path="/desserts" element={<RecipeDessertsPage />} />
           <Route path="/recipe/:id" element={<RecipeDetail />} />
-          <Route path="/baking" element={<RecipeBakingPage/>} />    
+          <Route path="/baking" element={<RecipeBakingPage />} />
         
-          <Route path="/meal-planner" element={<MealFeature/>} />
+          <Route path="/meal-planner" element={<MealFeature />} />
           <Route path="/login-page" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/bakery-essentials" element={<BakeryEssentialsPage />} />
@@ -137,30 +133,30 @@ function AppWrapper() {
           <Route path="/dal-chick" element={<RecipesDalChicken />} />
           <Route path="/dal-mutton" element={<RecipesDalMutton />} />
           <Route path="/egg-dishes" element={<RecipesEggDishes />} />
-          <Route path="/fish-dishes" element={<RecipesFish/>} />
-          <Route path="/chicken" element={<RecipesPureChicken/>} />
-          <Route path="/mutton" element={<RecipesPureMutton/>} />
-          <Route path="/qeema" element={<RecipesQeema/>} />
-          <Route path="/rice" element={<RecipesRice/>} />
-          <Route path="/gravy" element={<RecipesHeavyGravy/>} />
-          <Route path="/BBQ" element={<RecipesBBQ/>} />
-          <Route path="/dinner" element={<Dinner/>} />
-          <Route path="/recipe-dinner" element={<RecipesDinner/>} />
-          <Route path="/breads" element={<RecipesBread/>} />
-          <Route path="/appetizers" element={<RecipesAppetizers/>} />
-          <Route path="/dinner-light" element={<RecipesLightDinner/>} />
-          <Route path="/cheat-meal" element={<RecipeCheatMeal/>} />
+          <Route path="/fish-dishes" element={<RecipesFish />} />
+          <Route path="/chicken" element={<RecipesPureChicken />} />
+          <Route path="/mutton" element={<RecipesPureMutton />} />
+          <Route path="/qeema" element={<RecipesQeema />} />
+          <Route path="/rice" element={<RecipesRice />} />
+          <Route path="/gravy" element={<RecipesHeavyGravy />} />
+          <Route path="/BBQ" element={<RecipesBBQ />} />
+          <Route path="/dinner" element={<Dinner />} />
+          <Route path="/recipe-dinner" element={<RecipesDinner />} />
+          <Route path="/breads" element={<RecipesBread />} />
+          <Route path="/appetizers" element={<RecipesAppetizers />} />
+          <Route path="/dinner-light" element={<RecipesLightDinner />} />
+          <Route path="/cheat-meal" element={<RecipeCheatMeal />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/verify-otp" element={<VerifyOTPPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/smart-pantry-urdu" element={<UrduPantryPage />} />
-           <Route path="/smart-shopping-urdu" element={<UrduShoppingList />} />
-           <Route path="/smart-planner-urdu" element={<UrduMealFeature />} />
+          <Route path="/smart-shopping-urdu" element={<UrduShoppingList />} />
+          <Route path="/smart-planner-urdu" element={<UrduMealFeature />} />
         </Routes>
 
         <Footer />
       </div>
-    </>
+    </AuthProvider>
   );
 }
 

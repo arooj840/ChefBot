@@ -263,3 +263,13 @@
   background: #f0f0f0;
 
 }
+/* Settings Icon */
+.settings-icon {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.settings-icon:hover {
+  transform: rotate(30deg);
+  color: #4a90e2;
+}

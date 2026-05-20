@@ -1,456 +1,526 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../MealFeature.css';
+import './UrduMealFeature.css';
+
+const UrduCustomSelect = ({ label, options, value, onChange, required }) => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  const selected = options.find(o => o.value === value);
+
+  useEffect(() => {
+    const close = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener('mousedown', close);
+    return () => document.removeEventListener('mousedown', close);
+  }, []);
+
+  return (
+    <div className="ur-csel" ref={ref}>
+      <label className="ur-mc-filter-label">
+        {label}{required && <span className="ur-mc-required"> *</span>}
+      </label>
+      <div
+        className={`ur-csel__box ${!value ? 'ur-csel__box--empty' : ''} ${open ? 'ur-csel__box--open' : ''}`}
+        onClick={() => setOpen(p => !p)}
+      >
+        <span className={value ? 'ur-csel__val' : 'ur-csel__ph'}>
+          {selected ? selected.label : '-- منتخب کریں --'}
+        </span>
+        <span className={`ur-csel__arrow ${open ? 'ur-csel__arrow--up' : ''}`}>▾</span>
+      </div>
+      {open && (
+        <ul className="ur-csel__list">
+          {options.map(o => (
+            <li
+              key={o.value}
+              className={`ur-csel__item ${value === o.value ? 'ur-csel__item--active' : ''}`}
+              onMouseDown={(e) => { e.preventDefault(); onChange(o.value); setOpen(false); }}
+            >
+              {o.label}
+              {value === o.value && <span className="ur-csel__tick">✓</span>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
 
 const UrduMealFeature = () => {
   const navigate = useNavigate();
-  const [currentSlide, setCurrentSlide] = useState(1);
-  const [isCardClicked, setIsCardClicked] = useState(false);
-  
-  // Form States
-  const [duration, setDuration] = useState('');
-  const [dietType, setDietType] = useState('');
-  const [targetAudience, setTargetAudience] = useState('');
-  const [ageGroup, setAgeGroup] = useState('');
-  const [patientCondition, setPatientCondition] = useState('');
-  const [allergies, setAllergies] = useState([]);
-  const [allergyInput, setAllergyInput] = useState('');
-  const [familyMembers, setFamilyMembers] = useState('2');
-  const [budget, setBudget] = useState('');
 
+  const loadFromStorage = () => {
+    const savedFilters = localStorage.getItem('mealPlanFilters');
+    const savedPlan = localStorage.getItem('mealPlanData');
+    const savedGenerated = localStorage.getItem('mealPlanGenerated');
+    const savedCustomMembers = localStorage.getItem('mealPlanCustomMembers');
+    if (savedFilters && savedPlan && savedGenerated === 'true') {
+      try {
+        return {
+          filters: JSON.parse(savedFilters),
+          mealPlan: JSON.parse(savedPlan),
+          generated: true,
+          customMembers: savedCustomMembers || ''
+        };
+      } catch(e) { console.error(e); }
+    }
+    return {
+      filters: { dietType: '', allergy: '', ageGroup: '', familyMembers: '', planDuration: '' },
+      mealPlan: {},
+      generated: false,
+      customMembers: ''
+    };
+  };
+
+  const initialData = loadFromStorage();
+
+  const [filters, setFilters] = useState(initialData.filters);
+  const [customMembers, setCustomMembers] = useState(initialData.customMembers);
+  const [showMembersDD, setShowMembersDD] = useState(false);
+  const [generated, setGenerated] = useState(initialData.generated);
+  const [generating, setGenerating] = useState(false);
+  const [mealPlan, setMealPlan] = useState(initialData.mealPlan);
+  const [selectedDay, setSelectedDay] = useState(0);
+  const [currentWeekOffset, setCurrentWeekOffset] = useState(0);
   const [pantryItems, setPantryItems] = useState([]);
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const [selectedMealSlot, setSelectedMealSlot] = useState({ dayIndex: 0, mealType: 'breakfast' });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [modalLoading, setModalLoading] = useState(false);
+  const [noRecipesPopup, setNoRecipesPopup] = useState(null);
+  const membersRef = useRef(null);
 
-  const totalSlides = 8;
-  const progress = (currentSlide / totalSlides) * 100;
+  const days = ['پیر','منگل','بدھ','جمعرات','جمعہ','ہفتہ','اتوار'];
+  const dayShortNames = ['پیر','منگل','بدھ','جمعرات','جمعہ','ہفتہ','اتوار'];
+
+  const dietOptions = [
+    { value:'veg', label:'صرف سبزی' },
+    { value:'non-veg', label:'گوشت' },
+    { value:'mixed', label:'دونوں (سبزی + گوشت)' },
+    { value:'eggetarian', label:'انڈے' }
+  ];
+  const allergyOptions = [
+    { value:'none', label:'کوئی نہیں' },
+    { value:'egg', label:'انڈا' },
+    { value:'peanut', label:'مونگ پھلی' },
+    { value:'gluten', label:'گلوٹین' },
+    { value:'lactose', label:'لیکٹوز' },
+    { value:'shellfish', label:'شیل فش' },
+  ];
+  const ageGroupOptions = [
+    { value:'general', label:'سب کے لیے' },
+    { value:'kids', label:'بچے' },
+    { value:'patient', label:'مریض' },
+  ];
+  const durationOptions = [
+    { value:'daily', label:'ایک دن کا' },
+    { value:'weekly', label:'ہفتے بھر کا' }
+  ];
+  const quickMembers = ['1','2','3','4','5','6','7','8','9','10'];
+
+  useEffect(() => { fetchPantry(); }, []);
+  useEffect(() => {
+    if (generated && Object.keys(mealPlan).length > 0) {
+      localStorage.setItem('mealPlanFilters', JSON.stringify(filters));
+      localStorage.setItem('mealPlanData', JSON.stringify(mealPlan));
+      localStorage.setItem('mealPlanGenerated', 'true');
+      localStorage.setItem('mealPlanCustomMembers', customMembers);
+    } else if (!generated) {
+      localStorage.removeItem('mealPlanFilters');
+      localStorage.removeItem('mealPlanData');
+      localStorage.removeItem('mealPlanGenerated');
+      localStorage.removeItem('mealPlanCustomMembers');
+    }
+  }, [filters, mealPlan, generated, customMembers]);
 
   useEffect(() => {
-    const savedPantry = localStorage.getItem('pantryItems');
-    if (savedPantry) {
-      setPantryItems(JSON.parse(savedPantry));
-    }
+    if (showSearchModal && searchTerm.length > 1) {
+      const d = setTimeout(() => fetchRecipesSearch(searchTerm), 400);
+      return () => clearTimeout(d);
+    } else if (searchTerm.length === 0) setSearchResults([]);
+  }, [searchTerm, showSearchModal]);
+
+  useEffect(() => {
+    const close = (e) => { if (membersRef.current && !membersRef.current.contains(e.target)) setShowMembersDD(false); };
+    document.addEventListener('mousedown', close);
+    return () => document.removeEventListener('mousedown', close);
   }, []);
 
-  const nextSlide = () => {
-    if (currentSlide < totalSlides) {
-      setCurrentSlide(currentSlide + 1);
-      setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
-      if (currentSlide + 1 !== 8) setIsCardClicked(false);
-    }
+  const fetchPantry = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch('http://localhost:5000/api/pantry', { headers: { Authorization: `Bearer ${token}` } });
+      const data = await res.json();
+      if (data.success && data.items) setPantryItems(data.items.map(i => i.name));
+    } catch (e) { console.error(e); }
   };
 
-  const prevSlide = () => {
-    if (currentSlide > 1) {
-      setCurrentSlide(currentSlide - 1);
-      setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
-      if (currentSlide - 1 !== 8) setIsCardClicked(false);
-    }
+  const getWeekDates = () => {
+    const today = new Date(), start = new Date(today);
+    start.setDate(today.getDate() - today.getDay() + 1 + currentWeekOffset * 7);
+    return Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(start); d.setDate(start.getDate() + i); return d.getDate();
+    });
   };
 
-  const addAllergy = (e) => {
-    if (e.key === 'Enter' && allergyInput.trim()) {
-      e.preventDefault();
-      setAllergies([...allergies, allergyInput.trim()]);
-      setAllergyInput('');
-    }
+  const getDateRange = () => {
+    const today = new Date(), start = new Date(today);
+    start.setDate(today.getDate() - today.getDay() + 1 + currentWeekOffset * 7);
+    const end = new Date(start); end.setDate(start.getDate() + 6);
+    const m = ['جنوری','فروری','مارچ','اپریل','مئی','جون','جولائی','اگست','ستمبر','اکتوبر','نومبر','دسمبر'];
+    return `${start.getDate()} ${m[start.getMonth()]} – ${end.getDate()} ${m[end.getMonth()]}`;
   };
 
-  const removeAllergy = (index) => {
-    setAllergies(allergies.filter((_, i) => i !== index));
+  const getMemberDisplay = () => {
+    if (!filters.familyMembers) return '';
+    if (filters.familyMembers === 'custom') return customMembers ? `${customMembers} افراد` : 'تعداد درج کریں';
+    return `${filters.familyMembers} ${parseInt(filters.familyMembers) === 1 ? 'فرد' : 'افراد'}`;
   };
 
-  const handleFamilySizeSelect = (range) => {
-    if (range === '1-2') setFamilyMembers('2');
-    else if (range === '3-4') setFamilyMembers('4');
-    else if (range === '5-7') setFamilyMembers('7');
-    else if (range === '8+') setFamilyMembers('8+');
+  const getFamilyCount = () => {
+    if (filters.familyMembers === 'custom') return parseInt(customMembers) || 10;
+    return parseInt(filters.familyMembers) || 1;
   };
 
-  const handleCardClick = () => {
-    setIsCardClicked(true);
+  const isAllSelected = () =>
+    filters.dietType && filters.allergy && filters.ageGroup && filters.planDuration && filters.familyMembers &&
+    (filters.familyMembers !== 'custom' || (customMembers && parseInt(customMembers) > 0));
+
+  const handleGenerate = async () => {
+    if (!isAllSelected()) { alert('براہ کرم تمام اختیارات منتخب کریں!'); return; }
+    setGenerating(true); setGenerated(false); setNoRecipesPopup(null); setSelectedDay(0);
+    try {
+      const token = localStorage.getItem('token');
+      let url = `http://localhost:5000/api/mealplan/generate?dietType=${filters.dietType}&allergy=${filters.allergy}&ageGroup=${filters.ageGroup}&familyCount=${getFamilyCount()}&duration=${filters.planDuration}`;
+      if (pantryItems.length) url += `&pantry=${encodeURIComponent(pantryItems.join(','))}`;
+      const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+      const data = await res.json();
+      if (data.success && data.plan) {
+        setMealPlan(data.plan);
+        setGenerated(true);
+        setTimeout(() => document.getElementById('ur-mc-calendar')?.scrollIntoView({ behavior: 'smooth' }), 150);
+      } else if (data.noRecipes) {
+        setNoRecipesPopup({ message: data.message, tip: data.tip });
+      } else {
+        alert(data.message || 'کوئی کھانا نہیں ملا');
+      }
+    } catch (e) { console.error(e); alert('سرور سے رابطہ نہیں ہو سکا۔'); }
+    finally { setGenerating(false); }
   };
 
-  const goToCalendar = () => {
-    console.log("Button clicked - forcing navigation");
-    
-    const preferences = {
-      duration,
-      dietType,
-      targetAudience,
-      ageGroup,
-      patientCondition,
-      allergies,
-      familyMembers,
-      budget,
-      pantryItems: pantryItems
-    };
-
-    localStorage.setItem('mealPreferences', JSON.stringify(preferences));
-    
-    window.location.href = '/calender?mode=pantry';
+  const savePlan = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch('http://localhost:5000/api/mealplan/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({
+          name: `کھانے کا پلان - ${new Date().toLocaleDateString()}`,
+          preferences: { ...filters, familyMembers: filters.familyMembers === 'custom' ? customMembers : filters.familyMembers },
+          plan: mealPlan,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert('کھانے کا  پلان محفوظ ہو گیا!');
+        localStorage.removeItem('mealPlanFilters');
+        localStorage.removeItem('mealPlanData');
+        localStorage.removeItem('mealPlanGenerated');
+        localStorage.removeItem('mealPlanCustomMembers');
+        setFilters({ dietType: '', allergy: '', ageGroup: '', familyMembers: '', planDuration: '' });
+        setCustomMembers('');
+        setMealPlan({});
+        setGenerated(false);
+        setSelectedDay(0);
+      } else {
+        alert('محفوظ کرنے میں ناکامی: ' + data.message);
+      }
+    } catch { alert('رابطہ نہیں ہو سکا۔'); }
   };
+
+  const viewRecipe = (id, name) => {
+    if (id) navigate(`/recipe/${id}?members=${getFamilyCount()}`);
+    else if (name) navigate(`/recipes?search=${encodeURIComponent(name)}`);
+  };
+
+  const openSearchModal = (dayIndex, mealType) => {
+    setSelectedMealSlot({ dayIndex, mealType });
+    setShowSearchModal(true);
+    setSearchTerm(''); setSearchResults([]);
+  };
+
+  const fetchRecipesSearch = async (q) => {
+    setModalLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`http://localhost:5000/api/recipes/search?q=${encodeURIComponent(q)}`, { headers: { Authorization: `Bearer ${token}` } });
+      const data = await res.json();
+      setSearchResults(data.success ? data.recipes : []);
+    } catch { setSearchResults([]); }
+    finally { setModalLoading(false); }
+  };
+
+  const selectRecipe = (recipe) => {
+    setMealPlan(prev => ({
+      ...prev,
+      [selectedMealSlot.dayIndex]: {
+        ...prev[selectedMealSlot.dayIndex],
+        [selectedMealSlot.mealType]: {
+          _id: recipe._id, name: recipe.name || recipe.title,
+          image: recipe.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400',
+          available: true,
+          tagline: `${recipe.dietType || ''} • ${recipe.cuisine || 'لذیذ'}`,
+          matchScore: 100,
+        },
+      },
+    }));
+    setShowSearchModal(false); setSearchTerm(''); setSearchResults([]);
+  };
+
+  const dates = getWeekDates();
+  const isWeekly = filters.planDuration === 'weekly';
 
   return (
-    <div className="meal-planner-app">
-      <div className="meal-planner-wrapper">
-
-        {/* Slide 1 top banner */}
-        {currentSlide === 1 && (
-          <>
-            <div className="mp-fullscreen-image">
-              <div className="mp-fullscreen-content">
-                <h1>سمارٹ کھانے کا پلان</h1>
-                <p>اپنی پینٹری، بجٹ اور پسند کے مطابق ذاتی پلان بنائیں</p>
-              </div>
-            </div>
-            <div className="mp-planning-hero">
-              <h1 className="mp-planning-title">کھانے کا پلان</h1>
-              <p className="mp-planning-subtitle">یہ قدم مکمل کریں اور اپنا بہترین پلان بنائیں</p>
-            </div>
-            <div className="mp-planning-stats">
-              <div className="mp-stat-card"><div className="mp-stat-number">1</div><div className="mp-stat-label">موجودہ قدم</div></div>
-              <div className="mp-stat-card"><div className="mp-stat-number">{totalSlides}</div><div className="mp-stat-label">کل قدم</div></div>
-              <div className="mp-stat-card"><div className="mp-stat-number">12%</div><div className="mp-stat-label">مکمل</div></div>
-            </div>
-          </>
-        )}
-
-        {currentSlide > 1 && (
-          <div className="mp-slide-header">
-            <div className="mp-slide-progress">
-              <div className="mp-progress-indicator">قدم {currentSlide} / {totalSlides}</div>
-              <div className="mp-progress-bar-mini"><div className="mp-progress-fill" style={{ width: `${progress}%` }}></div></div>
-            </div>
-          </div>
-        )}
-
-        <div className="mp-slide-container">
-          <div className="mp-progress-container">
-            <div className="mp-progress-bar" style={{ width: `${progress}%` }}></div>
-          </div>
-
-          {/* Slide 1: Welcome */}
-          {currentSlide === 1 && (
-            <div className="mp-slide mp-welcome-slide">
-              <div className="mp-slide-content">
-                <h2>شیف بوٹ میں خوش آمدید</h2>
-                <p className="mp-slide-description">
-                  اپنی پینٹری کی چیزیں، بجٹ اور کھانے کی پسند کے مطابق پلان بنائیں۔
-                </p>
-                <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-primary" onClick={nextSlide}>شروع کریں →</button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Slide 2: Duration */}
-          {currentSlide === 2 && (
-            <div className="mp-slide">
-              <div className="mp-slide-content">
-                <h2>مدت چنیں</h2>
-                <div className="mp-options-grid-two">
-                  <div className={`mp-option-card ${duration === 'daily' ? 'selected' : ''}`} onClick={() => setDuration('daily')}>
-                    <div className="mp-option-image"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400" alt="Daily" /></div>
-                    <div className="mp-label">روزانہ پلان</div>
-                    <div className="mp-option-detail">1 دن کا پلان • تیز اور آسان</div>
-                  </div>
-                  <div className={`mp-option-card ${duration === 'weekly' ? 'selected' : ''}`} onClick={() => setDuration('weekly')}>
-                    <div className="mp-option-image"><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400" alt="Weekly" /></div>
-                    <div className="mp-label">ہفتہ وار پلان</div>
-                    <div className="mp-option-detail">7 دن کا پلان • آسان اور بہتر</div>
-                  </div>
-                </div>
-                {duration && (
-                  <div className="mp-selection-indicator">
-                    منتخب: <strong>{duration === 'daily' ? 'روزانہ پلان (1 دن)' : 'ہفتہ وار پلان (7 دن)'}</strong>
-                  </div>
-                )}
-                <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
-                  <button className="mp-btn mp-btn-primary" onClick={nextSlide} disabled={!duration}>اگلا →</button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Slide 3: Diet Type */}
-          {currentSlide === 3 && (
-            <div className="mp-slide">
-              <div className="mp-slide-content">
-                <h2>خوراک کی قسم منتخب کریں</h2>
-                <div className="mp-options-grid-three">
-                  <div className={`mp-option-card ${dietType === 'veg' ? 'selected' : ''}`} onClick={() => { setDietType('veg'); setTargetAudience(''); setAgeGroup(''); setPatientCondition(''); }}>
-                    <div className="mp-option-image"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400" alt="Vegetarian" /></div>
-                    <div className="mp-label">صرف سبزی</div>
-                    <div className="mp-option-detail">صرف سبزیوں والا کھانا</div>
-                  </div>
-                  <div className={`mp-option-card ${dietType === 'mixed' ? 'selected' : ''}`} onClick={() => { setDietType('mixed'); setTargetAudience(''); setAgeGroup(''); setPatientCondition(''); }}>
-                    <div className="mp-option-image"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400" alt="Mixed" /></div>
-                    <div className="mp-label">مکس</div>
-                    <div className="mp-option-detail">سبزی اور گوشت دونوں</div>
-                  </div>
-                  <div className={`mp-option-card ${dietType === 'non-veg' ? 'selected' : ''}`} onClick={() => { setDietType('non-veg'); setTargetAudience(''); setAgeGroup(''); setPatientCondition(''); }}>
-                    <div className="mp-option-image"><img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400" alt="Non-Vegetarian" /></div>
-                    <div className="mp-label">صرف گوشت</div>
-                    <div className="mp-option-detail">گوشت، مچھلی اور انڈے شامل</div>
-                  </div>
-                </div>
-                {dietType && (
-                  <div className="mp-selection-indicator">
-                    منتخب: <strong>{dietType === 'veg' ? 'صرف سبزی' : dietType === 'mixed' ? 'مکس' : 'صرف گوشت'}</strong>
-                  </div>
-                )}
-                <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
-                  <button className="mp-btn mp-btn-primary" onClick={nextSlide} disabled={!dietType}>اگلا →</button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Slide 4: Target Audience */}
-          {currentSlide === 4 && (
-            <div className="mp-slide">
-              <div className="mp-slide-content">
-                <h2>یہ پلان کس کے لیے ہے؟</h2>
-                <div className="mp-target-audience-grid">
-                  <div className={`mp-target-card ${targetAudience === 'general' ? 'selected' : ''}`}
-                    onClick={() => { setTargetAudience('general'); setAgeGroup(''); setPatientCondition(''); }}>
-                    <div className="mp-target-icon">👨‍👩‍👧‍👦</div>
-                    <div className="mp-target-title">عام</div>
-                  </div>
-
-                  <div className="mp-target-card-wrapper">
-                    <div className={`mp-target-card ${targetAudience === 'kids' ? 'selected' : ''}`}
-                      onClick={() => { setTargetAudience('kids'); setPatientCondition(''); }}>
-                      <div className="mp-target-icon">🧒</div>
-                      <div className="mp-target-title">بچے اور نوعمر</div>
-                    </div>
-                    {targetAudience === 'kids' && (
-                      <div className="mp-inline-dropdown">
-                        <select
-                          className="mp-custom-select"
-                          value={ageGroup}
-                          onChange={(e) => setAgeGroup(e.target.value)}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <option value="">عمر کا گروپ منتخب کریں</option>
-                          <option value="toddlers">چھوٹے بچے (1-3 سال)</option>
-                          <option value="kids">بچے (4-8 سال)</option>
-                          <option value="preteens">نوعمر (9-12 سال)</option>
-                          <option value="teens">نوجوان (13-18 سال)</option>
-                        </select>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="mp-target-card-wrapper">
-                    <div className={`mp-target-card ${targetAudience === 'patient' ? 'selected' : ''}`}
-                      onClick={() => { setTargetAudience('patient'); setAgeGroup(''); }}>
-                      <div className="mp-target-icon">🏥</div>
-                      <div className="mp-target-title">مریض کے لیے</div>
-                    </div>
-                    {targetAudience === 'patient' && (
-                      <div className="mp-inline-dropdown">
-                        <select
-                          className="mp-custom-select"
-                          value={patientCondition}
-                          onChange={(e) => setPatientCondition(e.target.value)}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <option value="">بیماری منتخب کریں</option>
-                          <option value="diabetes">شوگر</option>
-                          <option value="heart">دل کی بیماری</option>
-                          <option value="bp">ہائی بلڈ پریشر</option>
-                        </select>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {targetAudience && (
-                  <div className="mp-selection-indicator">
-                    منتخب: <strong>
-                      {targetAudience === 'general' ? 'عام'
-                        : targetAudience === 'kids'
-                          ? `بچے${ageGroup ? ` — ${ageGroup === 'toddlers' ? 'چھوٹے بچے' : ageGroup === 'kids' ? 'بچے' : ageGroup === 'preteens' ? 'نوعمر' : 'نوجوان'}` : ''}`
-                          : `مریض${patientCondition ? ` — ${patientCondition === 'diabetes' ? 'شوگر' : patientCondition === 'heart' ? 'دل کی بیماری' : 'ہائی بلڈ پریشر'}` : ''}`
-                      }
-                    </strong>
-                  </div>
-                )}
-
-                <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
-                  <button
-                    className="mp-btn mp-btn-primary"
-                    onClick={nextSlide}
-                    disabled={
-                      !targetAudience ||
-                      (targetAudience === 'kids' && !ageGroup) ||
-                      (targetAudience === 'patient' && !patientCondition)
-                    }
-                  >اگلا →</button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Slide 5: Allergies */}
-          {currentSlide === 5 && (
-            <div className="mp-slide">
-              <div className="mp-slide-content">
-                <h2>کیا آپ کو کھانے سے الرجی ہے؟</h2>
-                {allergies.length > 0 && (
-                  <div className="mp-selection-indicator">
-                    منتخب الرجیاں: <strong>{allergies.join(', ')}</strong>
-                  </div>
-                )}
-                <div className="mp-allergy-input-wrapper">
-                  <div className="mp-input-group">
-                    <div className="mp-tags-container">
-                      {allergies.map((allergy, index) => (
-                        <div key={index} className="mp-tag mp-allergy-tag">
-                          <span>{allergy}</span>
-                          <span className="mp-remove" onClick={() => removeAllergy(index)}>×</span>
-                        </div>
-                      ))}
-                      <input
-                        type="text"
-                        className="mp-tag-input"
-                        placeholder="الرجی لکھیں اور Enter دبائیں..."
-                        value={allergyInput}
-                        onChange={(e) => setAllergyInput(e.target.value)}
-                        onKeyPress={addAllergy}
-                      />
-                    </div>
-                  </div>
-                  <div className="mp-allergy-suggestions">
-                    <div className="mp-suggestions-header">عام الرجیاں (شامل کرنے کے لیے کلک کریں):</div>
-                    <div className="mp-suggestion-chips">
-                      {['انڈے', 'مچھلی', 'مغز', 'دودھ', 'گندم', 'شیل فش'].map(item => (
-                        <div key={item} className="mp-suggestion-chip"
-                          onClick={() => { if (!allergies.includes(item)) setAllergies([...allergies, item]); }}>
-                          + {item}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="mp-info-card">
-                    <strong>پہلے تحفظ:</strong> ان اشیاء پر مشتمل پکوان آپ کے پلان سے اپنے آپ خارج کر دیے جائیں گے۔
-                  </div>
-                </div>
-                <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
-                  <button className="mp-btn mp-btn-skip" onClick={nextSlide}>چھوڑیں</button>
-                  <button className="mp-btn mp-btn-primary" onClick={nextSlide}>اگلا →</button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Slide 6: Family Members */}
-          {currentSlide === 6 && (
-            <div className="mp-slide">
-              <div className="mp-slide-content">
-                <h2>خاندان کے کتنے افراد ہیں؟</h2>
-                {familyMembers && (
-                  <div className="mp-selection-indicator">
-                    کھانا پک رہا ہے: <strong>{familyMembers} {familyMembers === '1' ? 'فرد' : 'افراد'}</strong>
-                  </div>
-                )}
-                <div className="mp-family-counter-container">
-                  <button className="mp-counter-btn minus-btn"
-                    onClick={() => { const num = familyMembers === '8+' ? 8 : parseInt(familyMembers); if (num > 1) setFamilyMembers(String(num - 1)); }}
-                    disabled={familyMembers === '1'}>−</button>
-                  <div className="mp-counter-display">
-                    <div className="mp-counter-number">{familyMembers}</div>
-                    <div className="mp-counter-label">{familyMembers === '1' ? 'فرد' : 'افراد'}</div>
-                  </div>
-                  <button className="mp-counter-btn plus-btn"
-                    onClick={() => { const num = familyMembers === '8+' ? 8 : parseInt(familyMembers); if (num < 8) setFamilyMembers(String(num + 1)); else setFamilyMembers('8+'); }}>+</button>
-                </div>
-                <div className="mp-family-size-guide">
-                  <div className="mp-size-guide-item" onClick={() => handleFamilySizeSelect('1-2')}><span className="mp-guide-number">1-2</span><span className="mp-guide-text">اکیلا یا جوڑا</span></div>
-                  <div className="mp-size-guide-item" onClick={() => handleFamilySizeSelect('3-4')}><span className="mp-guide-number">3-4</span><span className="mp-guide-text">چھوٹا خاندان</span></div>
-                  <div className="mp-size-guide-item" onClick={() => handleFamilySizeSelect('5-7')}><span className="mp-guide-number">5-7</span><span className="mp-guide-text">درمیانی خاندان</span></div>
-                  <div className="mp-size-guide-item" onClick={() => handleFamilySizeSelect('8+')}><span className="mp-guide-number">8+</span><span className="mp-guide-text">بڑا خاندان</span></div>
-                </div>
-                <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
-                  <button className="mp-btn mp-btn-primary" onClick={nextSlide}>اگلا →</button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Slide 7: Budget */}
-          {currentSlide === 7 && (
-            <div className="mp-slide">
-              <div className="mp-slide-content">
-                <h2>اپنا بجٹ مقرر کریں</h2>
-                <div className="mp-options-grid-four">
-                  <div className={`mp-option-card ${budget === 'economy' ? 'selected' : ''}`} onClick={() => setBudget('economy')}><div className="mp-budget-icon">💰</div><div className="mp-label">کفایتی</div><div className="mp-option-detail">کم بجٹ والے کھانے</div></div>
-                  <div className={`mp-option-card ${budget === 'standard' ? 'selected' : ''}`} onClick={() => setBudget('standard')}><div className="mp-budget-icon">💵</div><div className="mp-label">معمولی</div><div className="mp-option-detail">متوازن اختیارات</div></div>
-                  <div className={`mp-option-card ${budget === 'premium' ? 'selected' : ''}`} onClick={() => setBudget('premium')}><div className="mp-budget-icon">💎</div><div className="mp-label">اعلی</div><div className="mp-option-detail">زیادہ اقسام</div></div>
-                  <div className={`mp-option-card ${budget === 'deluxe' ? 'selected' : ''}`} onClick={() => setBudget('deluxe')}><div className="mp-budget-icon">👑</div><div className="mp-label">بہترین</div><div className="mp-option-detail">بہترین اجزاء</div></div>
-                </div>
-                {budget && (
-                  <div className="mp-selection-indicator">
-                    منتخب: <strong>
-                      {budget === 'economy' ? 'کفایتی' : budget === 'standard' ? 'معمولی' : budget === 'premium' ? 'اعلی' : 'بہترین'}
-                    </strong>
-                  </div>
-                )}
-                <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
-                  <button className="mp-btn mp-btn-primary" onClick={nextSlide} disabled={!budget}>اگلا →</button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Slide 8: AI Plan Generation */}
-          {currentSlide === 8 && (
-            <div className="mp-slide">
-              <div className="mp-slide-content">
-                <h2>AI کھانے کا پلان بنائیں</h2>
-                <div className="mp-single-card-container">
-                  <div className="mp-ai-card" onClick={handleCardClick}>
-                    <div className="mp-ai-card-icon">🤖</div>
-                    <h3>AI سے پلان بنائیں</h3>
-                    <p>AI آپ کی پینٹری میں موجود اشیاء کی بنیاد پر کھانے کا پلان تیار کرے گا۔ ضائع ہونے سے بچیں اور پیسے بچائیں۔</p>
-                  </div>
-                </div>
-
-                {isCardClicked && (
-                  <div className="mp-plan-summary-box">
-                    <h3>آپ کے پلان کا خلاصہ:</h3>
-                    <ul>
-                      <li><strong>مدت:</strong> {duration === 'daily' ? '1 دن' : '7 دن'}</li>
-                      <li><strong>خوراک:</strong> {dietType === 'veg' ? 'صرف سبزی' : dietType === 'mixed' ? 'مکس' : 'صرف گوشت'}</li>
-                      <li><strong>ٹارگٹ:</strong> {targetAudience === 'general' ? 'عام' : targetAudience === 'kids' ? `بچے (${ageGroup === 'toddlers' ? 'چھوٹے بچے' : ageGroup === 'kids' ? 'بچے' : ageGroup === 'preteens' ? 'نوعمر' : 'نوجوان'})` : `مریض (${patientCondition === 'diabetes' ? 'شوگر' : patientCondition === 'heart' ? 'دل کی بیماری' : 'ہائی بلڈ پریشر'})`}</li>
-                      <li><strong>خاندان:</strong> {familyMembers} {familyMembers === '1' ? 'فرد' : 'افراد'}</li>
-                      <li><strong>بجٹ:</strong> {budget === 'economy' ? 'کفایتی' : budget === 'standard' ? 'معمولی' : budget === 'premium' ? 'اعلی' : 'بہترین'}</li>
-                      {allergies.length > 0 && <li><strong>الرجیاں:</strong> {allergies.join(', ')}</li>}
-                      <li><strong>طریقہ:</strong> AI پلان (آپ کی پینٹری استعمال کرتے ہوئے)</li>
-                    </ul>
-                  </div>
-                )}
-
-                <div className="mp-button-group">
-                  <button className="mp-btn mp-btn-secondary" onClick={prevSlide}>← پیچھے</button>
-                  <button className="mp-btn mp-btn-primary mp-btn-generate" onClick={goToCalendar} disabled={!isCardClicked}>
-  AI پلان بنائیں →
-</button>
-                  
-                </div>
-              </div>
-            </div>
-          )}
-
-        </div>
+    <div className="ur-mc-app" dir="rtl">
+      <div className="ur-mc-header">
+        <h1 className="ur-mc-title">کھانے کا پلان</h1>
+        <p className="ur-mc-subtitle">اپنی پسند بتائیں اور اپنا کھانا بنائیں</p>
       </div>
+
+      <div className="ur-mc-page-wrapper">
+
+        {/* فلٹر بار */}
+        <div className="ur-mc-filters-bar">
+          <UrduCustomSelect label="کیسا کھانا" options={dietOptions} value={filters.dietType} onChange={v => setFilters(p => ({ ...p, dietType: v }))} required />
+          <UrduCustomSelect label="الرجی" options={allergyOptions} value={filters.allergy} onChange={v => setFilters(p => ({ ...p, allergy: v }))} required />
+          <UrduCustomSelect label="عمر گروپ" options={ageGroupOptions} value={filters.ageGroup} onChange={v => setFilters(p => ({ ...p, ageGroup: v }))} required />
+          <UrduCustomSelect label="کتنے دن کا" options={durationOptions} value={filters.planDuration} onChange={v => setFilters(p => ({ ...p, planDuration: v }))} required />
+
+          <div className="ur-csel" ref={membersRef}>
+            <label className="ur-mc-filter-label">گھر کے لوگ<span className="ur-mc-required"> *</span></label>
+            <div
+              className={`ur-csel__box ${!filters.familyMembers ? 'ur-csel__box--empty' : ''} ${showMembersDD ? 'ur-csel__box--open' : ''}`}
+              onClick={() => setShowMembersDD(p => !p)}
+            >
+              <span className={filters.familyMembers ? 'ur-csel__val' : 'ur-csel__ph'}>
+                {getMemberDisplay() || '-- منتخب کریں --'}
+              </span>
+              <span className={`ur-csel__arrow ${showMembersDD ? 'ur-csel__arrow--up' : ''}`}>▾</span>
+            </div>
+            {showMembersDD && (
+              <div className="ur-mc-members-panel">
+                <p className="ur-mc-members-title">فوری انتخاب</p>
+                <div className="ur-mc-members-grid">
+                  {quickMembers.map(n => (
+                    <button key={n}
+                      className={`ur-mc-members-btn ${filters.familyMembers === n ? 'ur-mc-members-btn--active' : ''}`}
+                      onMouseDown={(e) => { e.preventDefault(); setFilters(p => ({ ...p, familyMembers: n })); setCustomMembers(''); setShowMembersDD(false); }}
+                    >{n}</button>
+                  ))}
+                </div>
+                <hr className="ur-mc-members-hr" />
+                <p className="ur-mc-members-title">یا کوئی بھی تعداد درج کریں</p>
+                <div className="ur-mc-members-custom">
+                  <input type="number" min="1" max="500" className="ur-mc-members-input"
+                    placeholder="مثلاً 15, 20…" value={customMembers}
+                    onChange={e => { setCustomMembers(e.target.value); setFilters(p => ({ ...p, familyMembers: 'custom' })); }}
+                  />
+                  {customMembers && (
+                    <button className="ur-mc-members-done" onMouseDown={(e) => { e.preventDefault(); setShowMembersDD(false); }}>مکمل</button>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="ur-mc-filter-actions">
+            <button
+              className={`ur-mc-generate-btn ${!isAllSelected() || generating ? 'ur-mc-btn-disabled' : ''}`}
+              onClick={handleGenerate} disabled={!isAllSelected() || generating}
+            >
+              {generating ? <><span className="ur-mc-spin-sm" />بن رہا ہے…</> : 'پلان بناو'}
+            </button>
+          </div>
+        </div>
+
+        {/* خالی حالت */}
+        {!generated && !generating && (
+          <div className="ur-mc-empty-state">
+            <div className="ur-mc-empty-icon">🍽️</div>
+            <h3>کیا آپ کھانے کا پلان بنانا چاہتے ہیں؟</h3>
+            <p> اوپر سب پسند بتا دیں<strong> پلان بناو </strong> پر کلک کریں۔ </p>
+          </div>
+        )}
+
+        {/* لوڈنگ */}
+        {generating && (
+          <div className="ur-mc-loading-state">
+            <div className="ur-mc-spinner" />
+            <p>آپ کا کھانے کا پلان تیار کیا جا رہا ہے…</p>
+          </div>
+        )}
+
+        {/* کیلنڈر */}
+        {generated && !generating && Object.keys(mealPlan).length > 0 && (
+          <div id="ur-mc-calendar" className="ur-mc-calendar-section">
+
+            {isWeekly && (
+              <div className="ur-mc-week-nav">
+                <button className="ur-mc-nav-arrow" onClick={() => setCurrentWeekOffset(p => p - 1)}>&#8249;</button>
+                <span className="ur-mc-week-range">{getDateRange()}</span>
+                <button className="ur-mc-nav-arrow" onClick={() => setCurrentWeekOffset(p => p + 1)}>&#8250;</button>
+              </div>
+            )}
+
+            {isWeekly && (
+              <div className="ur-mc-day-tabs">
+                {days.map((_, index) => (
+                  <div key={index} className={`ur-mc-day-tab ${index === selectedDay ? 'ur-mc-tab-active' : ''}`} onClick={() => setSelectedDay(index)}>
+                    <span className="ur-mc-tab-short">{dayShortNames[index]}</span>
+                    <span className="ur-mc-tab-date">{dates[index]}</span>
+                    <div className="ur-mc-tab-dots">
+                      {['breakfast','lunch','dinner'].map(mt => (
+                        <span key={mt} className={`ur-mc-tab-dot ${mealPlan[index]?.[mt] ? 'ur-mc-dot-on' : ''}`} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="ur-mc-day-label-row">
+              {isWeekly
+                ? <><span className="ur-mc-sel-day">{days[selectedDay]}</span><span className="ur-mc-sel-date">{dates[selectedDay]}</span></>
+                : <span className="ur-mc-sel-day">آج کا کھانا</span>
+              }
+              <span className="ur-mc-members-pill">کے لیے {getMemberDisplay()}</span>
+            </div>
+
+            <div className="ur-mc-grid-scroll-wrapper">
+              <div className="ur-mc-calendar-grid">
+                <div className="ur-mc-grid-head">
+                  <div className="ur-mc-grid-head-day" />
+                  <div className="ur-mc-grid-head-cell">ناشتہ</div>
+                  <div className="ur-mc-grid-head-cell">دوپہر کا کھانا</div>
+                  <div className="ur-mc-grid-head-cell">رات کا کھانا</div>
+                </div>
+
+                {Array.from({ length: isWeekly ? 7 : 1 }, (_, dayIndex) => (
+                  <div key={dayIndex} className={`ur-mc-grid-row ${dayIndex === selectedDay && isWeekly ? 'ur-mc-row-active' : ''}`}>
+                    <div className="ur-mc-grid-day-cell" onClick={() => isWeekly && setSelectedDay(dayIndex)}>
+                      <span className="ur-mc-day-short">{dayShortNames[dayIndex]}</span>
+                      <span className="ur-mc-day-num">{dates[dayIndex]}</span>
+                    </div>
+
+                    {['breakfast','lunch','dinner'].map(mealType => {
+                      const meal = mealPlan[dayIndex]?.[mealType];
+                      const mealTypeUrdu = mealType === 'breakfast' ? 'ناشتہ' : (mealType === 'lunch' ? 'دوپہر کا کھانا' : 'رات کا کھانا');
+                      return (
+                        <div key={mealType} className="ur-mc-meal-cell" data-meal={mealTypeUrdu}>
+                          {meal ? (
+                            <div className="ur-mc-meal-inner">
+                              <div className="ur-mc-thumb" style={{ backgroundImage: `url(${meal.image})` }} onClick={() => viewRecipe(meal._id, meal.name)}>
+                                <span className="ur-mc-pct">{meal.matchScore}%</span>
+                              </div>
+                              <div className="ur-mc-meal-text">
+                                <p className="ur-mc-meal-name" onClick={() => viewRecipe(meal._id, meal.name)} title={meal.name}>{meal.name}</p>
+                                <div className="ur-mc-meal-btns">
+                                  <button className="ur-mc-btn-view" onClick={() => viewRecipe(meal._id, meal.name)}>کھانے کا طریقہ</button>
+                                  <button className="ur-mc-btn-change" onClick={() => openSearchModal(dayIndex, mealType)}>تبدیل کریں</button>
+                                </div>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="ur-mc-add-cell" onClick={() => openSearchModal(dayIndex, mealType)}>
+                              <span className="ur-mc-add-plus">+</span>
+                              <span className="ur-mc-add-lbl">کھانا ڈالو</span>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="ur-mc-save-row">
+              <div className="ur-mc-save-card">
+                <div>
+                  <p className="ur-mc-save-title">آپ کا کھانے کا پلان تیار ہے!</p>
+                  <small className="ur-mc-save-sub">بعد میں دیکھنے کے لیے</small>
+                </div>
+                <button className="ur-mc-save-btn" onClick={savePlan}>پلان محفوظ کریں</button>
+              </div>
+            </div>
+
+          </div>
+        )}
+      </div>
+
+      {/* تلاش کا مودی */}
+      {showSearchModal && (
+        <div className="ur-mc-overlay" onClick={() => setShowSearchModal(false)}>
+          <div className="ur-mc-modal" onClick={e => e.stopPropagation()}>
+            <div className="ur-mc-modal-head">
+              <h3>تلاش شروع کرنے کے لیے ٹائپ کریں</h3>
+              <button className="ur-mc-modal-x" onClick={() => setShowSearchModal(false)}>×</button>
+            </div>
+            <div className="ur-mc-modal-body">
+              <div className="ur-mc-search-row">
+                <input type="text" className="ur-mc-search-inp" autoFocus
+                  placeholder="تلاش شروع کرنے کے لیے ٹائپ کریں"
+                  value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+                {searchTerm && <button className="ur-mc-search-clr" onClick={() => { setSearchTerm(''); setSearchResults([]); }}>×</button>}
+              </div>
+              {!searchTerm && <p className="ur-mc-search-hint">تلاش شروع کرنے کے لیے ٹائپ کریں</p>}
+              {modalLoading && <div className="ur-mc-modal-load"><div className="ur-mc-mini-spin" /><span>تلاش ہو رہی ہے…</span></div>}
+              <div className="ur-mc-results">
+                {searchResults.map(r => (
+                  <div key={r._id} className="ur-mc-result-item" onClick={() => selectRecipe(r)}>
+                    <img src={r.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=80'} alt={r.name || r.title} />
+                    <div className="ur-mc-result-info">
+                      <p className="ur-mc-result-name">{r.name || r.title}</p>
+                      <p className="ur-mc-result-meta">{r.dietType || 'کوئی بھی'} &bull; {r.cuisine || 'کوئی کھانا'}</p>
+                    </div>
+                    <span className="ur-mc-result-badge">منتخب کریں</span>
+                  </div>
+                ))}
+                {searchTerm.length > 1 && !modalLoading && searchResults.length === 0 && (
+                  <div className="ur-mc-no-result">
+                    <p>کوئی کھانا نہیں ملا"<strong>{searchTerm}</strong>"</p>
+                    <small>کوئی اور نام لکھوں</small>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="ur-mc-modal-foot">
+              <button className="ur-mc-modal-cancel" onClick={() => setShowSearchModal(false)}>منسوخ کریں</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* کوئی ترکیب نہ ملنے کا پاپ اپ */}
+      {noRecipesPopup && (
+        <div className="ur-mc-overlay" onClick={() => setNoRecipesPopup(null)}>
+          <div className="ur-mc-modal" onClick={e => e.stopPropagation()}>
+            <div className="ur-mc-modal-head" style={{ background: '#c0392b' }}>
+              <h3>کھانا نہیں ملا</h3>
+              <button className="ur-mc-modal-x" onClick={() => setNoRecipesPopup(null)}>×</button>
+            </div>
+            <div className="ur-mc-modal-body" style={{ textAlign: 'center', padding: '30px 24px' }}>
+              <p style={{ fontWeight: 600, marginBottom: 14 }}>{noRecipesPopup.message}</p>
+              <div style={{ background: '#fff8e1', border: '1px solid #ffe082', borderRadius: 10, padding: '12px 16px' }}>
+                <p style={{ fontSize: '.85rem', color: '#555', margin: 0 }}>اشارہ: {noRecipesPopup.tip}</p>
+              </div>
+            </div>
+            <div className="ur-mc-modal-foot" style={{ justifyContent: 'center' }}>
+              <button className="ur-mc-generate-btn" style={{ background: '#284a4b', opacity: 1 }} onClick={() => setNoRecipesPopup(null)}>فلٹر تبدیل کریں</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

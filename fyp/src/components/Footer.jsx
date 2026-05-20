@@ -4,35 +4,29 @@ import './Footer.css';
 
 function Footer() {
   const currentPath = window.location.pathname;
+  
   console.log("🟢 FOOTER DEBUG: Current Path =", currentPath);
 
-  // PAGES WHERE NO FOOTER SHOULD SHOW
-  const noFooterPages = ['/login', '/login-page', '/urdu-login','/Alarm', '/alarm'];
+  // ✅ PAGES WHERE NO FOOTER SHOULD SHOW
+  const noFooterPages = [
+    '/login', 
+    '/login-page', 
+    '/urdu-login',
+    '/signup',
+    '/forgot-password',
+    '/verify-otp',
+    '/reset-password',
+    '/Alarm', 
+    '/alarm'
+  ];
   
+  // ✅ Check if current path should have no footer
   if (noFooterPages.includes(currentPath)) {
     console.log("🟡 FOOTER: Hiding footer for", currentPath);
     return null;
   }
 
-  // SIGNUP PAGE - SIMPLE FOOTER
-  if (currentPath === '/signup') {
-    console.log("🟡 FOOTER: Showing simple footer for signup");
-    return (
-      <footer className="simple-footer">
-        <div className="simple-footer-content">
-          <p>© 2025 ChefBot | All rights reserved</p>
-          <p>Need help? Contact us at: support@chefbot.com</p>
-          <div className="simple-footer-links">
-            <a href="/terms">Terms</a> | 
-            <a href="/privacy">Privacy</a> | 
-            <a href="/contact">Contact</a>
-          </div>
-        </div>
-      </footer>
-    );
-  }
-
-  // ALL OTHER PAGES - FULL FOOTER
+  // ✅ ALL OTHER PAGES - FULL FOOTER
   console.log("🟢 FOOTER: Showing full footer for", currentPath);
   
   const handleSubmit = (e) => {
@@ -52,10 +46,7 @@ function Footer() {
 
       <div className="footer-cta">
         <h2>Let's cook something amazing together.</h2>
-        <form onSubmit={handleSubmit}>
-          <input type="email" id="search-footer" placeholder="Enter your email" required />
-          <button type="submit">Join Now</button>
-        </form>
+        
       </div>
 
       <div className="footer-main">
@@ -77,11 +68,7 @@ function Footer() {
 
         <div className="footer-column">
           <h4>Stay Connected</h4>
-          <ul>
-            <li><a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a></li>
-            <li><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a></li>
-            <li><a href="https://youtube.com" target="_blank" rel="noreferrer">YouTube</a></li>
-          </ul>
+         
         </div>
       </div>
 
