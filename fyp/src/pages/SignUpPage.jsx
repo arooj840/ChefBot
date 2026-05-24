@@ -191,18 +191,9 @@ const SignUpPage = () => {
               {loading ? 'Creating Account...' : 'Create Account'}
             </button>
             
-            <div className="divider">
-              <span>Or sign up with</span>
-            </div>
             
-            <div className="social-login">
-              <button type="button" className="btn-social">
-                <i className="fab fa-google" style={{color: "#DB4437"}}></i> Google
-              </button>
-              <button type="button" className="btn-social">
-                <i className="fab fa-facebook-f" style={{color: "#4267B2"}}></i> Facebook
-              </button>
-            </div>
+            
+          
             
             <div className="login-link">
               Already have an account? <Link to="/login-page">Log in</Link>

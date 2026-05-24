@@ -1,3 +1,7 @@
+/* Import Urdu fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Urdu:wght@400;500;600;700&display=swap');
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -65,4 +69,42 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* ============================================
+   URDU MODE FONT - Sirf text par lage, icons par nahi
+   Icons ke liye FontAwesome ka font waisa hi rahega
+   ============================================ */
+.urdu-mode,
+.urdu-mode p,
+.urdu-mode h1,
+.urdu-mode h2,
+.urdu-mode h3,
+.urdu-mode h4,
+.urdu-mode h5,
+.urdu-mode h6,
+.urdu-mode span:not(.fa):not(.fas):not(.far),
+.urdu-mode div:not(.fa):not(.fas):not(.far),
+.urdu-mode a:not(.fa):not(.fas):not(.far),
+.urdu-mode button:not(.fa):not(.fas):not(.far),
+.urdu-mode input,
+.urdu-mode textarea,
+.urdu-mode select,
+.urdu-mode label,
+.urdu-mode li,
+.urdu-mode .ur-nav-link,
+.urdu-mode .ur-welcome-text,
+.urdu-mode .ur-mc-title,
+.urdu-mode .ur-mc-subtitle {
+  font-family: 'Noto Nastaliq Urdu', 'Noto Sans Urdu', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+/* Icons ko force karo ke unka font waisa hi rahe */
+.urdu-mode .fas,
+.urdu-mode .far,
+.urdu-mode .fab,
+.urdu-mode .fa,
+.urdu-mode i[class*="fa-"] {
+  font-family: "Font Awesome 6 Free" !important;
+  font-weight: 900 !important;
 }

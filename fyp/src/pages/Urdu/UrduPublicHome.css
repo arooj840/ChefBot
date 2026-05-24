@@ -1,7 +1,4 @@
-/* ChefBot.css - Only styles for main content (no header/footer) */
-
-
-
+/* UrduPublicHome.css - Only styles for main content (no header/footer) */
 
 * {
   margin: 0;
@@ -18,8 +15,8 @@ body {
 }
 
 /* ---------- HERO + CAROUSEL SECTION ---------- */
-.hero-carousel-section {
-  margin-top: 50px; /* Changed from 115px since no navbar */
+.ur-hero-carousel-section {
+  margin-top: 50px;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -28,7 +25,7 @@ body {
 }
 
 /* BACKGROUND ONLY FOR HERO SECTION */
-.hero-background-container {
+.ur-hero-background-container {
   position: absolute;
   top: 0;
   left: 0;
@@ -40,7 +37,7 @@ body {
   background-position: center;
 }
 
-.hero-background-overlay {
+.ur-hero-background-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -50,7 +47,7 @@ body {
 }
 
 /* Left Content */
-.hero-left-section {
+.ur-hero-left-section {
   width: 40%;
   height: 100%;
   padding: 0 40px;
@@ -62,44 +59,46 @@ body {
   color: white;
 }
 
-.hero-section-tag {
+.ur-hero-section-tag {
   font-size: 1rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.8);
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 20px;
+  text-align: right;
 }
 
-.hero-main-heading {
+.ur-hero-main-heading {
   font-size: 3.8rem;
   font-weight: 700;
   line-height: 1.1;
   color: white;
   margin-bottom: 15px;
   letter-spacing: -0.5px;
+  text-align: right;
 }
 
-.hero-second-heading {
+.ur-hero-second-heading {
   font-size: 2.3rem;
   font-weight: 600;
   color: white;
   margin-bottom: 25px;
+  text-align: right;
 }
 
-.hero-description {
+.ur-hero-description {
   font-size: 0.8rem;
   font-weight: 300;
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.2;
   margin-bottom: 40px;
   max-width: 300px;
+  text-align: right;
 }
 
-
-
 /* Right Carousel */
-.hero-right-section {
+.ur-hero-right-section {
   width: 60%;
   height: 100%;
   display: flex;
@@ -109,7 +108,7 @@ body {
   z-index: 1;
 }
 
-.carousel-container {
+.ur-carousel-container {
   position: relative;
   width: 100%;
   height: 100%;
@@ -118,7 +117,7 @@ body {
   justify-content: center;
 }
 
-.carousel-track {
+.ur-carousel-track {
   position: relative;
   width: 100%;
   height: 100%;
@@ -128,7 +127,7 @@ body {
 }
 
 /* Sabhi cards ke liye same styling */
-.carousel-item {
+.ur-carousel-item {
   position: absolute;
   width: 260px;
   height: 360px;
@@ -142,16 +141,16 @@ body {
   cursor: pointer;
 }
 
-/* SIDE CARDS - Pehle display: none tha, ab visible karein */
-.carousel-item.side-card .item-content {
-  display: flex; /* Pehle none tha */
+/* SIDE CARDS - Visible */
+.ur-carousel-item.ur-side-card .ur-item-content {
+  display: flex;
   flex-direction: column;
-  padding: 20px; /* Thoda kam padding side cards ke liye */
+  padding: 20px;
   flex-grow: 1;
 }
 
 /* CENTER CARD - Full content */
-.carousel-item.center-card .item-image {
+.ur-carousel-item.ur-center-card .ur-item-image {
   width: 100%;
   height: 220px;
   background-size: cover;
@@ -160,42 +159,44 @@ body {
   transition: all 0.5s ease;
 }
 
-/* SIDE CARDS ke liye bhi image styling */
-.carousel-item.side-card .item-image {
+/* SIDE CARDS ke liye image styling */
+.ur-carousel-item.ur-side-card .ur-item-image {
   width: 100%;
-  height: 180px; /* Thoda chhota height side cards ke liye */
+  height: 180px;
   background-size: cover;
   background-position: center;
   opacity: 0.7;
   transition: all 0.5s ease;
 }
 
-/* Center card aur side cards dono ke liye same content styling */
-.carousel-item .item-content {
+/* Center card aur side cards dono ke liye content styling */
+.ur-carousel-item .ur-item-content {
   padding: 20px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
-.item-title {
-  font-size: 1.3rem; /* Thoda chhota font size */
+.ur-item-title {
+  font-size: 1.3rem;
   font-weight: 700;
   color: #1a1a1a;
   margin-bottom: 10px;
   line-height: 1.2;
+  text-align: right;
 }
 
-.item-description {
-  font-size: 0.85rem; /* Thoda chhota font size */
+.ur-item-description {
+  font-size: 0.85rem;
   color: #666;
   line-height: 1.5;
   margin-bottom: 15px;
   flex-grow: 1;
+  text-align: right;
 }
 
-/* Navigation */
-.navigation-buttons {
+/* Navigation Buttons */
+.ur-navigation-buttons {
   position: absolute;
   bottom: 30px;
   left: 50%;
@@ -205,7 +206,7 @@ body {
   z-index: 100;
 }
 
-.nav-btn {
+.ur-nav-btn {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -221,13 +222,13 @@ body {
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-.nav-btn:hover {
+.ur-nav-btn:hover {
   background: #284a4b;
   color: white;
   transform: scale(1.1);
 }
 
-.carousel-indicators {
+.ur-carousel-indicators {
   position: absolute;
   bottom: 110px;
   left: 50%;
@@ -237,7 +238,7 @@ body {
   z-index: 100;
 }
 
-.indicator {
+.ur-indicator {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -246,46 +247,58 @@ body {
   transition: all 0.3s ease;
 }
 
-.indicator.active {
+.ur-indicator.ur-active {
   background: white;
   transform: scale(1.5);
 }
 
 /* RESPONSIVE FOR HERO CAROUSEL */
 @media (max-width: 1200px) {
-  .hero-left-section {
+  .ur-hero-left-section {
     width: 45%;
     padding: 0 40px;
   }
   
-  .hero-right-section {
+  .ur-hero-right-section {
     width: 55%;
   }
 }
 
 @media (max-width: 900px) {
-  .hero-carousel-section {
+  .ur-hero-carousel-section {
     flex-direction: column;
     height: auto;
     min-height: 100vh;
   }
   
-  .hero-left-section {
+  .ur-hero-left-section {
     width: 100%;
     height: auto;
     padding: 60px 40px;
     text-align: center;
   }
   
-  .hero-right-section {
+  .ur-hero-right-section {
     width: 100%;
     height: 600px;
     margin-top: 0;
   }
+  
+  .ur-hero-main-heading,
+  .ur-hero-second-heading,
+  .ur-hero-description,
+  .ur-hero-section-tag {
+    text-align: center;
+  }
+  
+  .ur-hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* ---------- EXISTING SECTIONS ---------- */
-.section-boxes {
+.ur-section-boxes {
   background-color: white;
   align-items: center;
   text-align: center;
@@ -293,7 +306,7 @@ body {
   padding: 1rem 2rem;
 }
 
-.content-box {
+.ur-content-box {
   background-size: cover;
   background-position: center;
   padding: 6rem 4rem;
@@ -309,7 +322,7 @@ body {
   overflow: hidden;
 }
 
-.colored-box {
+.ur-colored-box {
   background: linear-gradient(135deg, #284a4b);
   padding: 3rem;
   border-radius: 15px;
@@ -318,22 +331,23 @@ body {
   z-index: 2;
 }
 
-.colored-box h2 {
+.ur-colored-box h2 {
   color: white;
   font-size: 2.2rem;
   margin-bottom: 1.5rem;
   font-weight: 700;
+  text-align: right;
 }
 
-.content-left {
+.ur-content-left {
   justify-content: flex-start;
 }
 
-.content-right {
+.ur-content-right {
   justify-content: flex-end;
 }
 
-.content-box::before {
+.ur-content-box::before {
   content: '';
   position: absolute;
   top: 0;
@@ -344,61 +358,55 @@ body {
   z-index: 1;
 }
 
-.box-1 {
-  background-image: url('ai.jpg')
+.ur-box-1 {
+  background-image: url('ai.jpg');
 }
-.box-2 {
+.ur-box-2 {
   background-image: url('recipe.jpg');
 }
-
-.box-3 {
+.ur-box-3 {
   background-image: url('beginners.jpg');
 }
-
-.box-4 {
+.ur-box-4 {
   background-image: url('pantry-staples.jpg');
 }
-
-.box-5 {
+.ur-box-5 {
   background-image: url('shoppinglist.png');
 }
-
-.box-6 {
+.ur-box-6 {
   background-image: url('plannermeal.jpg');
 }
 
 /* RECIPE CARDS SECTION - FIXED SCROLLING */
-.recipe-section-container {
+.ur-recipe-section-container {
   background: #f8f9fa;
-  padding: -30rem 0;
+  padding: 2rem 0;
   margin-top: 2rem;
   overflow-x: auto;
-  
 }
 
-.section-title {
+.ur-section-title {
   text-align: center;
   font-size: 2.5rem;
   font-weight: 700;
   color: #284a4b;
   margin-bottom: 2rem;
   padding: 0 1rem;
-  max-width:1400px;
+  max-width: 1400px;
 }
 
-.recipe-section {
- display: flex;
+.ur-recipe-section {
+  display: flex;
   overflow-x: auto;
   gap: 20px;
   padding: 20px 20px 30px 20px;
   scroll-behavior: smooth;
-max-width: 1100px;
-  margin: 0;
- margin: 0 auto;
-position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
 }
 
-.recipe-card {
+.ur-recipe-card {
   min-width: 250px;
   max-width: 250px;
   background: white;
@@ -411,14 +419,15 @@ position: relative;
   display: flex;
   flex-direction: column;
   margin-bottom: 0;
- }
+  text-align: right;
+}
 
-.recipe-card:hover {
+.ur-recipe-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 15px 35px rgba(0,0,0,0.15);
 }
 
-.recipe-card img {
+.ur-recipe-card img {
   width: 100%;
   height: 150px;
   object-fit: cover;
@@ -426,25 +435,25 @@ position: relative;
   margin-bottom: 15px;
 }
 
-.recipe-card h3 {
+.ur-recipe-card h3 {
   margin: 0 0 10px 0;
   font-size: 1.2rem;
   font-weight: 600;
   color: #284a4b;
+  text-align: right;
 }
 
-.recipe-card p {
+.ur-recipe-card p {
   font-size: 0.80rem;
   color: #666;
   line-height: 1.5;
   margin-bottom: 15px;
   flex-grow: 1;
+  text-align: right;
 }
 
-
-
 /* Recipe card buttons */
-.recipe-card button {
+.ur-recipe-card button {
   background: #284a4b;
   color: white;
   border: none;
@@ -458,39 +467,38 @@ position: relative;
   font-size: 1rem;
 }
 
-.recipe-card button:hover {
+.ur-recipe-card button:hover {
   background: #397d7c;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(40, 91, 90, 0.3);
 }
 
 /* Scrollbar styling */
-.recipe-section::-webkit-scrollbar {
+.ur-recipe-section::-webkit-scrollbar {
   height: 30px;
- 
 }
 
-.recipe-section::-webkit-scrollbar-thumb {
+.ur-recipe-section::-webkit-scrollbar-thumb {
   background-color: #284a4b;
   border-radius: 10px;
-  
 }
 
-.recipe-section::-webkit-scrollbar-track {
+.ur-recipe-section::-webkit-scrollbar-track {
   background-color: #f1f1f1;
   border-radius: 10px;
   margin: 0 20px;
 }
 
-.box-description {
+.ur-box-description {
   font-size: 1.1rem;
   margin-bottom: 2rem;
   line-height: 1.6;
   color: rgba(255,255,255,0.95);
+  text-align: right;
 }
 
 /* BUTTON STYLES */
-.btn {
+.ur-btn {
   background-color: white;
   color: #284a4b;
   border: none;
@@ -504,7 +512,7 @@ position: relative;
   transition: all 0.3s ease;
 }
 
-.btn:hover {
+.ur-btn:hover {
   background-color: #397d7c;
   color: white;
   transform: translateY(-3px);
@@ -512,7 +520,7 @@ position: relative;
 }
 
 /* Login Link Button */
-.login-link {
+.ur-login-link {
   background-color: white;
   color: #397d7c;
   border: none;
@@ -526,10 +534,25 @@ position: relative;
   transition: all 0.3s ease;
 }
 
-.login-link:hover {
+.ur-login-link:hover {
   background-color: #f4f2F2;
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(0,0,0,0.2);
   color: #397d7c;
   text-decoration: none;
+}
+
+/* RTL Adjustments for specific elements */
+.ur-carousel-indicators,
+.ur-navigation-buttons {
+  direction: ltr;
+}
+
+.ur-cook-search {
+  direction: rtl;
+}
+
+.ur-cook-search-icon {
+  margin-left: 8px;
+  margin-right: 0;
 }

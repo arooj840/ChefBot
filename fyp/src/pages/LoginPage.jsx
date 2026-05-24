@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './LoginPage.css';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth();
+  
+  // Jis page se aaya tha wahan wapas jayega
+  const from = location.state?.from || '/home';
+  
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');  // ✅ Error state for message
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -29,41 +36,25 @@ const LoginPage = () => {
     e.preventDefault();
 
     if (!formData.username || !formData.password) {
-      setError("Please enter both username and password!");  // ✅ Set error instead of alert
+      setError("Please enter both username and password!");
       return;
     }
 
     try {
       setLoading(true);
-      setError('');  // Clear previous error
+      setError('');
       
-      const res = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: formData.username,
-          password: formData.password
-        })
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.message || "Login failed!");  // ✅ Set error instead of alert
-        setLoading(false);
-        return;
+      const result = await login(formData.username, formData.password);
+      
+      if (result.success) {
+        // ✅ Login ke baad wahi page open hoga jahan se aaya tha
+        navigate(from, { replace: true });
+      } else {
+        setError(result.error);
       }
-
-      // Save token and user info
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-
-      // ✅ No alert - direct redirect
-      navigate('/home');
-      
     } catch (err) {
       console.error(err);
-      setError("Something went wrong! Try again.");  // ✅ Set error instead of alert
+      setError("Something went wrong! Try again.");
     } finally {
       setLoading(false);
     }
@@ -102,7 +93,6 @@ const LoginPage = () => {
             <p>Enter your credentials to access ChefBot</p>
           </div>
 
-          {/* ✅ Error Message Display */}
           {error && (
             <div className="login-error-message">
               <i className="fas fa-exclamation-circle"></i> {error}
@@ -141,7 +131,6 @@ const LoginPage = () => {
                   type="button"
                   className="login-password-toggle"
                   onClick={togglePasswordVisibility}
-                  title={showPassword ? "Hide password" : "Show password"}
                 >
                   <i className={showPassword ? "far fa-eye" : "far fa-eye-slash"}></i>
                 </button>
@@ -167,16 +156,6 @@ const LoginPage = () => {
 
             <div className="login-signup-link">
               Don't have an account? <Link to="/signup">Sign up now</Link>
-            </div>
-
-            <div className="login-divider">
-              <span>Or continue with</span>
-            </div>
-
-            <div className="login-social-login">
-              <button type="button" className="login-social-btn login-social-google">G</button>
-              <button type="button" className="login-social-btn login-social-facebook">f</button>
-              <button type="button" className="login-social-btn login-social-twitter">𝕏</button>
             </div>
           </form>
         </div>

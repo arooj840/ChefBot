@@ -1,26 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
-import timerService from '../services/timerService';
-import axiosInstance from '../services/axiosConfig';
-import './AlarmModal.css';
+import timerService from '../../services/timerService';
+import axiosInstance from '../../services/axiosConfig';
+import './UrduAlarmModal.css';
 
-const AlarmModal = ({ isOpen, onClose }) => {
+const UrduAlarmModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
     <>
-      <div className="alarm-modal-overlay" onClick={onClose}></div>
-      <div className="alarm-sidebar-modal">
-        <div className="alarm-sidebar-header">
-          <h2>⏰ ChefBot Timer</h2>
-          <button className="close-btn" onClick={onClose}>×</button>
+      <div className="ur-alarm-modal-overlay" onClick={onClose}></div>
+      <div className="ur-alarm-sidebar-modal">
+        <div className="ur-alarm-sidebar-header">
+          <h2>⏰ شیف بوٹ ٹائمر</h2>
+          <button className="ur-close-btn" onClick={onClose}>×</button>
         </div>
-        <AlarmTimerComponent />
+        <UrduAlarmTimerComponent />
       </div>
     </>
   );
 };
 
-const AlarmTimerComponent = () => {
+const UrduAlarmTimerComponent = () => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(5);
   const [totalSeconds, setTotalSeconds] = useState(5);
@@ -30,7 +30,7 @@ const AlarmTimerComponent = () => {
   const [backendTimers, setBackendTimers] = useState([]);
   const [loading, setLoading] = useState(false);
   
-  // ✅ Settings States
+  // Settings States
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [vibrationEnabled, setVibrationEnabled] = useState(true);
   const [notificationEnabled, setNotificationEnabled] = useState(true);
@@ -48,7 +48,7 @@ const AlarmTimerComponent = () => {
     }
   }, [minutes, seconds, isRunning]);
 
-  // ✅ Fetch all settings from backend
+  // Fetch all settings from backend
   const fetchSettings = async () => {
     try {
       const response = await axiosInstance.get('/users/settings');
@@ -164,7 +164,7 @@ const AlarmTimerComponent = () => {
       const duration = totalSeconds;
       const response = await timerService.createTimer(
         duration, 
-        `${minutes}m ${seconds}s Timer`
+        `${minutes} منٹ ${seconds} سیکنڈ ٹائمر`
       );
       
       const newTimer = response.timer;
@@ -174,13 +174,13 @@ const AlarmTimerComponent = () => {
       stopBeep();
       
       startCountdown(duration);
-      scheduleBackgroundAlarm(duration, `${minutes}m ${seconds}s Timer`);
+      scheduleBackgroundAlarm(duration, `${minutes} منٹ ${seconds} سیکنڈ ٹائمر`);
       
       console.log(`✅ Timer started: ${duration} seconds`);
       
     } catch (error) {
       console.error('Error:', error);
-      alert('Failed to start timer');
+      alert('ٹائمر شروع کرنے میں ناکامی');
     } finally {
       setLoading(false);
     }
@@ -194,14 +194,14 @@ const AlarmTimerComponent = () => {
     }, duration * 1000);
   };
 
-  // ✅ BACKGROUND ALARM - WITH NOTIFICATION CHECK
+  // BACKGROUND ALARM - WITH NOTIFICATION CHECK
   const triggerBackgroundAlarm = (label) => {
     console.log("🔔 Background alarm triggered!");
     
-    // ✅ Notification check
+    // Notification check
     if (notificationEnabled && "Notification" in window && Notification.permission === "granted") {
-      const notification = new Notification("⏰ Timer Complete!", {
-        body: `${label} - Time's up!`,
+      const notification = new Notification("⏰ ٹائمر مکمل!", {
+        body: `${label} - وقت ختم ہو گیا!`,
         requireInteraction: true,
         tag: "chefbot-background",
         renotify: true
@@ -267,11 +267,11 @@ const AlarmTimerComponent = () => {
     await loadTimersFromBackend();
   };
 
-  // ✅ START BEEP - WITH SOUND CHECK
+  // START BEEP - WITH SOUND CHECK
   const startBeep = () => {
-    // ✅ AGAR SOUND DISABLED HAI TO BEEP MAT BAJAO
+    // AGAR SOUND DISABLED HAI TO BEEP MAT BAJAO
     if (!soundEnabled) {
-      console.log("🔇 Sound is disabled, not beeping");
+      console.log("🔇 آواز بند ہے، بیپ نہیں بجے گی");
       return;
     }
     
@@ -312,14 +312,14 @@ const AlarmTimerComponent = () => {
     playBeep();
     beepIntervalRef.current = setInterval(playBeep, 1000);
     
-    console.log("🔊 Beep started!");
+    console.log("🔊 بیپ شروع ہو گئی!");
     
     showFloatingNotification();
     
-    // ✅ NOTIFICATION CHECK - Browser Notification
+    // NOTIFICATION CHECK - Browser Notification
     if (notificationEnabled && "Notification" in window && Notification.permission === "granted") {
-      const notification = new Notification("⏰ Timer Complete!", {
-        body: "Click to stop alarm",
+      const notification = new Notification("⏰ ٹائمر مکمل!", {
+        body: "الارم روکنے کے لیے کلک کریں",
         requireInteraction: true,
         vibrate: [200, 100, 200]
       });
@@ -333,7 +333,7 @@ const AlarmTimerComponent = () => {
     const originalTitle = document.title;
     titleIntervalRef.current = setInterval(() => {
       if (isBeeping) {
-        document.title = count % 2 === 0 ? "⏰ TIME'S UP!" : "ChefBot";
+        document.title = count % 2 === 0 ? "⏰ وقت ختم!" : "شیف بوٹ";
         count++;
         if (count > 100) {
           clearInterval(titleIntervalRef.current);
@@ -345,7 +345,7 @@ const AlarmTimerComponent = () => {
       }
     }, 500);
     
-    // ✅ Vibration check
+    // Vibration check
     if (vibrationEnabled && 'vibrate' in navigator) {
       navigator.vibrate([200, 100, 200, 100, 200]);
     }
@@ -366,24 +366,21 @@ const AlarmTimerComponent = () => {
     setIsCompleted(false);
     localStorage.removeItem('chefbot_beep_active');
     removeFloatingNotification();
-    document.title = "ChefBot";
+    document.title = "شیف بوٹ";
     
     if ('vibrate' in navigator) {
       navigator.vibrate(0);
     }
     
-    console.log("🔕 Beep stopped!");
+    console.log("🔕 بیپ بند ہو گئی!");
   };
 
-  // ✅ FLOATING NOTIFICATION - WITH NOTIFICATION CHECK
+  // FLOATING NOTIFICATION - WITH NOTIFICATION CHECK
   const showFloatingNotification = () => {
-    // Floating notification (popup) ko notification setting pe mat lagaao
-    // Ye alag hai - sirf UI element hai, browser notification nahi
-    
     removeFloatingNotification();
     
     const div = document.createElement('div');
-    div.id = 'chefbot-floating-notification';
+    div.id = 'ur-chefbot-floating-notification';
     div.style.cssText = `
       position: fixed;
       top: 20px;
@@ -393,20 +390,20 @@ const AlarmTimerComponent = () => {
       border-radius: 10px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.3);
       width: 300px;
-      border-left: 5px solid #ff4757;
+      border-right: 5px solid #ff4757;
       font-family: Arial, sans-serif;
     `;
     div.innerHTML = `
       <div style="padding: 15px;">
         <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
           <span>🔔</span>
-          <strong>ChefBot Timer Complete!</strong>
-          <button id="floating-close-btn" style="background:none;border:none;font-size:20px;cursor:pointer;">×</button>
+          <strong>شیف بوٹ ٹائمر مکمل!</strong>
+          <button id="ur-floating-close-btn" style="background:none;border:none;font-size:20px;cursor:pointer;">×</button>
         </div>
         <div>
-          <p>⏰ Time's up! Alarm is beeping.</p>
-          <button id="floating-stop-btn" style="width:100%;padding:10px;background:#ff4757;color:white;border:none;border-radius:5px;cursor:pointer;font-weight:bold;">
-            ⏹️ STOP BEEP
+          <p>⏰ وقت ختم! الارم بج رہا ہے۔</p>
+          <button id="ur-floating-stop-btn" style="width:100%;padding:10px;background:#ff4757;color:white;border:none;border-radius:5px;cursor:pointer;font-weight:bold;">
+            ⏹️ بند کرو
           </button>
         </div>
       </div>
@@ -414,12 +411,12 @@ const AlarmTimerComponent = () => {
     
     document.body.appendChild(div);
     
-    document.getElementById('floating-close-btn')?.addEventListener('click', () => removeFloatingNotification());
-    document.getElementById('floating-stop-btn')?.addEventListener('click', () => stopBeep());
+    document.getElementById('ur-floating-close-btn')?.addEventListener('click', () => removeFloatingNotification());
+    document.getElementById('ur-floating-stop-btn')?.addEventListener('click', () => stopBeep());
   };
 
   const removeFloatingNotification = () => {
-    const existing = document.getElementById('chefbot-floating-notification');
+    const existing = document.getElementById('ur-chefbot-floating-notification');
     if (existing) existing.remove();
   };
 
@@ -442,18 +439,18 @@ const AlarmTimerComponent = () => {
   };
 
   return (
-    <div className="alarm-sidebar-content">
-      <div className="timer-display-section">
-        <div className={`time-display ${isCompleted ? 'completed' : ''}`}>
+    <div className="ur-alarm-sidebar-content">
+      <div className="ur-timer-display-section">
+        <div className={`ur-time-display ${isCompleted ? 'completed' : ''}`}>
           {formatTime(totalSeconds)}
         </div>
       </div>
       
-      <div className="time-setup-section">
-        <h3>Set Timer Duration</h3>
-        <div className="time-inputs">
-          <div className="time-input">
-            <label>Minutes</label>
+      <div className="ur-time-setup-section">
+        <h3>ٹائمر لگاؤ</h3>
+        <div className="ur-time-inputs">
+          <div className="ur-time-input">
+            <label>منٹ</label>
             <input
               type="number"
               min="0"
@@ -463,8 +460,8 @@ const AlarmTimerComponent = () => {
               disabled={isRunning}
             />
           </div>
-          <div className="time-input">
-            <label>Seconds</label>
+          <div className="ur-time-input">
+            <label>سیکنڈ</label>
             <input
               type="number"
               min="0"
@@ -476,13 +473,13 @@ const AlarmTimerComponent = () => {
           </div>
         </div>
         
-        <div className="quick-presets">
-          <h4>Quick Presets</h4>
-          <div className="preset-buttons">
+        <div className="ur-quick-presets">
+          <h4>جلد لگاؤ</h4>
+          <div className="ur-preset-buttons">
             {[1, 5, 10, 15, 20, 30].map(mins => (
               <button
                 key={mins}
-                className="preset-btn"
+                className="ur-preset-btn"
                 onClick={() => {
                   if (!isRunning) {
                     setMinutes(mins);
@@ -492,44 +489,44 @@ const AlarmTimerComponent = () => {
                 }}
                 disabled={isRunning}
               >
-                {mins} min
+                {mins} منٹ
               </button>
             ))}
           </div>
         </div>
       </div>
       
-      <div className="timer-controls">
-        <div className="main-buttons">
+      <div className="ur-timer-controls">
+        <div className="ur-main-buttons">
           {!isRunning && !isCompleted ? (
             <button 
-              className="start-btn" 
+              className="ur-start-btn" 
               onClick={startTimer} 
               disabled={totalSeconds <= 0 || loading}
             >
-              {loading ? '⏳ STARTING...' : '🚀 START TIMER'}
+              {loading ? '⏳ شروع ہو رہا ہے...' : '🚀 شروع کرو'}
             </button>
           ) : isRunning ? (
-            <button className="pause-btn" onClick={stopTimer}>
-              ⏸ STOP TIMER
+            <button className="ur-pause-btn" onClick={stopTimer}>
+              ⏸ روکو
             </button>
           ) : null}
           
-          <button className="reset-btn" onClick={resetTimer}>
-            🔄 RESET
+          <button className="ur-reset-btn" onClick={resetTimer}>
+            🔄 دوبارہ
           </button>
         </div>
       </div>
       
       {backendTimers.length > 0 && (
-        <div className="saved-timers-section">
-          <h4>📋 Your Timers</h4>
-          <div className="saved-timers-list">
+        <div className="ur-saved-timers-section">
+          <h4>📋 تمہارے ٹائمر</h4>
+          <div className="ur-saved-timers-list">
             {backendTimers.map(timer => (
-              <div key={timer._id} className="saved-timer-item">
+              <div key={timer._id} className="ur-saved-timer-item">
                 <div>
                   <div>{timer.label}</div>
-                  <small>{timer.status === 'running' ? '🔴 Running' : '✅ Completed'}</small>
+                  <small>{timer.status === 'running' ? '🔴 چل رہا ہے' : '✅ مکمل'}</small>
                 </div>
                 <button onClick={() => deleteTimer(timer._id)}>🗑️</button>
               </div>
@@ -539,11 +536,11 @@ const AlarmTimerComponent = () => {
       )}
       
       {isBeeping && (
-        <div className="beep-status-active">
+        <div className="ur-beep-status-active">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span>🔊 Alarm is beeping!</span>
+            <span>🔊 الارم بج رہا ہے!</span>
             <button onClick={stopBeep} style={{ padding: '8px 16px', background: '#ff4757', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
-              STOP BEEP
+              بند کرو
             </button>
           </div>
         </div>
@@ -552,4 +549,4 @@ const AlarmTimerComponent = () => {
   );
 };
 
-export default AlarmModal;
+export default UrduAlarmModal;

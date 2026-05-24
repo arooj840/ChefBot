@@ -753,3 +753,100 @@
 .alarm-sidebar-modal::-webkit-scrollbar-thumb:hover {
   background: #397d7c;
 }
+/* Add to existing AlarmModal.css */
+
+/* Saved Timers Section */
+.saved-timers-section {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(57, 125, 124, 0.05);
+  border-radius: 12px;
+}
+
+.saved-timers-section h4 {
+  color: #284a4b;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.saved-timers-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.saved-timer-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.timer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.timer-label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.85rem;
+}
+
+.timer-status {
+  font-size: 0.75rem;
+}
+
+.timer-status.running {
+  color: #f39c12;
+}
+
+.timer-status.completed {
+  color: #27ae60;
+}
+
+.timer-duration {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.delete-timer-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.delete-timer-btn:hover {
+  background: #fee;
+  transform: scale(1.1);
+}
+.stop-beep-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.stop-beep-btn {
+  padding: 12px 24px;
+  background: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.stop-beep-btn:hover {
+  background: #ff0000;
+  transform: scale(1.02);
+}

@@ -4,14 +4,15 @@
    ============================================ */
 
 /* ---------- SIGNUP SECTION WRAPPER ---------- */
-.signup-section {
+.ur-signup-section {
     display: flex;
     min-height: 100vh;
     margin-top: 70px;
+    direction: rtl;
 }
 
 /* ---------- LEFT IMAGE PANEL ---------- */
-.signup-image {
+.ur-signup-image {
     flex: 1;
     background: linear-gradient(
         135deg,
@@ -32,7 +33,7 @@
 }
 
 /* Subtle decorative overlay pattern */
-.signup-image::before {
+.ur-signup-image::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -40,13 +41,13 @@
     pointer-events: none;
 }
 
-.signup-content {
+.ur-signup-content {
     max-width: 480px;
     position: relative;
     z-index: 1;
 }
 
-.signup-content h1 {
+.ur-signup-content h1 {
     font-size: clamp(1.9rem, 3vw, 2.8rem);
     margin-bottom: 1.25rem;
     font-weight: 700;
@@ -55,7 +56,7 @@
     color: #ffffff;
 }
 
-.signup-content p {
+.ur-signup-content p {
     font-size: clamp(1rem, 1.5vw, 1.15rem);
     margin-bottom: 2rem;
     line-height: 1.8;
@@ -64,13 +65,13 @@
 }
 
 /* ---------- FEATURES LIST ---------- */
-.features {
+.ur-features {
     list-style: none;
     margin-top: 2rem;
     padding: 0;
 }
 
-.features li {
+.ur-features li {
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
@@ -80,7 +81,7 @@
     color: #ffffff;
 }
 
-.features i {
+.ur-features i {
     color: #397d7c;
     font-size: 1rem;
     flex-shrink: 0;
@@ -89,7 +90,7 @@
 }
 
 /* ---------- RIGHT FORM PANEL ---------- */
-.signup-form-container {
+.ur-signup-form-container {
     flex: 1;
     background-color: #f8fafa;
     display: flex;
@@ -100,7 +101,7 @@
 }
 
 /* ---------- FORM CARD ---------- */
-.signup-form {
+.ur-signup-form {
     width: 100%;
     max-width: 440px;
     padding: 2.5rem 2rem;
@@ -110,7 +111,7 @@
     border: 1px solid rgba(57, 125, 124, 0.08);
 }
 
-.signup-form h2 {
+.ur-signup-form h2 {
     font-size: clamp(1.5rem, 2.5vw, 2rem);
     margin-bottom: 0.4rem;
     color: #284a4b;
@@ -119,7 +120,7 @@
     letter-spacing: -0.02em;
 }
 
-.signup-form > p {
+.ur-signup-form > p {
     text-align: center;
     margin-bottom: 1.75rem;
     color: #666666;
@@ -128,11 +129,11 @@
 }
 
 /* ---------- FORM GROUPS ---------- */
-.form-group {
+.ur-form-group {
     margin-bottom: 1.25rem;
 }
 
-.form-group label {
+.ur-form-group label {
     display: block;
     margin-bottom: 0.45rem;
     font-weight: 600;
@@ -142,7 +143,7 @@
 }
 
 /* ---------- FORM CONTROLS ---------- */
-.form-control {
+.ur-form-control {
     width: 100%;
     padding: 13px 16px;
     border: 2px solid #e0e8e5;
@@ -158,12 +159,12 @@
     box-sizing: border-box;
 }
 
-.form-control::placeholder {
+.ur-form-control::placeholder {
     color: #999999;
     font-size: 0.95rem;
 }
 
-.form-control:focus {
+.ur-form-control:focus {
     border-color: #397d7c;
     background-color: #ffffff;
     box-shadow: 0 0 0 3px rgba(57, 125, 124, 0.12);
@@ -172,7 +173,7 @@
 
 /* Touch target improvement for mobile */
 @media (hover: none) {
-    .form-control {
+    .ur-form-control {
         font-size: 16px;
     }
 }
@@ -188,15 +189,15 @@ input:-webkit-autofill:active {
 }
 
 /* ---------- PASSWORD TOGGLE ---------- */
-.password-container {
+.ur-password-container {
     position: relative;
 }
 
-.password-container .form-control {
+.ur-password-container .ur-form-control {
     padding-right: 48px;
 }
 
-.toggle-password {
+.ur-toggle-password {
     position: absolute;
     right: 14px;
     top: 50%;
@@ -216,21 +217,21 @@ input:-webkit-autofill:active {
     min-height: 32px;
 }
 
-.toggle-password:hover,
-.toggle-password:focus {
+.ur-toggle-password:hover,
+.ur-toggle-password:focus {
     color: #397d7c;
     outline: none;
 }
 
 /* ---------- CHECKBOX ---------- */
-.checkbox-container {
+.ur-checkbox-container {
     display: flex;
     align-items: flex-start;
     gap: 10px;
     margin-bottom: 1.5rem;
 }
 
-.checkbox-container input[type="checkbox"] {
+.ur-checkbox-container input[type="checkbox"] {
     margin-top: 3px;
     width: 17px;
     height: 17px;
@@ -240,27 +241,27 @@ input:-webkit-autofill:active {
     border-radius: 4px;
 }
 
-.checkbox-container label {
+.ur-checkbox-container label {
     font-size: 0.875rem;
     color: #666666;
     line-height: 1.6;
     cursor: pointer;
 }
 
-.checkbox-container a {
+.ur-checkbox-container a {
     color: #284a4b;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s;
 }
 
-.checkbox-container a:hover {
+.ur-checkbox-container a:hover {
     color: #397d7c;
     text-decoration: underline;
 }
 
 /* ---------- SIGNUP BUTTON ---------- */
-.btn-signup {
+.ur-btn-signup {
     width: 100%;
     padding: 14px 24px;
     background: linear-gradient(135deg, #284a4b 0%, #397d7c 100%);
@@ -278,24 +279,24 @@ input:-webkit-autofill:active {
     box-shadow: 0 8px 24px rgba(57, 125, 124, 0.3);
 }
 
-.btn-signup:hover {
+.ur-btn-signup:hover {
     background: linear-gradient(135deg, #1a3334 0%, #284a4b 100%);
     transform: translateY(-2px);
     box-shadow: 0 8px 28px rgba(57, 125, 124, 0.4);
 }
 
-.btn-signup:active {
+.ur-btn-signup:active {
     transform: translateY(0);
     box-shadow: none;
 }
 
-.btn-signup:focus-visible {
+.ur-btn-signup:focus-visible {
     outline: 3px solid #397d7c;
     outline-offset: 2px;
 }
 
 /* ---------- DIVIDER ---------- */
-.divider {
+.ur-divider {
     text-align: center;
     margin: 1.25rem 0;
     position: relative;
@@ -303,7 +304,7 @@ input:-webkit-autofill:active {
     font-size: 0.85rem;
 }
 
-.divider::before {
+.ur-divider::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -313,7 +314,7 @@ input:-webkit-autofill:active {
     background-color: #e0e8e5;
 }
 
-.divider span {
+.ur-divider span {
     background-color: #ffffff;
     padding: 0 14px;
     position: relative;
@@ -321,13 +322,13 @@ input:-webkit-autofill:active {
 }
 
 /* ---------- SOCIAL LOGIN ---------- */
-.social-login {
+.ur-social-login {
     display: flex;
     gap: 0.75rem;
     margin-bottom: 1.25rem;
 }
 
-.btn-social {
+.ur-btn-social {
     flex: 1;
     padding: 11px 8px;
     border: 2px solid #e0e8e5;
@@ -346,43 +347,43 @@ input:-webkit-autofill:active {
     white-space: nowrap;
 }
 
-.btn-social:hover {
+.ur-btn-social:hover {
     border-color: #397d7c;
     background-color: rgba(57, 125, 124, 0.08);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
 }
 
-.btn-social:active {
+.ur-btn-social:active {
     transform: translateY(0);
 }
 
-.btn-social:focus-visible {
+.ur-btn-social:focus-visible {
     outline: 3px solid #397d7c;
     outline-offset: 2px;
 }
 
 /* Social Icons Colors */
-.btn-social-google { color: #DB4437; }
-.btn-social-facebook { color: #4267B2; }
-.btn-social-twitter { color: #1DA1F2; }
+.ur-btn-social-google { color: #DB4437; }
+.ur-btn-social-facebook { color: #4267B2; }
+.ur-btn-social-twitter { color: #1DA1F2; }
 
 /* ---------- LOGIN LINK ---------- */
-.login-link {
+.ur-login-link {
     text-align: center;
     color: #666666;
     font-size: 0.9rem;
     margin-top: 0.5rem;
 }
 
-.login-link a {
+.ur-login-link a {
     color: #284a4b;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s;
 }
 
-.login-link a:hover {
+.ur-login-link a:hover {
     color: #397d7c;
     text-decoration: underline;
 }
@@ -393,7 +394,7 @@ input:-webkit-autofill:active {
 
 /* --- Tablet landscape (≤1200px) --- */
 @media (max-width: 1200px) {
-    .signup-image {
+    .ur-signup-image {
         padding: 3rem 2.5rem;
         background-attachment: scroll;
     }
@@ -401,26 +402,26 @@ input:-webkit-autofill:active {
 
 /* --- Tablet portrait (≤992px): stack vertically --- */
 @media (max-width: 992px) {
-    .signup-section {
+    .ur-signup-section {
         flex-direction: column;
         margin-top: 70px;
     }
 
-    .signup-image {
+    .ur-signup-image {
         padding: 3rem 2rem;
         min-height: 340px;
         background-attachment: scroll;
     }
 
-    .signup-content {
+    .ur-signup-content {
         max-width: 100%;
     }
 
-    .signup-content h1 {
+    .ur-signup-content h1 {
         font-size: 2rem;
     }
 
-    .signup-form-container {
+    .ur-signup-form-container {
         padding: 2.5rem 1.5rem;
         align-items: flex-start;
     }
@@ -428,51 +429,51 @@ input:-webkit-autofill:active {
 
 /* --- Mobile large (≤768px) --- */
 @media (max-width: 768px) {
-    .signup-section {
+    .ur-signup-section {
         margin-top: 60px;
     }
 
-    .signup-image {
+    .ur-signup-image {
         padding: 2.5rem 1.5rem;
         min-height: 300px;
     }
 
-    .signup-content h1 {
+    .ur-signup-content h1 {
         font-size: 1.75rem;
     }
 
-    .signup-content p {
+    .ur-signup-content p {
         font-size: 0.95rem;
         margin-bottom: 1.25rem;
     }
 
-    .features {
+    .ur-features {
         margin-top: 1.25rem;
     }
 
-    .features li {
+    .ur-features li {
         font-size: 0.95rem;
         margin-bottom: 0.75rem;
     }
 
-    .signup-form-container {
+    .ur-signup-form-container {
         padding: 2rem 1rem;
         background-color: #ffffff;
     }
 
-    .signup-form {
+    .ur-signup-form {
         padding: 2rem 1.5rem;
         box-shadow: none;
         border: none;
         border-radius: 0;
     }
 
-    .social-login {
+    .ur-social-login {
         flex-direction: column;
         gap: 0.6rem;
     }
 
-    .btn-social {
+    .ur-btn-social {
         width: 100%;
         padding: 12px 16px;
     }
@@ -480,109 +481,109 @@ input:-webkit-autofill:active {
 
 /* --- Mobile small (≤576px) --- */
 @media (max-width: 576px) {
-    .signup-section {
+    .ur-signup-section {
         margin-top: 56px;
     }
 
-    .signup-image {
+    .ur-signup-image {
         padding: 2rem 1.25rem;
         min-height: 260px;
     }
 
-    .signup-content h1 {
+    .ur-signup-content h1 {
         font-size: 1.55rem;
     }
 
-    .signup-form-container {
+    .ur-signup-form-container {
         padding: 1.5rem 0.75rem;
     }
 
-    .signup-form {
+    .ur-signup-form {
         padding: 1.75rem 1.25rem;
     }
 
-    .signup-form h2 {
+    .ur-signup-form h2 {
         font-size: 1.5rem;
     }
 
-    .form-control {
+    .ur-form-control {
         padding: 12px 14px;
         font-size: 16px;
     }
 
-    .btn-signup {
+    .ur-btn-signup {
         padding: 14px;
         font-size: 1rem;
     }
 
-    .features {
+    .ur-features {
         display: none;
     }
 }
 
 /* --- Extra small (≤380px) --- */
 @media (max-width: 380px) {
-    .signup-image {
+    .ur-signup-image {
         padding: 1.5rem 1rem;
     }
 
-    .signup-form-container {
+    .ur-signup-form-container {
         padding: 1.25rem 0.5rem;
     }
 
-    .signup-form {
+    .ur-signup-form {
         padding: 1.5rem 1rem;
     }
 
-    .signup-form h2 {
+    .ur-signup-form h2 {
         font-size: 1.35rem;
     }
 
-    .form-group {
+    .ur-form-group {
         margin-bottom: 1rem;
     }
 }
 
 /* --- Landscape phone (short screens) --- */
 @media (max-height: 600px) and (orientation: landscape) {
-    .signup-section {
+    .ur-signup-section {
         min-height: unset;
     }
 
-    .signup-image {
+    .ur-signup-image {
         min-height: 220px;
         padding: 1.5rem;
     }
 
-    .signup-form-container {
+    .ur-signup-form-container {
         padding: 1.5rem 1rem;
     }
 }
 
 /* --- High-DPI / Retina displays --- */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .signup-image {
+    .ur-signup-image {
         background-size: cover;
     }
 }
 
 /* ---------- ACCESSIBILITY ---------- */
 @media (prefers-reduced-motion: reduce) {
-    .btn-signup,
-    .btn-social,
-    .form-control,
-    .toggle-password {
+    .ur-btn-signup,
+    .ur-btn-social,
+    .ur-form-control,
+    .ur-toggle-password {
         transition: none;
     }
 
-    .btn-signup:hover,
-    .btn-social:hover {
+    .ur-btn-signup:hover,
+    .ur-btn-social:hover {
         transform: none;
     }
 }
 
 /* Focus-visible for keyboard navigation */
-.form-control:focus-visible {
+.ur-form-control:focus-visible {
     outline: 3px solid #397d7c;
     outline-offset: 1px;
 }
