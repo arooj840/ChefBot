@@ -87,7 +87,10 @@ import UrduMealSuggestion from './pages/Urdu/UrduMealSuggestion';
 import UrduVerifyOTPPage from './pages/Urdu/UrduVerifyOTPPage';
 import UAboutPage from './pages/Urdu/UAboutPage';
 import UContactPage from './pages/Urdu/UContactPage';
-
+import UrduCuttingTechniquesPage from './pages/Urdu/UrduCuttingTechniquesPage';
+import UrduCookingMethodsPage from './pages/Urdu/UrduCookingMethodsPage';
+import UrduKitchenAppliancesPage from './pages/Urdu/UrduKitchenAppliancesPage';
+import UrduBakeryEssentialsPage from './pages/Urdu/UrduBakeryEssentialsPage';
 import './App.css';
 
 function AppWrapper() {
@@ -159,7 +162,10 @@ function AppWrapper() {
         <Route path="/meat-cuts" element={<MeatProcessingPage />} />
         <Route path="/pantry-basics" element={<PantryBasicsPage />} />
         <Route path="/bakery-essentials" element={<BakeryEssentialsPage />} />
-        
+        <Route path="/urdu-cutting-techniques" element={<UrduCuttingTechniquesPage />} />
+        <Route path="/urdu-cooking-methods" element={<UrduCookingMethodsPage />} />
+        <Route path="/urdu-kitchen-appliances" element={<UrduKitchenAppliancesPage />} />
+<Route path="/urdu-bakery-essentials" element={<UrduBakeryEssentialsPage />} />
         {/* Recipe Routes */}
         <Route path="/recipes" element={<RecipeFeature />} />
         <Route path="/recipe/:id" element={<RecipeDetail />} />

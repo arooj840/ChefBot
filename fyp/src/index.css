@@ -71,10 +71,6 @@ button:focus-visible {
   }
 }
 
-/* ============================================
-   URDU MODE FONT - Sirf text par lage, icons par nahi
-   Icons ke liye FontAwesome ka font waisa hi rahega
-   ============================================ */
 .urdu-mode,
 .urdu-mode p,
 .urdu-mode h1,
