@@ -1,5 +1,6 @@
 /* ===========================
-   ABOUT PAGE - COMPACT DESIGN
+   ABOUT PAGE - COMPACT DESIGN (UPDATED)
+   Removed Why Choose ChefBot section
    =========================== */
 
 .about-page {
@@ -88,7 +89,7 @@
   font-size: 1.4rem;
   color: #285b5a;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
   letter-spacing: -0.3px;
   text-align: left;
 }
@@ -201,43 +202,11 @@
 }
 
 /* ===========================
-   FEATURES GRID - 8 Cards (4x2)
+   BENEFITS WRAPPER
    =========================== */
 
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-
-.feature-card {
-  padding: 12px 10px;
-  background: white;
-  border-radius: 8px;
-  text-align: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(40, 91, 90, 0.07);
-  border: 1.5px solid transparent;
-}
-
-.feature-card:hover {
-  border-color: #285b5a;
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(40, 91, 90, 0.12);
-}
-
-.feature-card h3 {
-  font-size: 0.78rem;
-  color: #285b5a;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.feature-card p {
-  font-size: 0.72rem;
-  color: #666;
-  line-height: 1.4;
-  margin: 0;
+.benefits-wrapper {
+  width: 100%;
 }
 
 /* ===========================
@@ -246,42 +215,42 @@
 
 .benefits-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .benefit-card {
-  padding: 14px 14px;
+  padding: 18px 16px;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(40, 91, 90, 0.07);
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(40, 91, 90, 0.08);
   transition: all 0.3s ease;
   border-left: 4px solid #285b5a;
 }
 
 .benefit-card:hover {
   transform: translateX(4px);
-  box-shadow: 0 6px 18px rgba(40, 91, 90, 0.12);
+  box-shadow: 0 8px 20px rgba(40, 91, 90, 0.12);
   border-left-color: #ff8c42;
 }
 
 .benefit-number {
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 800;
   color: #285b5a;
-  opacity: 0.2;
-  margin-bottom: 4px;
+  opacity: 0.25;
+  margin-bottom: 6px;
 }
 
 .benefit-card h3 {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #285b5a;
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .benefit-card p {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: #666;
   line-height: 1.5;
   margin: 0;
@@ -292,13 +261,13 @@
    =========================== */
 
 .about-works {
-  padding: 22px 40px 28px;
+  padding: 22px 40px 40px;
 }
 
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 20px;
   align-items: center;
   margin-top: 14px;
   position: relative;
@@ -317,9 +286,9 @@
 
 .step-card {
   text-align: center;
-  padding: 16px 12px;
+  padding: 18px 12px;
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 4px 14px rgba(40, 91, 90, 0.1);
   transition: all 0.3s ease;
   position: relative;
@@ -337,28 +306,28 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
+  width: 50px;
+  height: 50px;
   background: linear-gradient(135deg, #285b5a 0%, #1f4141 100%);
   color: white;
   border-radius: 50%;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   box-shadow: 0 5px 15px rgba(40, 91, 90, 0.2);
   transition: all 0.3s ease;
 }
 
 .step-card:hover .step-circle {
-  transform: scale(1.08);
+  transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(40, 91, 90, 0.3);
 }
 
 .step-card h3 {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #285b5a;
   font-weight: 700;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 .step-card p {
@@ -368,17 +337,15 @@
   margin: 0;
 }
 
-.step-arrow {
-  display: none;
-}
-
 /* ===========================
    RESPONSIVE DESIGN
    =========================== */
 
+/* Tablet */
 @media (max-width: 1024px) {
-  .features-grid {
+  .benefits-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
   .steps-grid {
@@ -394,6 +361,7 @@
   }
 }
 
+/* Mobile */
 @media (max-width: 768px) {
   .about-hero {
     height: 120px;
@@ -423,29 +391,69 @@
     height: 150px;
   }
 
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .benefit-card {
+    padding: 14px 14px;
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .step-card {
+    padding: 14px 12px;
+  }
+
+  .step-circle {
+    width: 42px;
+    height: 42px;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+
+  .step-card h3 {
+    font-size: 0.85rem;
+  }
+
+  .step-card p {
+    font-size: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .about-hero h1 {
+    font-size: 1.3rem;
+  }
+
+  .about-hero p {
+    font-size: 0.85rem;
   }
 
   .benefits-grid {
     grid-template-columns: 1fr;
   }
 
-  .steps-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .about-hero h1 {
-    font-size: 1.3rem;
+  .benefit-number {
+    font-size: 1.2rem;
   }
 
-  .features-grid {
-    grid-template-columns: 1fr 1fr;
+  .benefit-card h3 {
+    font-size: 0.85rem;
   }
 
-  .steps-grid {
-    grid-template-columns: 1fr 1fr;
+  .benefit-card p {
+    font-size: 0.72rem;
   }
 }

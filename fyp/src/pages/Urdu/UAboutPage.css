@@ -1,20 +1,22 @@
 /* ===========================
-   URDU ABOUT PAGE - COMPACT DESIGN
+   ABOUT PAGE - URDU VERSION
    =========================== */
 
-.u-about-page {
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap');
+
+.ur-about-page {
   width: 100%;
   background: white;
   overflow-x: hidden;
-  direction: rtl;
-  text-align: right;
+  margin-top: 120px;
+  font-family: 'Noto Nastaliq Urdu', 'Noto Sans Urdu', sans-serif;
 }
 
 /* ===========================
-   HERO SECTION - Compact
+   HERO SECTION
    =========================== */
 
-.u-about-hero {
+.ur-about-hero {
   width: 100vw;
   height: 160px;
   background: linear-gradient(135deg, #285b5a 0%, #1f4141 100%);
@@ -27,7 +29,7 @@
   overflow: hidden;
 }
 
-.u-about-hero::before {
+.ur-about-hero::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -38,7 +40,7 @@
   border-radius: 50%;
 }
 
-.u-about-hero::after {
+.ur-about-hero::after {
   content: '';
   position: absolute;
   bottom: -30%;
@@ -49,47 +51,47 @@
   border-radius: 50%;
 }
 
-.u-hero-content {
+.ur-hero-content {
   position: relative;
   z-index: 1;
 }
 
-.u-about-hero h1 {
+.ur-about-hero h1 {
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 6px;
   letter-spacing: -1px;
 }
 
-.u-about-hero p {
+.ur-about-hero p {
   font-size: 1rem;
   opacity: 0.9;
   font-weight: 300;
 }
 
 /* ===========================
-   SECTIONS - Compact Padding
+   SECTIONS
    =========================== */
 
-.u-about-section {
+.ur-about-section {
   padding: 28px 40px;
   background: white;
 }
 
-.u-about-section.u-alt-bg {
+.ur-about-section.ur-alt-bg {
   background: #f5f7f6;
 }
 
-.u-section-container {
+.ur-section-container {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.u-section-title {
+.ur-section-title {
   font-size: 1.4rem;
   color: #285b5a;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
   letter-spacing: -0.3px;
   text-align: right;
 }
@@ -98,7 +100,7 @@
    TWO COLUMN LAYOUT
    =========================== */
 
-.u-two-col-grid {
+.ur-two-col-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
@@ -106,14 +108,14 @@
 }
 
 /* ===========================
-   INFO CARDS (What + Mission)
+   INFO CARDS
    =========================== */
 
-.u-combined-section {
+.ur-combined-section {
   padding: 20px 40px;
 }
 
-.u-info-card {
+.ur-info-card {
   background: white;
   border-radius: 10px;
   padding: 20px;
@@ -121,19 +123,19 @@
   border: 1px solid rgba(40, 91, 90, 0.08);
 }
 
-.u-info-card.u-alt {
+.ur-info-card.ur-alt {
   background: #f5f7f6;
 }
 
-.u-info-card-inner {
+.ur-info-card-inner {
   display: grid;
   grid-template-columns: 1fr 0.9fr;
   gap: 16px;
   align-items: center;
 }
 
-.u-info-text h2,
-.u-info-card.u-alt h2 {
+.ur-info-text h2,
+.ur-info-card.ur-alt h2 {
   font-size: 1.2rem;
   color: #285b5a;
   font-weight: 700;
@@ -141,21 +143,21 @@
   text-align: right;
 }
 
-.u-info-text p,
-.u-info-card.u-alt p {
+.ur-info-text p,
+.ur-info-card.ur-alt p {
   font-size: 0.85rem;
   color: #555;
-  line-height: 1.8;
+  line-height: 1.6;
   margin-bottom: 8px;
   text-align: right;
 }
 
-.u-info-image {
+.ur-info-image {
   display: flex;
   justify-content: center;
 }
 
-.u-section-image {
+.ur-section-image {
   width: 100%;
   max-width: 220px;
   height: 130px;
@@ -165,33 +167,33 @@
   transition: transform 0.3s ease;
 }
 
-.u-section-image:hover {
+.ur-section-image:hover {
   transform: translateY(-4px);
 }
 
 /* ===========================
-   MISSION HIGHLIGHTS
+   MISSION HIGHLIGHTS - TICKS ON RIGHT SIDE (FIXED)
    =========================== */
 
-.u-mission-highlights {
+.ur-mission-highlights {
   margin-top: 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.u-highlight {
+.ur-highlight {
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 0.88rem;
   color: #555;
   font-weight: 500;
-  flex-direction: row-reverse;
-  text-align: right;
+  justify-content: flex-end;
+  direction: rtl;
 }
 
-.u-highlight-icon {
+.ur-highlight-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -203,135 +205,96 @@
   font-weight: 700;
   font-size: 0.8rem;
   flex-shrink: 0;
+  margin-left: 0;
+  margin-right: auto;
 }
 
 /* ===========================
-   FEATURES GRID - 8 Cards (4x2)
+   BENEFITS
    =========================== */
 
-.u-features-grid {
+.ur-benefits-wrapper {
+  width: 100%;
+}
+
+.ur-benefits-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
-.u-feature-card {
-  padding: 12px 10px;
+.ur-benefit-card {
+  padding: 18px 16px;
   background: white;
-  border-radius: 8px;
-  text-align: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(40, 91, 90, 0.07);
-  border: 1.5px solid transparent;
-}
-
-.u-feature-card:hover {
-  border-color: #285b5a;
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(40, 91, 90, 0.12);
-}
-
-.u-feature-card h3 {
-  font-size: 0.78rem;
-  color: #285b5a;
-  font-weight: 700;
-  margin-bottom: 4px;
-  text-align: center;
-}
-
-.u-feature-card p {
-  font-size: 0.72rem;
-  color: #666;
-  line-height: 1.4;
-  margin: 0;
-  text-align: center;
-}
-
-/* ===========================
-   BENEFITS GRID - 4 Cards (2x2)
-   =========================== */
-
-.u-benefits-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.u-benefit-card {
-  padding: 14px 14px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(40, 91, 90, 0.07);
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(40, 91, 90, 0.08);
   transition: all 0.3s ease;
   border-right: 4px solid #285b5a;
   border-left: none;
   text-align: right;
 }
 
-.u-benefit-card:hover {
+.ur-benefit-card:hover {
   transform: translateX(-4px);
-  box-shadow: 0 6px 18px rgba(40, 91, 90, 0.12);
+  box-shadow: 0 8px 20px rgba(40, 91, 90, 0.12);
   border-right-color: #ff8c42;
 }
 
-.u-benefit-number {
-  font-size: 1.4rem;
-  font-weight: 700;
+.ur-benefit-number {
+  font-size: 1.5rem;
+  font-weight: 800;
   color: #285b5a;
-  opacity: 0.2;
-  margin-bottom: 4px;
-  text-align: right;
+  opacity: 0.25;
+  margin-bottom: 6px;
 }
 
-.u-benefit-card h3 {
-  font-size: 0.9rem;
+.ur-benefit-card h3 {
+  font-size: 0.95rem;
   color: #285b5a;
   font-weight: 700;
-  margin-bottom: 4px;
-  text-align: right;
+  margin-bottom: 5px;
 }
 
-.u-benefit-card p {
-  font-size: 0.78rem;
+.ur-benefit-card p {
+  font-size: 0.8rem;
   color: #666;
-  line-height: 1.6;
+  line-height: 1.5;
   margin: 0;
-  text-align: right;
 }
 
 /* ===========================
-   STEPS - HOW IT WORKS
+   STEPS
    =========================== */
 
-.u-about-works {
-  padding: 22px 40px 28px;
+.ur-about-works {
+  padding: 22px 40px 40px;
 }
 
-.u-steps-grid {
+.ur-steps-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 20px;
   align-items: center;
   margin-top: 14px;
   position: relative;
 }
 
-.u-steps-grid::before {
+.ur-steps-grid::before {
   content: '';
   position: absolute;
   top: 28px;
-  left: 12.5%;
   right: 12.5%;
+  left: 12.5%;
   height: 2px;
   background: linear-gradient(90deg, #285b5a, #285b5a);
   z-index: 0;
 }
 
-.u-step-card {
+.ur-step-card {
   text-align: center;
-  padding: 16px 12px;
+  padding: 18px 12px;
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 4px 14px rgba(40, 91, 90, 0.1);
   transition: all 0.3s ease;
   position: relative;
@@ -339,152 +302,141 @@
   border: 2px solid transparent;
 }
 
-.u-step-card:hover {
+.ur-step-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 28px rgba(40, 91, 90, 0.16);
   border-color: #285b5a;
 }
 
-.u-step-circle {
+.ur-step-circle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
+  width: 50px;
+  height: 50px;
   background: linear-gradient(135deg, #285b5a 0%, #1f4141 100%);
   color: white;
   border-radius: 50%;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   box-shadow: 0 5px 15px rgba(40, 91, 90, 0.2);
   transition: all 0.3s ease;
 }
 
-.u-step-card:hover .u-step-circle {
-  transform: scale(1.08);
+.ur-step-card:hover .ur-step-circle {
+  transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(40, 91, 90, 0.3);
 }
 
-.u-step-card h3 {
-  font-size: 0.9rem;
+.ur-step-card h3 {
+  font-size: 0.95rem;
   color: #285b5a;
   font-weight: 700;
-  margin-bottom: 5px;
-  text-align: center;
+  margin-bottom: 6px;
 }
 
-.u-step-card p {
+.ur-step-card p {
   font-size: 0.8rem;
   color: #666;
-  line-height: 1.5;
+  line-height: 1.4;
   margin: 0;
-  text-align: center;
-}
-
-.u-step-arrow {
-  display: none;
 }
 
 /* ===========================
-   RESPONSIVE DESIGN
+   RESPONSIVE
    =========================== */
 
 @media (max-width: 1024px) {
-  .u-features-grid {
+  .ur-benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .ur-steps-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .u-steps-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .u-steps-grid::before {
+  .ur-steps-grid::before {
     display: none;
   }
-
-  .u-about-hero h1 {
+  .ur-about-hero h1 {
     font-size: 1.8rem;
   }
 }
 
 @media (max-width: 768px) {
-  .u-about-hero {
+  .ur-about-hero {
     height: 120px;
   }
-
-  .u-about-hero h1 {
+  .ur-about-hero h1 {
     font-size: 1.5rem;
   }
-
-  .u-about-section,
-  .u-combined-section,
-  .u-about-works {
+  .ur-about-section,
+  .ur-combined-section,
+  .ur-about-works {
     padding: 20px 16px;
   }
-
-  .u-two-col-grid {
+  .ur-two-col-grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-
-  .u-info-card-inner {
+  .ur-info-card-inner {
     grid-template-columns: 1fr;
   }
-
-  .u-section-image {
+  .ur-section-image {
     max-width: 100%;
     height: 150px;
   }
-
-  .u-features-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .u-benefits-grid {
+  .ur-benefits-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
-
-  .u-steps-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .ur-benefit-card {
+    padding: 14px 14px;
+  }
+  .ur-steps-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .ur-step-card {
+    padding: 14px 12px;
+  }
+  .ur-step-circle {
+    width: 42px;
+    height: 42px;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  .ur-section-title {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    text-align: center;
   }
 }
 
 @media (max-width: 480px) {
-  .u-about-hero h1 {
+  .ur-about-hero h1 {
     font-size: 1.3rem;
   }
-
-  .u-features-grid {
-    grid-template-columns: 1fr 1fr;
+  .ur-about-hero p {
+    font-size: 0.85rem;
   }
-
-  .u-steps-grid {
-    grid-template-columns: 1fr 1fr;
+  .ur-benefits-grid {
+    grid-template-columns: 1fr;
   }
-
-  .u-section-title {
-    font-size: 1.1rem;
-  }
-
-  .u-about-section {
-    padding: 16px 12px;
+  .ur-benefit-number {
+    font-size: 1.2rem;
   }
 }
 
 /* ===========================
-   URDU SPECIFIC FIXES
+   ALL TEXT RIGHT ALIGN
    =========================== */
 
-.u-info-card-inner {
-  flex-direction: row-reverse;
-}
-
-.u-benefit-card {
+.ur-about-page p,
+.ur-about-page h1,
+.ur-about-page h2,
+.ur-about-page h3,
+.ur-about-page li,
+.ur-about-page span {
   text-align: right;
-}
-
-.u-step-card h3,
-.u-step-card p {
-  text-align: center;
 }

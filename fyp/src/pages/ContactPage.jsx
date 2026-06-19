@@ -36,14 +36,14 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Main Content + FAQ - All in one section */}
+      {/* Main Content */}
       <section className="contact-main">
         <div className="contact-container">
 
           {/* LEFT - Info */}
           <div className="contact-left">
             <h2>We'd Love to Help!</h2>
-            <p>Have questions about ChefBot? Need support? We typically respond within 24-48 hours on business days.</p>
+            <p>Have questions about ChefBot? Need support?</p>
 
             <div className="contact-info">
               <div className="info-box">
@@ -59,7 +59,7 @@ export default function ContactPage() {
               </div>
               <div className="info-box">
                 <h3>Phone</h3>
-                <p>+92 30...........<br /><small>Mon - Fri, 9AM - 5PM</small></p>
+                <p>+92 30...........<br /><small></small></p>
               </div>
               <div className="info-box">
                 <h3>Follow Us</h3>
@@ -100,29 +100,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
-      {/* FAQ - Compact */}
-      <section className="contact-faq alt-bg">
-        <div className="contact-container-inner">
-          <h2>Frequently Asked Questions</h2>
-          <div className="faq-grid">
-            {[
-              { q: "How fast is response?", a: "We typically respond within 24-48 hours during business days." },
-              { q: "Do you offer customer support?", a: "Yes! Our support team is available Mon–Fri, 9AM to 5PM PKT." },
-              { q: "How can I report a bug?", a: "Use the form above and describe the issue in detail." },
-              { q: "Can I suggest a new feature?", a: "We love suggestions! Share them via the contact form." },
-              { q: "Do you offer partnerships?", a: "Yes, we're open to partnerships. Get in touch with us." },
-              { q: "Is ChefBot available on mobile?", a: "Currently web only. Mobile apps are in our future roadmap." },
-            ].map((faq, i) => (
-              <div className="faq-card" key={i}>
-                <h3>{faq.q}</h3>
-                <p>{faq.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
     </div>
   )
 }

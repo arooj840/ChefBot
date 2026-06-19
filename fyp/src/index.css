@@ -71,6 +71,9 @@ button:focus-visible {
   }
 }
 
+/* ============================================
+   URDU MODE FONT - Standard Urdu Font
+   ============================================ */
 .urdu-mode,
 .urdu-mode p,
 .urdu-mode h1,
@@ -95,7 +98,7 @@ button:focus-visible {
   font-family: 'Noto Nastaliq Urdu', 'Noto Sans Urdu', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
-/* Icons ko force karo ke unka font waisa hi rahe */
+/* Icons ka font waisa hi rahe */
 .urdu-mode .fas,
 .urdu-mode .far,
 .urdu-mode .fab,
@@ -103,4 +106,9 @@ button:focus-visible {
 .urdu-mode i[class*="fa-"] {
   font-family: "Font Awesome 6 Free" !important;
   font-weight: 900 !important;
+}
+
+/* Body par bhi font apply */
+.urdu-mode body {
+  font-family: 'Noto Nastaliq Urdu', 'Noto Sans Urdu', sans-serif !important;
 }
